@@ -1,0 +1,472 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.individual-doctor-item {
+  display: flex;
+
+  &.individual-type {
+    flex-direction: column;
+
+    .doctor-info-section {
+      .doctor-info-summary {
+        padding: 15px 12px 0;
+      }
+    }
+
+    .booking-section {
+      padding: 16px 12px;
+    }
+  }
+
+  &.list-type {
+    flex-direction: row;
+
+    .doctor-info-section {
+      flex-basis: 50%;
+      flex-shrink: 0;
+
+      .doctor-info-summary {
+        padding-top: 15px;
+
+        .doctor-image {
+          .img-container {
+            width: 80px;
+            height: 80px;
+          }
+
+          .see-more {
+            text-align: center;
+
+            span {
+              display: inline-block;
+              letter-spacing: 1px;
+              padding-top: 5px;
+              color: rgb(69 195 210);
+              cursor: pointer;
+            }
+          }
+        }
+
+        .doctor-info-summary-content {
+          .page-header {
+            .page-title {
+              font-size: 18px !important;
+              color: rgb(69 195 210);
+            }
+          }
+        }
+      }
+    }
+
+    .booking-section {
+      flex-direction: column;
+      padding: 15px 15px 8px;
+      border-left: 1px solid rgb(238 238 238);
+
+      .left-content {
+        padding: 0;
+      }
+
+      .right-content {
+        padding: 0;
+        border-left: none;
+
+        .address-section {
+          border-top: 1px solid rgb(238 238 238);
+        }
+      }
+    }
+  }
+
+  .doctor-info-section {
+    .doctor-info-summary {
+      display: flex;
+
+      .doctor-image {
+        padding-right: 15px;
+
+        .img-container {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            user-select: none;
+            -webkit-user-drag: none;
+          }
+        }
+      }
+
+      .doctor-info-summary-content {
+        flex: 1;
+
+        span {
+          letter-spacing: 0.6px;
+          color: rgb(85 85 85);
+        }
+
+        .page-header {
+          .page-title {
+            display: flex;
+            align-items: center;
+            font-size: 27px !important;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+            letter-spacing: 0.6px;
+
+            .favorite-section {
+              display: inline-flex;
+              justify-content: space-evenly;
+              align-items: center;
+              padding: 0.5px 4px;
+              background-color: rgb(255 195 17);
+              border-radius: 8px;
+              margin-right: 8px;
+
+              .img-container {
+                width: 14px;
+                height: 14px;
+                display: flex;
+              }
+
+              .favorite-title {
+                margin-left: 8px;
+
+                span {
+                  font-size: 14px;
+                  font-weight: 600;
+                  color: white;
+                }
+              }
+            }
+          }
+        }
+
+        .achievement-section {
+          margin: 5px 0;
+        }
+
+        .place-section {
+          display: flex;
+
+          .img-container {
+            width: 14px;
+            height: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .booking-section {
+    display: flex;
+
+    .left-content {
+      flex-basis: 53%;
+      padding-bottom: 15px;
+
+      .schedule-this-week-dropdown {
+        padding: 3px;
+        margin-bottom: 15px;
+        display: inline-flex;
+        cursor: pointer;
+        border-bottom: 1px solid rgb(153 153 153);
+        user-select: none;
+
+        .img-container {
+          width: 22px;
+          height: 22px;
+        }
+
+        .schedule-title {
+          span {
+            color: rgb(51 122 183);
+            font-weight: 700;
+          }
+        }
+      }
+
+      .schedule-header {
+        display: flex;
+        align-items: center;
+
+        .img-container {
+          width: 16px;
+          height: 16px;
+        }
+
+        span {
+          letter-spacing: 0.6px;
+          margin-left: 5px;
+          text-transform: uppercase;
+          font-weight: 700;
+        }
+      }
+
+      .schedule-list {
+        margin: 5px 0;
+        display: flex;
+        flex-wrap: wrap;
+
+        .schedule-item {
+          min-width: 115px;
+          padding: 10px;
+          background-color: rgb(238 238 238);
+          margin-top: 5px;
+          margin-right: 8px;
+
+          &:hover {
+            box-shadow: 0px 0px 0px 2px #33b0e3 inset;
+          }
+
+          .schedule-time-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            span {
+              font-weight: 500;
+            }
+          }
+        }
+      }
+
+      .booking-instruction {
+        padding-top: 10px;
+        display: inline-flex;
+
+        span {
+          color: rgb(51 51 51);
+          font-size: 12px;
+        }
+      }
+    }
+
+    .right-content {
+      border-left: 1px solid rgb(238 238 238);
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+
+      .address-section {
+        margin-top: 10px;
+        padding-top: 10px;
+
+        .address-header {
+          span {
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: rgb(102 102 102);
+          }
+        }
+
+        .clinic-name {
+          font-weight: 600;
+          font-size: 13px !important;
+        }
+
+        .clinic-address {
+          font-weight: 400;
+          font-size: 13px !important;
+        }
+      }
+
+      .price-section {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(238, 238, 238);
+        display: flex;
+
+        .price {
+          span {
+            letter-spacing: 0.6px;
+          }
+
+          span:nth-child(1) {
+            font-weight: bold;
+            text-transform: uppercase;
+            color: rgba(102, 102, 102);
+          }
+        }
+
+        .see-detail {
+          span {
+            font-weight: 500;
+            color: rgba(72, 196, 211);
+          }
+        }
+      }
+    }
+  }
+}
+
+.schedule-modal-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .schedule-modal {
+    flex: 1;
+    transform: translateY(500px); /* Start off-screen */
+    transition: transform 0.3s ease-in-out; /* Apply transition */
+
+    &.open {
+      transform: translateY(0); /* Move to visible position */
+    }
+
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+
+      .button-container {
+        button {
+          outline: none;
+          border: none;
+          background-color: white;
+          width: 100%;
+          height: 56px;
+          padding: 0 16px;
+          font-size: 16px;
+          text-align: left;
+          user-select: none;
+          letter-spacing: 0.7px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(xl) {
+  .individual-doctor-item {
+    &.list-type {
+      .doctor-info-section {
+        .doctor-info-summary {
+          .doctor-info-summary-content {
+            margin-top: 5px;
+
+            .page-header {
+              .page-title {
+                line-height: 22.8px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.individual-type {
+      .doctor-info-section {
+        .doctor-info-summary {
+          .doctor-info-summary-content {
+            .page-header {
+              .page-title {
+                line-height: 30px !important;
+
+                .favorite-section {
+                  bottom: 3px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .doctor-info-section {
+      .doctor-info-summary {
+        .doctor-info-summary-content {
+          .page-header {
+            .page-title {
+              display: inline-block;
+
+              .favorite-section {
+                position: relative;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .individual-doctor-item {
+    &.list-type {
+      flex-direction: column;
+
+      .booking-section {
+        border-left: none;
+
+        .right-content {
+          border-top: none;
+        }
+      }
+    }
+
+    .doctor-info-section {
+      .doctor-info-summary {
+        .doctor-info-summary-content {
+          .page-header {
+            .page-title {
+              display: inline-block;
+              line-height: 20.8px !important;
+              font-size: 18px !important;
+
+              .favorite-section {
+                position: relative;
+                bottom: 0 !important;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .booking-section {
+      flex-direction: column;
+
+      .right-content {
+        border-left: none;
+        border-top: 1px solid rgb(238 238 238);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .individual-doctor-item {
+    .booking-section {
+      .left-content {
+        .schedule-list {
+          .schedule-item {
+            min-width: 110px !important;
+          }
+        }
+      }
+    }
+  }
+}

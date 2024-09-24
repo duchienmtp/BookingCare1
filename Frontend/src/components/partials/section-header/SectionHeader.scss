@@ -1,0 +1,36 @@
+.header {
+  border-bottom: 1px solid #d5d5d5;
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .title {
+      h2 {
+        font-size: 24px !important;
+        letter-spacing: 0.6px;
+        margin: 0 !important;
+      }
+    }
+  }
+
+  .see-more-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90.83px;
+    height: 36.5px;
+    padding: 10px 15px;
+    background: rgb(235, 235, 235);
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+
+    span {
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+  }
+}

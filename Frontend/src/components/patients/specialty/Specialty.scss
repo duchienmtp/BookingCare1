@@ -1,0 +1,27 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.specialties {
+  .specialties-header {
+    padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .specialties-content {
+    width: 100%;
+    padding: 20px 0;
+    margin: 0 auto;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .specialties {
+    .specialties-header {
+      padding-bottom: 0 !important;
+    }
+  }
+}

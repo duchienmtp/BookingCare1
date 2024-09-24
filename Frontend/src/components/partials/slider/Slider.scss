@@ -1,0 +1,63 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.app-slider {
+  .slider {
+    margin-top: 20px;
+    overflow-x: clip !important;
+
+    .slider-image {
+      width: 100%;
+      aspect-ratio: 30 / 10;
+      border-radius: 25px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover !important;
+      }
+    }
+
+    .slick-dots {
+      li {
+        width: 29px !important;
+        height: 13px !important;
+      }
+
+      .slick-active {
+        div {
+          transform: scale(1.6) !important;
+          opacity: 1 !important;
+          background-color: #ffc419 !important;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .app-slider {
+    margin-top: 0 !important;
+  }
+}
+
+@include media-breakpoint-between(lg, xl) {
+  .app-slider {
+    margin-top: 40px;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .app-slider {
+    margin-top: 0 !important;
+
+    .slider {
+      .slider-image {
+        aspect-ratio: 23 / 10;
+        border-radius: 15px;
+      }
+    }
+  }
+}

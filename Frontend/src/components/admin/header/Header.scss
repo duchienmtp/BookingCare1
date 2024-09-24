@@ -1,0 +1,71 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.page-header {
+  .page-header-container {
+    padding: 10px 0;
+    margin: 0 24px;
+
+    .tool-button {
+      padding: 8px;
+      height: 38px;
+
+      .img-container {
+        width: 22px;
+        height: 22px;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .search-section {
+      flex-basis: 50%;
+
+      .menu-button {
+        cursor: pointer;
+
+        .img-container {
+          width: 24px;
+          height: 24px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+
+      .search-bar {
+        flex: 1;
+
+        input {
+          width: 100%;
+          height: 100%;
+          background-color: inherit;
+          outline: none;
+          border: none;
+        }
+      }
+    }
+
+    .tool-section {
+      .user-avatar {
+        margin-left: 8px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        .img-container {
+          width: 38px;
+          height: 38px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}

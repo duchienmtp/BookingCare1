@@ -1,0 +1,41 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.main-page-image {
+  margin-top: 20px;
+  margin-bottom: 40px;
+
+  .image-banner {
+    .img-container {
+      width: 100%;
+      aspect-ratio: 30 / 10;
+      border-radius: 32px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 32px;
+        object-fit: cover;
+        contain: size;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .main-page-image {
+    margin-bottom: 20px !important;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .main-page-image {
+    .image-banner {
+      .img-container {
+        aspect-ratio: 23 / 10;
+        border-radius: 15px;
+      }
+    }
+  }
+}

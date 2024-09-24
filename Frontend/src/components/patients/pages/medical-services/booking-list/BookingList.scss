@@ -1,0 +1,133 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.booking-list-section {
+  .doctor-detail-info-section {
+    padding: 10px 15px;
+
+    h1 {
+      font-size: 20px !important;
+      padding-top: 10px;
+      margin: 0;
+    }
+
+    h1,
+    p,
+    li {
+      letter-spacing: 0.6px;
+    }
+
+    .doctor-detail-info {
+      height: 150px;
+      overflow: hidden;
+    }
+
+    .show-hide-button {
+      padding-bottom: 5px;
+      cursor: pointer;
+
+      span {
+        color: rgb(40 138 214);
+        user-select: none;
+      }
+    }
+  }
+
+  .doctors-schedule-section {
+    background-color: #eeeeee;
+
+    .filter-section {
+      padding: 10px 0;
+
+      .filter-dropdown {
+        position: relative;
+        width: 150px;
+        padding: 6px 12px;
+        border: 1px solid rgb(206 212 218);
+        background: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 4px;
+        cursor: pointer;
+
+        span {
+          font-size: 16px;
+          letter-spacing: 0.5px;
+        }
+
+        & > .img-container {
+          width: 16px;
+          height: 16px;
+        }
+
+        .filter-dropdown-content {
+          position: absolute;
+          top: 112%;
+          left: -2px;
+          right: 0;
+          background-color: white;
+          border: 1px solid rgb(206 212 218);
+          border-radius: 4px;
+          z-index: 1;
+          opacity: 0;
+          visibility: hidden;
+
+          &.open {
+            opacity: 1;
+            visibility: visible;
+          }
+
+          .filter-item {
+            padding: 4px 0 4px 12px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: rgb(99 184 227);
+              color: white;
+            }
+          }
+        }
+      }
+    }
+
+    .doctors-schedule-list {
+      .doctor-schedule-item {
+        background-color: white;
+        padding: 10px;
+        box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+        border-radius: 8px;
+      }
+    }
+  }
+
+  .see-more-section {
+    background-color: rgb(0 110 111);
+    padding: 15px 20px;
+    margin-top: 8px;
+
+    span {
+      color: white;
+      margin-right: 5px;
+    }
+
+    a {
+      span {
+        color: rgb(255 240 75);
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .booking-list-section {
+    .doctor-detail-info-section {
+      h1,
+      .show-hide-button {
+        text-align: center;
+      }
+    }
+  }
+}

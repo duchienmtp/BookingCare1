@@ -1,0 +1,31 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.question-and-answers {
+  .question-and-answers-header {
+    padding: 20px 0;
+  }
+
+  .question-and-answers-content {
+    padding: 20px 0;
+    display: flex;
+    justify-content: start;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .question-and-answers {
+    .question-and-answers-content {
+      justify-content: space-between;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .question-and-answers {
+    .question-and-answers-header {
+      padding-bottom: 0 !important;
+    }
+  }
+}

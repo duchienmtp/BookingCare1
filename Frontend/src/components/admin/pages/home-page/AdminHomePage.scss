@@ -1,0 +1,31 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.admin-home-page {
+  background-color: #f4f5fa;
+  min-height: 100vh;
+  width: 100%;
+
+  .admin-app-content {
+    width: calc(100% - 260px);
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 0;
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
+    transition: left 0.3s ease-in-out;
+
+    .main-content-section {
+      padding: 24px;
+    }
+  }
+}
+
+@include media-breakpoint-down(xl) {
+  .admin-home-page {
+    .admin-app-content {
+      left: 0 !important;
+    }
+  }
+}

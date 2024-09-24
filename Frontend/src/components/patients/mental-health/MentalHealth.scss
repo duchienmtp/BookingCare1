@@ -1,0 +1,27 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.mental-healths {
+  .mental-healths-header {
+    padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mental-healths-content {
+    width: 100%;
+    padding: 20px 0;
+    margin: 0 auto;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .mental-healths {
+    .mental-healths-header {
+      padding-bottom: 0 !important;
+    }
+  }
+}

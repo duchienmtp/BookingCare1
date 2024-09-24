@@ -1,0 +1,27 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.clinics {
+  .clinics-header {
+    padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .clinics-content {
+    width: 100%;
+    padding: 20px 0;
+    margin: 0 auto;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .clinics {
+    .clinics-header {
+      padding-bottom: 0 !important;
+    }
+  }
+}

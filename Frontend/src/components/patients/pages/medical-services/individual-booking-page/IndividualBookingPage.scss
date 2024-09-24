@@ -1,0 +1,40 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.lower-content {
+  background-color: rgb(249 249 249);
+
+  .doctor-detail-info {
+    padding: 15px 0;
+
+    h2 {
+      font-size: 16px !important;
+      font-weight: 700 !important;
+    }
+
+    h2,
+    li {
+      letter-spacing: 0.6px;
+    }
+  }
+
+  .see-more-section {
+    background-color: rgb(0 110 111);
+    padding: 15px 20px;
+    margin-top: 8px;
+
+    span {
+      color: white;
+      margin-right: 5px;
+    }
+
+    a {
+      span {
+        color: rgb(255 240 75);
+        font-weight: 700;
+      }
+    }
+  }
+}
+

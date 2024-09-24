@@ -1,0 +1,71 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.endoscopy-packages {
+  .endoscopy-packages-header {
+    padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .endoscopy-packages-content {
+    width: 100%;
+    padding: 20px 0;
+    margin: 0 auto;
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .endoscopy-packages {
+    .endoscopy-packages-content {
+      .slick-list {
+        .slick-track {
+          .slick-slide {
+            & > div {
+              margin: 0 17px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(sm) {
+  .endoscopy-packages {
+    .endoscopy-packages-content {
+      .slick-list {
+        .slick-track {
+          .slick-slide {
+            & > div {
+              margin-left: 20px !important;
+              margin-right: 26px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .endoscopy-packages {
+    .endoscopy-packages-header {
+      padding-bottom: 0 !important;
+    }
+
+    .endoscopy-packages-content {
+      .slick-track {
+        .slick-slide {
+          & > div {
+            margin: unset;
+            margin-left: 19px !important;
+          }
+        }
+      }
+    }
+  }
+}

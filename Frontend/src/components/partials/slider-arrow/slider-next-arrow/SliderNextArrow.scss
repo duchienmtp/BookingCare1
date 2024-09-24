@@ -1,0 +1,39 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+div.slick-next {
+  &::before {
+    content: "" !important;
+    display: none !important;
+  }
+}
+
+.slick-arrow {
+  display: flex !important;
+  justify-content: center;
+}
+
+.slick-next {
+  right: -20px !important;
+}
+
+.slider-next-arrow {
+  svg {
+    width: 12px;
+    height: 24px;
+    fill: rgb(52, 146, 158);
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  // .slick-next {
+  //   right: -20px !important;
+  // }
+}
+
+@include media-breakpoint-down(lg) {
+  .slick-arrow.slick-next {
+    display: none !important;
+  }
+}

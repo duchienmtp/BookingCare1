@@ -1,0 +1,39 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.blog-writing-procedures {
+  padding: 20px 0 6px 0;
+
+  .blog-writing-procedures-section-header {
+    margin-right: 10px;
+    margin-bottom: 32px;
+  }
+
+  .blog-writing-procedures-content {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+
+    .blog-writing-procedures-list {
+      display: flex;
+      justify-content: space-between;
+
+      & > div {
+        flex-basis: 47.5%;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .blog-writing-procedures-section-header {
+    margin-bottom: 16px !important;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .blog-writing-procedures-section-header {
+    margin-bottom: 0 !important;
+  }
+}

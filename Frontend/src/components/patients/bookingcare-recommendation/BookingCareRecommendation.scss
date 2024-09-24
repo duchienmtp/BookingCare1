@@ -1,0 +1,19 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.bookingcare-recommendations {
+  .bookingcare-recommendations-section-header,
+  .bookingcare-recommendations-content {
+    padding: 20px 0;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .bookingcare-recommendations {
+    .bookingcare-recommendations-section-header,
+    .bookingcare-recommendations-content {
+      padding: 12px 0 !important;
+    }
+  }
+}

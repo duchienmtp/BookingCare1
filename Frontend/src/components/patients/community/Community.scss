@@ -1,0 +1,71 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.communities {
+  .communities-header {
+    padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .communities-content {
+    width: 100%;
+    padding: 20px 0;
+    margin: 0 auto;
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .communities {
+    .communities-content {
+      .slick-list {
+        .slick-track {
+          .slick-slide {
+            & > div {
+              margin: 0 17px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(sm) {
+  .communities {
+    .communities-content {
+      .slick-list {
+        .slick-track {
+          .slick-slide {
+            & > div {
+              margin-left: 20px !important;
+              margin-right: 26px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .communities {
+    .communities-header {
+      padding-bottom: 0 !important;
+    }
+
+    .communities-content {
+      .slick-track {
+        .slick-slide {
+          & > div {
+            margin: unset;
+            margin-left: 19px !important;
+          }
+        }
+      }
+    }
+  }
+}

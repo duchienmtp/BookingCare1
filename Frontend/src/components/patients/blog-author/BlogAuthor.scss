@@ -1,0 +1,39 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.blog-authors {
+  height: 100%;
+  .blog-authors-header {
+    padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .blog-authors-content {
+    width: 100%;
+    padding: 20px 0;
+    margin: 0 auto;
+  }
+
+  @include media-breakpoint-only(lg) {
+    .slick-prev,
+    .slick-next {
+      top: 174px !important;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .blog-authors-content {
+    .slick-track {
+      .slick-slide {
+        & > div {
+          margin-right: 0 !important;
+        }
+      }
+    }
+  }
+}

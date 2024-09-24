@@ -1,0 +1,151 @@
+@import url("./normalize-css.scss");
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+* {
+  font-family: Montserrat, sans-serif !important;
+  font-size: 14px;
+  line-height: 1.5 !important;
+  outline: none !important;
+  -ms-overflow-style: none;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+
+  &::-webkit-scrollbar {
+    display: none; /* Webkit */
+  }
+}
+
+span,
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.no-scroll {
+  overflow: hidden !important;
+}
+
+.hidden {
+  display: none;
+}
+
+a {
+  text-decoration: none !important;
+  color: inherit !important;
+  -webkit-user-drag: none !important;
+  user-select: none !important;
+}
+
+.app-container {
+  margin: 0 auto !important;
+}
+
+.slick-slider {
+  .slick-disabled {
+    display: none !important;
+  }
+
+  .slick-list {
+    .slick-track {
+      display: flex !important;
+      width: max-content !important;
+
+      .slick-slide {
+        display: flex !important;
+        height: auto;
+
+        & > div {
+          display: flex !important;
+          flex-grow: 1;
+        }
+
+        &:last-child > div > div {
+          margin-right: 0 !important;
+        }
+      }
+    }
+  }
+
+  .slick-dots {
+    overflow-x: unset !important;
+  }
+}
+
+.for-you-section {
+  margin-top: 60px;
+}
+
+.famous-doctor-section,
+.media-about-bookingcare-section,
+.medical-imaging-diagnostic-section {
+  background-image: url("./assets/images/140311-background5.png");
+}
+
+.mental-health-section,
+.community-section {
+  background-image: url("./assets/images/140308-background2.png");
+}
+
+@include media-breakpoint-down(xl) {
+  body {
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+  }
+
+  .fixed-top {
+    position: static;
+  }
+
+  .app-content {
+    margin-top: 10px;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .app-container {
+    width: 1200px !important;
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .app-container {
+    width: 992px !important;
+  }
+}
+
+@include media-breakpoint-only(md) {
+  .app-container {
+    width: 768px !important;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .md-px-10 {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .md-pl-10 {
+    padding-left: 10px !important;
+    padding-right: 0 !important;
+  }
+
+  .for-you-section {
+    margin-top: 40px !important;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .app-container {
+    width: 100% !important;
+  }
+}

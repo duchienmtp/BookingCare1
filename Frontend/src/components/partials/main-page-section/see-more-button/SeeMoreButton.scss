@@ -1,0 +1,55 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.see-more-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #34929e;
+  background-color: #daf3f6;
+  border: none;
+  width: 123px;
+  height: 52px;
+  border-radius: 16px;
+  cursor: pointer;
+
+  span {
+    font-size: 20px;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .see-more-button {
+    padding: 10px 6px;
+    height: 48px !important;
+
+    span {
+      font-size: 18px !important;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .see-more-button {
+    height: 44.2px !important;
+    margin-right: 10px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .see-more-button {
+    width: 75.6px !important;
+    height: 41px !important;
+    padding: 10px 0 !important;
+    text-align: right !important;
+    background-color: transparent !important;
+
+    span {
+      font-size: 14px !important;
+    }
+  }
+}

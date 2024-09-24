@@ -1,0 +1,30 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.section-header-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+@include media-breakpoint-down(lg) {
+  .section-header-title {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .section-header-title {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .section-header-title {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+  }
+}

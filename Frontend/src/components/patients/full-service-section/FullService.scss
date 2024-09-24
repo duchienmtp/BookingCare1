@@ -1,0 +1,35 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.full-service {
+  padding: 20px 0 6px 0;
+
+  .full-service-section-header {
+    margin-right: 10px;
+    margin-bottom: 32px;
+  }
+
+  .full-service-content {
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    & > div {
+      flex-basis: 47.5%;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .full-service-section-header {
+    margin-bottom: 16px !important;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .full-service-section-header {
+    margin-bottom: 0 !important;
+  }
+}

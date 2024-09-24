@@ -1,0 +1,113 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.living-healthy-categories {
+  .living-healthy-categories-header {
+    padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .living-healthy-categories-content {
+    width: 100%;
+    padding: 20px 0;
+    margin: 0 auto;
+
+    .living-healthy-category-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: white;
+      border: 1px solid rgb(241, 241, 241);
+      padding: 16px;
+      margin-right: 48px !important;
+      margin: 4px 0;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1) !important;
+      box-sizing: border-box;
+      user-select: none;
+
+      .img-container {
+        width: 84%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .item-content {
+        height: 32px;
+        margin: 20px 0;
+
+        span {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 16px;
+          font-weight: 700;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .living-healthy-categories {
+    .living-healthy-categories-content {
+      .living-healthy-category-item {
+        margin-right: 32px !important;
+
+        .item-content {
+          height: 28px !important;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .living-healthy-categories {
+    .living-healthy-categories-content {
+      .living-healthy-category-item {
+        margin-right: 24px !important;
+        padding: 8px !important;
+
+        .img-container {
+          width: 92% !important;
+        }
+
+        .item-content {
+          height: 24px !important;
+          margin: 10px 0 12px !important;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .living-healthy-categories {
+    .living-healthy-categories-content {
+      .living-healthy-category-item {
+        .item-content {
+          span {
+            font-size: 14px !important;
+            font-weight: 500 !important;
+          }
+        }
+      }
+    }
+  }
+}

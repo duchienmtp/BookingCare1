@@ -1,0 +1,74 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.custom-slider {
+  .slider-list {
+    width: inherit;
+    overflow: hidden;
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.5s ease;
+
+      &:active {
+        cursor: grabbing;
+      }
+
+      .post-banner-item {
+        flex: 1;
+      }
+
+      .last-item {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
+
+    .pagination-container {
+      width: 104px;
+      height: 49.6px;
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px solid rgb(190, 190, 190);
+      border-radius: 30px;
+      display: flex;
+      justify-content: space-between;
+
+      .prev-arrow,
+      .next-arrow {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .custom-slider {
+    .slider-list {
+      .slider-track {
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        div {
+          &:last-child {
+            .post-banner-item {
+              margin-right: 0 !important;
+            }
+          }
+        }
+      }
+    }
+
+    .pagination {
+      display: none !important;
+    }
+  }
+}

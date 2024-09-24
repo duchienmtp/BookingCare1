@@ -1,0 +1,71 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.tests-at-home {
+  .tests-at-home-header {
+    padding: 20px 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tests-at-home-content {
+    width: 100%;
+    padding: 20px 0;
+    margin: 0 auto;
+  }
+}
+
+@include media-breakpoint-only(lg) {
+  .tests-at-home {
+    .tests-at-home-content {
+      .slick-list {
+        .slick-track {
+          .slick-slide {
+            & > div {
+              margin: 0 17px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-only(sm) {
+  .tests-at-home {
+    .tests-at-home-content {
+      .slick-list {
+        .slick-track {
+          .slick-slide {
+            & > div {
+              margin-left: 20px !important;
+              margin-right: 26px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .tests-at-home {
+    .tests-at-home-header {
+      padding-bottom: 0 !important;
+    }
+
+    .tests-at-home-content {
+      .slick-track {
+        .slick-slide {
+          & > div {
+            margin: unset;
+            margin-left: 19px !important;
+          }
+        }
+      }
+    }
+  }
+}

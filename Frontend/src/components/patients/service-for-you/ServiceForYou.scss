@@ -1,0 +1,25 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.for-you {
+  .for-you-section-header {
+    padding: 20px 0;
+  }
+
+  .for-you-content {
+    padding: 20px 0;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .for-you {
+    .for-you-section-header {
+      padding: 12px 0 !important;
+    }
+
+    .for-you-content {
+      padding: 12px 0 !important;
+    }
+  }
+}
