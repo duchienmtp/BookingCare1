@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { store } from "./redux/store.js";
 import { Provider } from "react-redux";
 import App from "./App.jsx";
-import { path, adminPath } from "./utils/constants/constants.js";
+import { path, adminPath } from "./utils/constants.js";
 import MainPage from "./components/patients/pages/services/main-page/MainPage.jsx";
 import ServiceAtHomePage from "./components/patients/pages/services/at-home/ServiceAtHomePage.jsx";
 import ServiceAtClinicPage from "./components/patients/pages/services/at-clinic/ServiceAtClinicPage.jsx";
@@ -13,8 +13,8 @@ import ServiceLivingHealthyPage from "./components/patients/pages/services/livin
 import SeeMorePage from "./components/patients/pages/see-more-page/list-base/SeeMorePage.jsx";
 import MedicalServiceRouter from "./components/routes/medical-service-router/MedicalServiceRouter.jsx";
 import DashboardPage from "./components/admin/pages/dashboard-page/DashboardPage.jsx";
-import UserManagementPage from "./components/admin/pages/main-content/MainContent.jsx";
 import MainContent from "./components/admin/pages/main-content/MainContent.jsx";
+import HealthFacilityRoute from "./components/routes/health-facility-route/HealthFacilityRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -42,8 +42,16 @@ const router = createBrowserRouter([
         element: <MedicalServiceRouter />,
       },
       {
+        path: path.MEDICAL_SERVICE.MEDICAL_ONLINE_DIAGNOSTIC,
+        element: <MedicalServiceRouter />,
+      },
+      {
         path: path.MEDICAL_SERVICE.MEDICAL_SPECIALTY_HEALTH_CHECK,
         element: <MedicalServiceRouter />,
+      },
+      {
+        path: path.HEALTH_FACILITY.BASE,
+        element: <HealthFacilityRoute />,
       },
       {
         path: "/danh-sach/:mainSlug/:subSlug?",

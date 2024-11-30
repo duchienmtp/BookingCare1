@@ -28,16 +28,16 @@ function SquarePageBanner(props) {
       className={`square-banner-item ${className}`}
       style={{ width: `${width}` }}
     >
-      <Link to="/dich-vu-y-te/kham-chuyen-khoa/co-xuong-khop-s1">
+      <Link to={item.slug}>
         {svg && (
           <div className="camera-icon-container">
             <div className="camera-icon">{svg}</div>
           </div>
         )}
         <div className={`img-container ${className} ${aspectRatio}`}>
-          <img src={item.image} alt={item.title} />
+          <img src={item.image} alt={item.name} />
         </div>
-        <span>{item.title}</span>
+        <span>{item.name}</span>
       </Link>
     </div>
   );

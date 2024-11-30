@@ -36,33 +36,38 @@ function Community() {
     setCommunities([
       {
         id: 1,
-        title: "BookingCare - Y tế sức khỏe toàn diện",
+        name: "BookingCare - Y tế sức khỏe toàn diện",
         image:
           "/src/assets/images/community-images/155237-y-te-suc-khoe-toan-dien.png",
+        slug: "https://www.facebook.com/bookingcare",
       },
       {
         id: 2,
-        title: "Review Bệnh viện - Phòng khám - Bác sĩ giỏi",
+        name: "Review Bệnh viện - Phòng khám - Bác sĩ giỏi",
         image:
           "/src/assets/images/community-images/155238-review-benh-vien-phong-kham-bac-si-gioi.png",
+        slug: "https://www.facebook.com/groups/1384838201648397",
       },
       {
         id: 3,
-        title: "Sống khỏe cùng bệnh Tiểu đường",
+        name: "Sống khỏe cùng bệnh Tiểu đường",
         image:
           "/src/assets/images/community-images/141147-congdongtieuduong.jpg",
+        slug: "https://www.facebook.com/groups/815419770274573",
       },
       {
         id: 4,
-        title: "Tư vấn Tâm lý - Tâm thần",
+        name: "Tư vấn Tâm lý - Tâm thần",
         image:
           "/src/assets/images/community-images/141458-congdongtinhthan.jpeg",
+        slug: "https://www.facebook.com/groups/1299270953764061",
       },
       {
         id: 5,
-        title: "Chuyên trang Nha khoa",
+        name: "Chuyên trang Nha khoa",
         image:
           "/src/assets/images/community-images/141131-congdongnhakhoa.jpeg",
+        slug: "https://www.facebook.com/dentalhealthh",
       },
     ]);
   }, []);

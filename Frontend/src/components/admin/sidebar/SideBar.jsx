@@ -3,7 +3,7 @@ import "./SideBar.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useParams } from "react-router-dom";
-import { adminPath } from "../../../utils/constants/constants";
+import { adminPath } from "../../../utils/constants.js";
 import { faCircleDot, faCircle } from "@fortawesome/free-regular-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import HomeLogo from "/src/assets/home.svg";

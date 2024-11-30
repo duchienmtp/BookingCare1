@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Post.scss";
+import { Link } from "react-router-dom";
 
 function Post(props) {
   const [width, setWidth] = useState(getWidth());
@@ -26,10 +27,12 @@ function Post(props) {
       className={`post-banner-item ${className}`}
       style={{ width: `${width}` }}
     >
-      <div className={`img-container ${className} ${aspectRatio}`}>
-        <img src={item.image} alt={item.title} />
-      </div>
-      <span>{item.title}</span>
+      <Link to={`/cam-nang/${item.slug}`}>
+        <div className={`img-container ${className} ${aspectRatio}`}>
+          <img src={item.image} alt={item.name} />
+        </div>
+        <span>{item.name}</span>
+      </Link>
     </div>
   );
 }

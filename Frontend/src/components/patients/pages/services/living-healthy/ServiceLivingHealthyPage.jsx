@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectGuides,
+  selectLivingHealthyBlogPosts,
+} from "../../../../../redux/slices/adminSlice.js";
+import { getAllDataBySlug } from "../../../../../services/admin/SiteServices";
 import ImageBanner from "../../../../partials/PageBanner/image-banner/ImageBanner";
 import Guide from "../../../../patients/guide/Guide";
 import BannerImg from "/src/assets/images/142138-song-khoe-suot-doi-1.png";
@@ -10,6 +16,11 @@ import LivingHealthyCategory from "../../../living-healthy-category/LivingHealth
 
 function ServiceLivingHealthyPage() {
   const [doctors, setDoctors] = useState([]);
+  const dispatch = useDispatch();
+  const guides = useSelector(selectGuides);
+  const livingHealthyBlogPosts = useSelector(selectLivingHealthyBlogPosts);
+  const isLoading = useSelector((state) => state.admin.isLoading);
+  const isError = useSelector((state) => state.admin.isError);
 
   useEffect(() => {
     setDoctors([
@@ -86,6 +97,11 @@ function ServiceLivingHealthyPage() {
     ]);
   }, []);
 
+  useEffect(() => {
+    dispatch(getAllDataBySlug("guides"));
+    dispatch(getAllDataBySlug("living-healthy-blog-post"));
+  }, []);
+
   return (
     <>
       <section className="page-banner">
@@ -95,7 +111,7 @@ function ServiceLivingHealthyPage() {
         />
       </section>
       <section className="guide-section">
-        <Guide />
+        <Guide data={guides} />
       </section>
       <section className="popular-post-section">
         <PopularPost />

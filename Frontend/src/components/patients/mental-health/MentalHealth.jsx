@@ -9,7 +9,8 @@ import SliderPrevArrow from "../../partials/slider-arrow/slider-prev-arrow/Slide
 import SeeMoreButton from "../../partials/main-page-section/see-more-button/SeeMoreButton";
 import SectionHeaderTitle from "../../partials/main-page-section/section-title/SectionHeaderTitle";
 
-function MentalHealth() {
+function MentalHealth(props) {
+  let { data } = props;
   const [mentalHealths, setMentalHealths] = useState([]);
 
   let settings = {
@@ -34,36 +35,19 @@ function MentalHealth() {
   };
 
   useEffect(() => {
-    setMentalHealths([
-      {
-        id: 1,
-        title: "Bài test sức khoẻ",
-        image: "/src/assets/images/mental-health-images/bai-test-suc-khoe.jpeg",
-      },
-      {
-        id: 2,
-        title: "Sức khỏe tâm thần",
-        image: "/src/assets/images/mental-health-images/suc-khoe-tam-than.png",
-      },
-      {
-        id: 3,
-        title: "Tư vấn, trị liệu Tâm lý từ xa",
-        image: "/src/assets/images/online-diagnostic-images/tam-ly-tu-xa.png",
-      },
-      {
-        id: 4,
-        title: "Sức khỏe tâm thần từ xa",
-        image:
-          "/src/assets/images/online-diagnostic-images/tam-than-tu-xa-1.png",
-      },
-      {
-        id: 5,
-        title: "Tư vấn, trị liệu Tâm lý",
-        image:
-          "/src/assets/images/mental-health-images/tu-van-tri-lieu-tam-ly.png",
-      },
-    ]);
-  }, []);
+    const filteredData = data.filter((item) => {
+      const itemsMatchedMedicalService = item.medicalServiceName.filter(
+        (medicalService) =>
+          medicalService.medicalService.slug === "kham-tinh-than"
+      );
+
+      return itemsMatchedMedicalService.length > 0; // Include item if any medicalService matches the slug
+    });
+
+    filteredData.sort((a, b) => a.name.localeCompare(b.name));
+
+    setMentalHealths(filteredData);
+  }, [data]);
 
   return (
     <div className="app-container">

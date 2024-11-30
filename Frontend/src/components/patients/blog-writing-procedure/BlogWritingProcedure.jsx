@@ -11,13 +11,13 @@ function BlogWritingProcedure() {
     setBlogWritingProcedures([
       {
         id: 1,
-        title: "Quy trình xây dựng nội dung",
+        name: "Quy trình xây dựng nội dung",
         image:
           "/src/assets/images/full-service-images/161206-huyen-icon-cam-nang-3.png",
       },
       {
         id: 2,
-        title: "Bác sĩ hợp tác viết bài",
+        name: "Bác sĩ hợp tác viết bài",
         image:
           "/src/assets/images/full-service-images/161206-huyen-icon-cam-nang-2.png",
       },

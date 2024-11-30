@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./SeeMorePage.scss";
 import { Link, useParams } from "react-router-dom";
-import { path } from "../../../../../utils/constants/constants.js";
+import { path } from "../../../../../utils/constants.js";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllDataBySlug } from "../../../../../services/admin/SiteServices";
 import { selectSpecialties } from "../../../../../redux/slices/adminSlice";

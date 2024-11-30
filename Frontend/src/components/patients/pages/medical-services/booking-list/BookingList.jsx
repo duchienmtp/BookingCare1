@@ -8,7 +8,10 @@ function BookingList() {
   const [isShowFilterDropdown, setIsShowFilterDropdown] = useState(false);
   const filterDropdownRef = useRef(null);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // Scroll to the top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleShowDetailInfo = () => {
     setIsShow(!isShowDetailInfo);

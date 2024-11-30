@@ -5,6 +5,17 @@ const initialState = {
   medicalServices: [],
   specialties: [],
   clinics: [],
+  specificMedicalServices: [],
+  blogs: [],
+  guides: [],
+  livingHealthyBlogPosts: [],
+  forDoctorAndHealthFacilityBlogPosts: [],
+  endoscopicSurgeryPackages: [],
+  medicalImagingDiagnosticPackages: [],
+  operationPackages: [],
+  medicalExaminationPackages: [],
+  diagnosticPackages: [],
+  packages: [],
   isLoading: false,
   isError: false,
 };
@@ -35,6 +46,61 @@ export const adminSlice = createSlice({
             state.isLoading = false;
             state.isError = false;
             break;
+          case "specific-medical-services":
+            state.specificMedicalServices = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "blogs":
+            state.blogs = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "guides":
+            state.guides = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "living-healthy-blog-post":
+            state.livingHealthyBlogPosts = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "for-doctor-and-health-facility-blog-post":
+            state.forDoctorAndHealthFacilityBlogPosts = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "endoscopic-surgery-packages":
+            state.endoscopicSurgeryPackages = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "medical-imaging-diagnostic-packages":
+            state.medicalImagingDiagnosticPackages = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "operation-packages":
+            state.operationPackages = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "medical-examination-packages":
+            state.medicalExaminationPackages = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "diagnostic-packages":
+            state.diagnosticPackages = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "packages":
+            state.packages = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
           default:
             break;
         }
@@ -49,5 +115,23 @@ export const adminSlice = createSlice({
 export const selectMedicalServices = (state) => state.admin.medicalServices;
 export const selectSpecialties = (state) => state.admin.specialties;
 export const selectClinics = (state) => state.admin.clinics;
+export const selectSpecificMedicalServices = (state) =>
+  state.admin.specificMedicalServices;
+export const selectBlogs = (state) => state.admin.blogs;
+export const selectGuides = (state) => state.admin.guides;
+export const selectLivingHealthyBlogPosts = (state) =>
+  state.admin.livingHealthyBlogPosts;
+export const selectForDoctorAndHealthFacilityBlogPosts = (state) =>
+  state.admin.forDoctorAndHealthFacilityBlogPosts;
+export const selectEndoscopicSurgeryPackages = (state) =>
+  state.admin.endoscopicSurgeryPackages;
+export const selectMedicalImagingDiagnosticPackages = (state) =>
+  state.admin.medicalImagingDiagnosticPackages;
+export const selectOperationPackages = (state) => state.admin.operationPackages;
+export const selectMedicalExaminationPackages = (state) =>
+  state.admin.medicalExaminationPackages;
+export const selectDiagnosticPackages = (state) =>
+  state.admin.diagnosticPackages;
+export const selectPackages = (state) => state.admin.packages;
 
 export default adminSlice.reducer;

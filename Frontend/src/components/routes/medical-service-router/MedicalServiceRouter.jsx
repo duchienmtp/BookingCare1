@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useLocation, matchPath } from "react-router-dom";
-import { path } from "../../../utils/constants/constants";
+import { path } from "../../../utils/constants";
 import MedicalService from "../../patients/medical-service/MedicalService";
 import MedicalServiceAdvertisement from "../../patients/medical-service/MedicalServiceAdvertisement";
 import DiabetesPage from "../../patients/pages/medical-services/diabetes-page/DiabetesPage";

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useCallback, useState, useEffect, useRef } from "react";
 import "./Header.scss";
-import { path } from "../../../utils/constants/constants";
+import { path } from "../../../utils/constants";
 import { Link, useLocation } from "react-router-dom";
 
 function Header() {

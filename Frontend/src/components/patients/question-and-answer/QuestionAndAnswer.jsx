@@ -43,12 +43,12 @@ function QuestionAndAnswer() {
     setTopics([
       {
         id: 1,
-        title: "Hỏi bác sĩ miễn phí",
+        name: "Hỏi bác sĩ miễn phí",
         image: FreeDoctorAskingImg,
       },
       {
         id: 2,
-        title: "Cẩm nang hỏi đáp",
+        name: "Cẩm nang hỏi đáp",
         image: GuideQnAImg,
       },
     ]);

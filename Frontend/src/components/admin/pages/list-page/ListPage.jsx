@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import "./ListPage.scss";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import helperFunction from "../../../../utils/helperFunction.js";
+import { adminPageTableHeader } from "../../../../utils/constants.js";
 import ExportIcon from "/src/assets/export.svg";
 import AddIcon from "/src/assets/add.svg";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -13,59 +15,134 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { getAllDataBySlug } from "../../../../services/admin/SiteServices.js";
-import { createSelector } from "reselect";
 import {
   selectMedicalServices,
   selectSpecialties,
   selectClinics,
+  selectSpecificMedicalServices,
+  selectBlogs,
+  selectPackages,
 } from "../../../../redux/slices/adminSlice";
-import { objectSlugs } from "../../../../utils/constants/constants.js";
 
 library.add(faPenToSquare, faTrashCan, faAngleLeft, faAngleRight);
 
 function ListPage() {
   const dispatch = useDispatch();
 
+  const [data, setData] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const rowsPerPage = useRef(10);
   const [offset, setOffset] = useState(0);
   const totalPage = useRef(0);
+  const header = useRef([]);
+  let dataKeys = useRef([]);
   const refs = useRef({});
 
   const { slug1, slug2, slug3 } = useParams();
   const medicalServices = useSelector(selectMedicalServices);
   const specialties = useSelector(selectSpecialties);
   const clinics = useSelector(selectClinics);
+  const specificMedicalServices = useSelector(selectSpecificMedicalServices);
+  const blogs = useSelector(selectBlogs);
+  const packages = useSelector(selectPackages);
   const isLoading = useSelector((state) => state.admin.isLoading);
   const isError = useSelector((state) => state.admin.isError);
 
-  let data;
-  switch (slug2 || slug1) {
-    case "medical-services":
-      data = medicalServices;
-      break;
-    case "specialties":
-      data = specialties;
-      break;
-    case "clinics":
-      data = clinics;
-      break;
-    default:
-      data = [];
-      break;
-  }
+  useEffect(() => {
+    let selectedData;
+    let formattedData;
+    switch (slug2 || slug1) {
+      case "medical-services":
+        selectedData = medicalServices;
+        header.current = adminPageTableHeader["medical-services"];
+        formattedData = helperFunction.adminPageFormatData(selectedData);
+        break;
+
+      case "specialties":
+        selectedData = specialties;
+        header.current = adminPageTableHeader["specialties"];
+        formattedData = helperFunction.adminPageFormatData(selectedData);
+        break;
+
+      case "clinics":
+        selectedData = clinics;
+        header.current = adminPageTableHeader["clinics"];
+        formattedData = helperFunction.adminPageFormatData(selectedData);
+        break;
+
+      case "specific-medical-services":
+        selectedData = specificMedicalServices;
+        header.current = adminPageTableHeader["specific-medical-services"];
+        formattedData =
+          helperFunction.adminPageFormatSpecificMedicalServicesData(
+            selectedData
+          );
+        break;
+
+      case "blogs":
+        selectedData = blogs;
+        header.current = adminPageTableHeader["blogs"];
+        formattedData = helperFunction.adminPageFormatBlogData(selectedData);
+        break;
+
+      case "packages":
+        selectedData = packages;
+        header.current = adminPageTableHeader["packages"];
+        formattedData = helperFunction.adminPageFormatPackageData(selectedData);
+        break;
+
+      default:
+        selectedData = [];
+        header.current = [];
+        dataKeys.current = [];
+        break;
+    }
+
+    // const formattedData = selectedData.map((item) => {
+    //   const formattedItem = {
+    //     ...item,
+    //     createdAt: helperFunction.formatDateFromDBTypeToStandardType(
+    //       item.createdAt
+    //     ),
+    //     updatedAt: helperFunction.formatDateFromDBTypeToStandardType(
+    //       item.updatedAt
+    //     ),
+    //   };
+
+    //   if (item.specialty && item.specialty.name) {
+    //     formattedItem["specialty.name"] = item.specialty.name;
+    //   }
+
+    //   if (item.blogPostsUploadedTo && item.blogPostsUploadedTo.name) {
+    //     formattedItem["blogPostsUploadedTo.name"] =
+    //       item.blogPostsUploadedTo.name;
+    //   }
+
+    //   return formattedItem;
+    // });
+
+    dataKeys.current =
+      formattedData.length > 0 ? Object.keys(formattedData[0]) : [];
+
+    console.log(">>> Check formattedData: ", formattedData);
+
+    totalPage.current = Math.ceil(formattedData.length / rowsPerPage.current);
+
+    setData(formattedData);
+  }, [
+    medicalServices,
+    specialties,
+    clinics,
+    specificMedicalServices,
+    packages,
+    blogs,
+    slug1,
+    slug2,
+  ]);
 
   useEffect(() => {
-    const formattedData = data.map((item) => {
-      return {
-        ...item,
-        createdAt: formatDateFromDBTypeToStandardType(item.createdAt),
-        updatedAt: formatDateFromDBTypeToStandardType(item.updatedAt),
-      };
-    });
-
-    const initialCheckedItems = formattedData.reduce((acc, item) => {
+    const initialCheckedItems = data.reduce((acc, item) => {
       acc[item.id] = false; // Assuming each item has a unique 'id' field
       return acc;
     }, {});
@@ -73,44 +150,9 @@ function ListPage() {
     setCheckedItems(initialCheckedItems);
   }, [data]);
 
-  const headersEnum = Object.freeze({
-    id: "ID",
-    name: "Tên đầy đủ",
-    birthDate: "Ngày sinh",
-    email: "Email",
-    position: "Chức vụ",
-    status: "Tình trạng",
-    action: "Hành động",
-    createdAt: "Ngày tạo",
-    updatedAt: "Ngày cập nhật",
-  });
-
-  const formatDateFromDBTypeToStandardType = (dateString) => {
-    const options = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    };
-
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", options).replace(",", "");
-  };
-
   useEffect(() => {
     dispatch(getAllDataBySlug(slug2 || slug1));
   }, [slug1, slug2]);
-
-  let headers = data.length > 0 ? Object.keys(data[0]) : [];
-  headers = headers
-    .filter((header) => headersEnum[header])
-    .map((header) => headersEnum[header]);
-
-  const reverseHeadersEnum = Object.fromEntries(
-    Object.entries(headersEnum).map(([key, value]) => [value, key])
-  );
 
   const handleCheckAllButton = (e) => {
     let isCheckedAll = e.target.checked;
@@ -210,10 +252,10 @@ function ListPage() {
                   />
                 </div>
               </th>
-              {headers.map((header, index) => (
+              {header.current.map((item, index) => (
                 <th key={index}>
                   <div>
-                    <span>{header}</span>
+                    <span>{item}</span>
                   </div>
                 </th>
               ))}
@@ -227,7 +269,7 @@ function ListPage() {
           <tbody>
             {data &&
               data.length > 0 &&
-              data.slice(offset, offset + rowsPerPage).map((item) => (
+              data.slice(offset, offset + rowsPerPage.current).map((item) => (
                 <tr key={item.id}>
                   <td>
                     <div className="table-data-checkbox">
@@ -239,8 +281,7 @@ function ListPage() {
                       />
                     </div>
                   </td>
-                  {headers.map((header, index) => {
-                    const key = reverseHeadersEnum[header];
+                  {dataKeys.current.map((key, index) => {
                     return (
                       <td key={index}>
                         <div>

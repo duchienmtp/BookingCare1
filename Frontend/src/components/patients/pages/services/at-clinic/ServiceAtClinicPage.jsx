@@ -1,4 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectSpecialties,
+  selectSpecificMedicalServices,
+  selectGuides,
+  selectEndoscopicSurgeryPackages,
+  selectMedicalImagingDiagnosticPackages,
+  selectOperationPackages,
+  selectMedicalExaminationPackages,
+  selectDiagnosticPackages,
+} from "../../../../../redux/slices/adminSlice.js";
+import { getAllDataBySlug } from "../../../../../services/admin/SiteServices";
 import ImageBanner from "../../../../partials/PageBanner/image-banner/ImageBanner";
 import BannerImg from "../../../../../assets/images/134537-group-12314.png";
 import ServiceForYou from "../../../../patients/service-for-you/ServiceForYou";
@@ -17,9 +29,23 @@ import Operation from "../../../operation/Operation";
 
 function ServiceAtClinicPage() {
   const [doctors, setDoctors] = useState([]);
-  const [bookingCareRecommendations, setBookingCareRecommendations] = useState(
-    []
+  const dispatch = useDispatch();
+  const specialties = useSelector(selectSpecialties);
+  const specificMedicalServices = useSelector(selectSpecificMedicalServices);
+  const guides = useSelector(selectGuides);
+  const endoscopicSurgeryPackages = useSelector(
+    selectEndoscopicSurgeryPackages
   );
+  const medicalImagingDiagnosticPackages = useSelector(
+    selectMedicalImagingDiagnosticPackages
+  );
+  const operationPackages = useSelector(selectOperationPackages);
+  const medicalExaminationPackages = useSelector(
+    selectMedicalExaminationPackages
+  );
+  const diagnosticPackages = useSelector(selectDiagnosticPackages);
+  const isLoading = useSelector((state) => state.admin.isLoading);
+  const isError = useSelector((state) => state.admin.isError);
 
   useEffect(() => {
     setDoctors([
@@ -235,6 +261,17 @@ function ServiceAtClinicPage() {
     ]);
   }, []);
 
+  useEffect(() => {
+    dispatch(getAllDataBySlug("specialties"));
+    dispatch(getAllDataBySlug("specific-medical-services"));
+    dispatch(getAllDataBySlug("guides"));
+    dispatch(getAllDataBySlug("endoscopic-surgery-packages"));
+    dispatch(getAllDataBySlug("medical-imaging-diagnostic-packages"));
+    dispatch(getAllDataBySlug("operation-packages"));
+    dispatch(getAllDataBySlug("medical-examination-packages"));
+    dispatch(getAllDataBySlug("diagnostic-packages"));
+  }, []);
+
   return (
     <>
       <section className="page-banner">
@@ -250,34 +287,34 @@ function ServiceAtClinicPage() {
         <Clinic />
       </section>
       <section className="specialty-section">
-        <Specialty />
+        <Specialty data={specialties} />
       </section>
       <section className="famous-doctor-section">
         <FamousDoctor data={doctors} />
       </section>
       <section className="diagnostic-package-section">
-        <DiagnosticPackage />
+        <DiagnosticPackage data={diagnosticPackages} />
       </section>
       <section className="medical-examination-section">
-        <MedicalExamination />
+        <MedicalExamination data={medicalExaminationPackages} />
       </section>
       <section className="medical-imaging-diagnostic-section">
-        <MedicalImagingDiagnostics />
+        <MedicalImagingDiagnostics data={medicalImagingDiagnosticPackages} />
       </section>
       <section className="endoscopy-package-section">
-        <Endoscopy />
+        <Endoscopy data={endoscopicSurgeryPackages} />
       </section>
       <section className="operation-section">
-        <Operation />
+        <Operation data={operationPackages} />
       </section>
       <section className="bookingcare-recommendation-section">
         <BookingCareRecommendation />
       </section>
       <section className="mental-health-section">
-        <MentalHealth />
+        <MentalHealth data={specificMedicalServices} />
       </section>
       <section className="guide-section">
-        <Guide />
+        <Guide data={guides} />
       </section>
     </>
   );

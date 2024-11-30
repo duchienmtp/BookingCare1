@@ -3,18 +3,15 @@ import Slider from "react-slick";
 import "./Specialty.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useSelector, useDispatch } from "react-redux";
 import SquarePageBanner from "../../partials/PageBanner/squarePageBanner/SquarePageBanner";
 import SliderNextArrow from "../../partials/slider-arrow/slider-next-arrow/SliderNextArrow";
 import SliderPrevArrow from "../../partials/slider-arrow/slider-prev-arrow/SliderPrevArrow";
 import SeeMoreButton from "../../partials/main-page-section/see-more-button/SeeMoreButton";
 import SectionHeaderTitle from "../../partials/main-page-section/section-title/SectionHeaderTitle";
-import { selectSpecialties } from "../../../redux/slices/adminSlice";
-import { getAllDataBySlug } from "../../../services/admin/SiteServices";
 
-function Specialty() {
-  const dispatch = useDispatch();
-  const specialties = useSelector(selectSpecialties);
+function Specialty(props) {
+  let { data } = props;
+  const [specialties, setSpecialties] = useState([]);
 
   let settings = {
     dots: false,
@@ -38,8 +35,12 @@ function Specialty() {
   };
 
   useEffect(() => {
-    dispatch(getAllDataBySlug("specialties"));
-  }, []);
+    const formattedData = data.map((item) => ({
+      ...item,
+      slug: `/dich-vu-y-te/kham-chuyen-khoa/${item.slug}`,
+    }));
+    setSpecialties(formattedData);
+  }, [data]);
 
   return (
     <div className="app-container">

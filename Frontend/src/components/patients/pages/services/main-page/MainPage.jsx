@@ -1,4 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectMedicalServices,
+  selectSpecialties,
+  selectSpecificMedicalServices,
+  selectGuides,
+  selectLivingHealthyBlogPosts,
+  selectForDoctorAndHealthFacilityBlogPosts,
+} from "../../../../../redux/slices/adminSlice.js";
+import { getAllDataBySlug } from "../../../../../services/admin/SiteServices";
 import Slider from "../../../../partials/slider/AppSlider";
 import ServiceForYou from "../../../../patients/service-for-you/ServiceForYou";
 import FullService from "../../../../patients/full-service-section/FullService";
@@ -16,6 +26,17 @@ import ForDoctorAndClinic from "../../../../patients/for-doctor-and-clinic/ForDo
 
 function MainPage() {
   const [doctors, setDoctors] = useState([]);
+  const dispatch = useDispatch();
+  const fullService = useSelector(selectMedicalServices);
+  const specialties = useSelector(selectSpecialties);
+  const specificMedicalServices = useSelector(selectSpecificMedicalServices);
+  const guides = useSelector(selectGuides);
+  const livingHealthyBlogPosts = useSelector(selectLivingHealthyBlogPosts);
+  const forDoctorAndHealthFacilityBlogPosts = useSelector(
+    selectForDoctorAndHealthFacilityBlogPosts
+  );
+  const isLoading = useSelector((state) => state.admin.isLoading);
+  const isError = useSelector((state) => state.admin.isError);
 
   useEffect(() => {
     setDoctors([
@@ -174,6 +195,15 @@ function MainPage() {
     ]);
   }, []);
 
+  useEffect(() => {
+    dispatch(getAllDataBySlug("medical-services"));
+    dispatch(getAllDataBySlug("specialties"));
+    dispatch(getAllDataBySlug("specific-medical-services"));
+    dispatch(getAllDataBySlug("guides"));
+    dispatch(getAllDataBySlug("living-healthy-blog-post"));
+    dispatch(getAllDataBySlug("for-doctor-and-health-facility-blog-post"));
+  }, []);
+
   return (
     <>
       <section className="slider-section">
@@ -183,10 +213,10 @@ function MainPage() {
         <ServiceForYou />
       </section>
       <section className="full-service-section">
-        <FullService />
+        <FullService data={fullService} />
       </section>
       <section className="specialty-section">
-        <Specialty />
+        <Specialty data={specialties} />
       </section>
       <section className="clinic-section">
         <Clinic />
@@ -195,28 +225,28 @@ function MainPage() {
         <FamousDoctor data={doctors} />
       </section>
       <section className="online-diagnostic-section">
-        <OnlineDiagnostic />
+        <OnlineDiagnostic data={specificMedicalServices} />
       </section>
       <section className="bookingcare-recommendation-section">
         <BookingCareRecommendation />
       </section>
       <section className="mental-health-section">
-        <MentalHealth />
+        <MentalHealth data={specificMedicalServices} />
       </section>
       <section className="question-and-answer-section">
         <QuestionAndAnswer />
       </section>
       <section className="guide-section">
-        <Guide />
+        <Guide data={guides} />
       </section>
       <section className="living-healthy">
-        <LivingHealthy />
+        <LivingHealthy data={livingHealthyBlogPosts} />
       </section>
       <section className="media-about-bookingcare-section">
         <MediaAboutBookingCare />
       </section>
       <section className="for-doctor-and-clinic">
-        <ForDoctorAndClinic />
+        <ForDoctorAndClinic data={forDoctorAndHealthFacilityBlogPosts} />
       </section>
     </>
   );
