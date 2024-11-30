@@ -1,8 +1,8 @@
 "use strict";
-import { Model } from "sequelize";
+import { INTEGER, Model, STRING } from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Clinics extends Model {
+  class Users extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,32 +11,40 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      Clinics.hasMany(models.Doctors, {
-        foreignKey: "clinicId",
+      Users.hasMany(models.Doctors, {
+        foreignKey: "userId",
         as: "doctors",
+      });
+
+      Users.belongsTo(models.Roles, {
+        foreignKey: "roleId",
+        as: "role",
       });
     }
   }
 
-  Clinics.init(
+  Users.init(
     {
       id: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.STRING,
       },
-      fullname: DataTypes.STRING,
-      name: DataTypes.STRING,
-      address: DataTypes.TEXT,
-      clinicDetailInfo: DataTypes.TEXT("long"),
+      fullName: DataTypes.STRING,
+      birthDate: DataTypes.DATEONLY,
+      gender: DataTypes.CHAR,
+      phoneNumber: DataTypes.STRING,
+      email: DataTypes.STRING,
+      address: DataTypes.STRING,
       image: DataTypes.STRING,
+      roleId: DataTypes.STRING,
       slug: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: "Clinics",
-      tableName: "Clinics",
+      modelName: "Users",
+      tableName: "Users",
     }
   );
-  return Clinics;
+  return Users;
 };

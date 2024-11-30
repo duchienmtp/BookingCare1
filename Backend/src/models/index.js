@@ -18,29 +18,38 @@ const sequelize = config.use_env_variable
   ? new Sequelize(process.env[config.use_env_variable], config)
   : new Sequelize(config.database, config.username, config.password, config);
 
-fs.readdirSync(__dirname)
+const modelFiles = fs
+  .readdirSync(__dirname)
   .filter(
     (file) =>
       file.indexOf(".") !== 0 &&
       file !== basename &&
       file.slice(-3) === ".js" &&
       !file.includes(".test.js")
-  )
-  .forEach((file) => {
-    const modelPath = pathToFileURL(path.join(__dirname, file)).href;
-    import(modelPath).then((module) => {
-      const model = module.default(sequelize, Sequelize.DataTypes);
-      db[model.name] = model;
-    });
-  });
+  );
 
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+const modelImports = modelFiles.map((file) => {
+  const modelPath = pathToFileURL(path.join(__dirname, file)).href;
+  return import(modelPath).then((module) => {
+    const model = module.default(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+  });
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+Promise.all(modelImports)
+  .then(() => {
+    Object.keys(db).forEach((modelName) => {
+      if (db[modelName].associate) {
+        db[modelName].associate(db);
+      }
+    });
 
+    db.sequelize = sequelize;
+    db.Sequelize = Sequelize;
+  })
+  .catch((error) => {
+    console.error("Error loading models:", error);
+  });
+
+// Export the db object
 export default db;

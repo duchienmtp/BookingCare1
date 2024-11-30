@@ -11,34 +11,50 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
+      Doctors.belongsTo(models.Users, {
+        foreignKey: "userId",
+        as: "user",
+      });
+
       Doctors.belongsTo(models.Specialties, {
         foreignKey: "specialtyId",
-        as: "specialtyId",
+        as: "specialty",
       });
 
       Doctors.belongsTo(models.Clinics, {
         foreignKey: "clinicId",
-        as: "clinicId",
+        as: "clinic",
+      });
+
+      Doctors.belongsTo(models.PackageType, {
+        foreignKey: "packageTypeId",
+        as: "packageType",
+      });
+
+      Doctors.hasMany(models.DoctorSchedules, {
+        foreignKey: "doctorId",
+        as: "doctorSchedules",
       });
     }
   }
 
   Doctors.init(
     {
-      id: {
+      doctorId: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.STRING,
       },
-      fullName: DataTypes.STRING,
-      birthDate: DataTypes.DATE,
-      gender: DataTypes.BOOLEAN,
-      slug: DataTypes.STRING,
-      image: DataTypes.STRING,
+      userId: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      packageName: DataTypes.TEXT,
       specialtyId: DataTypes.STRING,
       clinicId: DataTypes.STRING,
+      packageTypeId: DataTypes.INTEGER,
       doctorDetailInfo: DataTypes.TEXT("long"),
-      type: DataTypes.STRING,
+      shortDoctorInfo: DataTypes.TEXT("long"),
     },
     {
       sequelize,

@@ -2,7 +2,7 @@
 import { Model } from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class ClinicBranches extends Model {
+  class Roles extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,24 +11,27 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      // ClinicBranches.belongsTo(models.Clinics, {
-      //   foreignKey: "clinicId",
-      //   as: "clinicId",
-      // });
+      Roles.hasMany(models.Users, {
+        foreignKey: "roleId",
+        as: "users",
+      });
     }
   }
 
-  ClinicBranches.init(
+  Roles.init(
     {
-      clinicId: DataTypes.STRING,
-      clinicName: DataTypes.STRING,
-      clinicAddress: DataTypes.STRING,
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.STRING,
+      },
+      name: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: "Clinic_Branches",
-      tableName: "Clinic_Branches",
+      modelName: "Roles",
+      tableName: "Roles",
     }
   );
-  return ClinicBranches;
+  return Roles;
 };

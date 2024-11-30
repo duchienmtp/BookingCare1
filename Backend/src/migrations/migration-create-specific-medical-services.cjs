@@ -12,7 +12,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      medicalServiceId: {
+      image: {
         type: Sequelize.STRING,
       },
       specialtyId: {
@@ -20,6 +20,9 @@ module.exports = {
       },
       slug: {
         type: Sequelize.STRING,
+      },
+      description: {
+        type: Sequelize.TEXT("long"),
       },
       createdAt: {
         allowNull: false,

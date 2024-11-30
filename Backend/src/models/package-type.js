@@ -1,8 +1,8 @@
 "use strict";
-import { Model } from "sequelize";
+import { INTEGER, Model, STRING } from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Clinics extends Model {
+  class PackageType extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,32 +11,28 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      Clinics.hasMany(models.Doctors, {
-        foreignKey: "clinicId",
+      PackageType.hasMany(models.Doctors, {
+        foreignKey: "packageTypeId",
         as: "doctors",
       });
     }
   }
 
-  Clinics.init(
+  PackageType.init(
     {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.STRING,
+        type: INTEGER,
       },
-      fullname: DataTypes.STRING,
-      name: DataTypes.STRING,
-      address: DataTypes.TEXT,
-      clinicDetailInfo: DataTypes.TEXT("long"),
-      image: DataTypes.STRING,
-      slug: DataTypes.STRING,
+      name: STRING,
     },
     {
       sequelize,
-      modelName: "Clinics",
-      tableName: "Clinics",
+      modelName: "PackageType",
+      tableName: "Package_Type",
     }
   );
-  return Clinics;
+  return PackageType;
 };

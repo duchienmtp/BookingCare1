@@ -11,11 +11,11 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      PageCategories.hasMany(models.PageCategories);
-      PageCategories.belongsTo(models.PageCategories, {
-        foreignKey: "ownerId",
-        as: "ownerId",
-      });
+      // PageCategories.hasMany(models.PageCategories);
+      // PageCategories.belongsTo(models.PageCategories, {
+      //   foreignKey: "ownerId",
+      //   as: "ownerId",
+      // });
     }
   }
 

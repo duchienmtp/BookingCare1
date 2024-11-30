@@ -3,33 +3,32 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Doctors", {
-      doctorId: {
+    await queryInterface.createTable("Blog_Posts", {
+      id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING,
       },
-      userId: {
+      name: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      packageName: {
-        type: Sequelize.TEXT,
+      reviewerId: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      image: {
+        type: Sequelize.STRING,
       },
       specialtyId: {
         type: Sequelize.STRING,
       },
-      clinicId: {
+      uploadedTo: {
         type: Sequelize.STRING,
       },
-      shortDoctorInfo: {
-        type: Sequelize.TEXT("long"),
-      },
-      doctorDetailInfo: {
-        type: Sequelize.TEXT("long"),
-      },
-      packageTypeId: {
-        type: Sequelize.INTEGER,
+      slug: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -43,6 +42,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Doctors");
+    await queryInterface.dropTable("Blog_Posts");
   },
 };

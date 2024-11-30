@@ -2,7 +2,7 @@
 import { INTEGER, Model, STRING } from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Patients extends Model {
+  class Accounts extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,9 +13,9 @@ export default (sequelize, DataTypes) => {
     }
   }
 
-  Patients.init(
+  Accounts.init(
     {
-      patientId: {
+      accountId: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.STRING,
@@ -24,12 +24,14 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      username: DataTypes.STRING,
+      password: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: "Patients",
-      tableName: "Patients",
+      modelName: "Accounts",
+      tableName: "Accounts",
     }
   );
-  return Patients;
+  return Accounts;
 };

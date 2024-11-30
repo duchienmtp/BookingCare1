@@ -11,7 +11,10 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      MedicalServices.hasMany(models.SpecificMedicalServices);
+      MedicalServices.hasMany(models.SpecificMedicalService_MedicalServiceId, {
+        foreignKey: "medicalServiceId",
+        as: "SpecificMedicalService_MedicalServiceId",
+      });
     }
   }
 

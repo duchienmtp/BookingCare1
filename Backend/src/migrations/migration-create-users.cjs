@@ -3,33 +3,38 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Doctors", {
-      doctorId: {
+    await queryInterface.createTable("Users", {
+      id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING,
       },
-      userId: {
-        allowNull: false,
+      fullName: {
         type: Sequelize.STRING,
       },
-      packageName: {
-        type: Sequelize.TEXT,
+      birthDate: {
+        type: Sequelize.DATEONLY,
       },
-      specialtyId: {
+      gender: {
+        type: Sequelize.CHAR,
+      },
+      phoneNumber: {
         type: Sequelize.STRING,
       },
-      clinicId: {
+      email: {
         type: Sequelize.STRING,
       },
-      shortDoctorInfo: {
-        type: Sequelize.TEXT("long"),
+      address: {
+        type: Sequelize.STRING,
       },
-      doctorDetailInfo: {
-        type: Sequelize.TEXT("long"),
+      image: {
+        type: Sequelize.STRING,
       },
-      packageTypeId: {
-        type: Sequelize.INTEGER,
+      roleId: {
+        type: Sequelize.STRING,
+      },
+      slug: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -43,6 +48,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Doctors");
+    await queryInterface.dropTable("Users");
   },
 };

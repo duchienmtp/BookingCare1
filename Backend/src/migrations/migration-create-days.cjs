@@ -3,19 +3,13 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Schedules", {
+    await queryInterface.createTable("Days", {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING,
       },
-      time: {
-        type: Sequelize.STRING,
-      },
-      dayId: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
+      name: Sequelize.STRING,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -28,6 +22,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Schedules");
+    await queryInterface.dropTable("Days");
   },
 };

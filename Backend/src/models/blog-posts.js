@@ -2,7 +2,7 @@
 import { Model } from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Clinics extends Model {
+  class BlogPosts extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,32 +11,37 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      Clinics.hasMany(models.Doctors, {
-        foreignKey: "clinicId",
-        as: "doctors",
+      BlogPosts.belongsTo(models.Specialties, {
+        foreignKey: "specialtyId",
+        as: "specialty",
+      });
+
+      BlogPosts.belongsTo(models.BlogPost_UploadedTo, {
+        foreignKey: "uploadedTo",
+        as: "blogPostsUploadedTo",
       });
     }
   }
 
-  Clinics.init(
+  BlogPosts.init(
     {
       id: {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.STRING,
       },
-      fullname: DataTypes.STRING,
       name: DataTypes.STRING,
-      address: DataTypes.TEXT,
-      clinicDetailInfo: DataTypes.TEXT("long"),
+      reviewerId: DataTypes.STRING,
       image: DataTypes.STRING,
+      specialtyId: DataTypes.STRING,
+      uploadedTo: DataTypes.STRING,
       slug: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: "Clinics",
-      tableName: "Clinics",
+      modelName: "BlogPosts",
+      tableName: "Blog_Posts",
     }
   );
-  return Clinics;
+  return BlogPosts;
 };

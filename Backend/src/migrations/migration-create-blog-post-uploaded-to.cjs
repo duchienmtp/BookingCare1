@@ -3,17 +3,14 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Schedules", {
+    await queryInterface.createTable("BlogPost_UploadedTo", {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING,
+        autoIncrement: true,
+        type: Sequelize.INTEGER,
       },
-      time: {
-        type: Sequelize.STRING,
-      },
-      dayId: {
-        allowNull: false,
+      name: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -28,6 +25,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Schedules");
+    await queryInterface.dropTable("Blog_Post_Uploaded_To");
   },
 };
