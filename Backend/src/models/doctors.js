@@ -35,6 +35,11 @@ export default (sequelize, DataTypes) => {
         foreignKey: "doctorId",
         as: "doctorSchedules",
       });
+
+      Doctors.hasMany(models.DoctorBookingPackages, {
+        foreignKey: "doctorId",
+        as: "doctorBookingPackages",
+      });
     }
   }
 
@@ -55,6 +60,10 @@ export default (sequelize, DataTypes) => {
       packageTypeId: DataTypes.INTEGER,
       doctorDetailInfo: DataTypes.TEXT("long"),
       shortDoctorInfo: DataTypes.TEXT("long"),
+      isDeleted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
     },
     {
       sequelize,

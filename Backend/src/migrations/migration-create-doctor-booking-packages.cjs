@@ -3,24 +3,19 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Doctor_Schedules", {
-      doctorScheduleId: {
+    await queryInterface.createTable("Doctor_Booking_Packages", {
+      doctorId: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING,
       },
-      doctorId: {
+      bookingPackageId: {
         allowNull: false,
+        primaryKey: true,
         type: Sequelize.STRING,
       },
-      scheduleId: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      scheduleDate: {
-        allowNull: false,
-        type: Sequelize.DATEONLY,
-      },
+      price: Sequelize.STRING,
+      description: Sequelize.TEXT("long"),
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -33,6 +28,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Doctor_Schedules");
+    await queryInterface.dropTable("Doctor_Booking_Packages");
   },
 };

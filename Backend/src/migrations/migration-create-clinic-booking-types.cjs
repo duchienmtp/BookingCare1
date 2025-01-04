@@ -3,18 +3,20 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Clinic_Branches", {
-      clinicId: {
+    await queryInterface.createTable("Clinic_Booking_Types", {
+      id: {
         allowNull: false,
         primaryKey: true,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+      },
+      name: {
         type: Sequelize.STRING,
       },
-      clinicName: {
+      image: {
         type: Sequelize.STRING,
       },
-      clinicAddress: {
-        allowNull: false,
-        primaryKey: true,
+      slug: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -29,6 +31,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Clinic_Branches");
+    await queryInterface.dropTable("Clinic_Booking_Types");
   },
 };

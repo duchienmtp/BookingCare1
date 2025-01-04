@@ -61,6 +61,26 @@ const getAllClinics = () => {
   });
 };
 
+const getClinicBySlug = (clinicSlug) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let clinic = await db.Clinics.findOne({
+        where: {
+          slug: clinicSlug,
+        },
+      });
+
+      resolve({
+        errCode: 0,
+        message: "OK",
+        data: clinic,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const getAllSpecificMedicalServices = () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -836,13 +856,29 @@ const getDoctorBySlug = (doctorSlug) => {
       reject(error);
     }
   });
-}
+};
 
- export default {
+const getAllClinicBookingTypes = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let clinicBookingTypes = await db.ClinicBookingTypes.findAll();
+      resolve({
+        errCode: 0,
+        message: "OK",
+        data: clinicBookingTypes,
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export default {
   getAllCategories,
   getAllMedicalServices,
   getAllSpecialties,
   getAllClinics,
+  getClinicBySlug,
   getAllSpecificMedicalServices,
   getAllBlogs,
   // getAllGuides,
@@ -861,4 +897,5 @@ const getDoctorBySlug = (doctorSlug) => {
   getDoctorScheduleDatesInWeek,
   getDoctorSchedules,
   getDoctorBySlug,
+  getAllClinicBookingTypes,
 };

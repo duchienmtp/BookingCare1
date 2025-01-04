@@ -36,6 +36,16 @@ const getAllClinics = async (req, res) => {
   }
 };
 
+const getClinicBySlug = async (req, res) => {
+  try {
+    const clinicSlug = req.params.slug;
+    const clinic = await SiteServices.getClinicBySlug(clinicSlug);
+    return res.status(200).json(clinic);
+  } catch (error) {
+    console.error("Error in AdminController.getClinicBySlug: ", error);
+  }
+};
+
 const getAllSpecificMedicalServices = async (req, res) => {
   try {
     let specificMedicalServices =
@@ -274,11 +284,21 @@ const getDoctorBySlug = async (req, res) => {
   }
 };
 
+const getAllClinicBookingTypes = async (req, res) => {
+  try {
+    let clinicBookingTypes = await SiteServices.getAllClinicBookingTypes();
+    return res.status(200).json(clinicBookingTypes);
+  } catch (error) {
+    console.error("Error in AdminController.getAllClinicBookingTypes: ", error);
+  }
+}
+
 export default {
   getAllCategories,
   getAllMedicalServices,
   getAllSpecialties,
   getAllClinics,
+  getClinicBySlug,
   getAllSpecificMedicalServices,
   getAllBlogs,
   getAllGuides,
@@ -294,4 +314,5 @@ export default {
   getDoctorScheduleDatesInWeek,
   getDoctorSchedules,
   getDoctorBySlug,
+  getAllClinicBookingTypes,
 };

@@ -2,7 +2,7 @@
 import { Model } from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class ClinicBranches extends Model {
+  class ClinicBookingTypes extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -18,17 +18,22 @@ export default (sequelize, DataTypes) => {
     }
   }
 
-  ClinicBranches.init(
+  ClinicBookingTypes.init(
     {
-      clinicId: DataTypes.STRING,
-      clinicName: DataTypes.STRING,
-      clinicAddress: DataTypes.STRING,
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      name: DataTypes.STRING,
+      image: DataTypes.STRING,
+      slug: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: "Clinic_Branches",
-      tableName: "Clinic_Branches",
+      modelName: "ClinicBookingTypes",
+      tableName: "Clinic_Booking_Types",
     }
   );
-  return ClinicBranches;
+  return ClinicBookingTypes;
 };

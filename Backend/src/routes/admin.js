@@ -48,7 +48,9 @@ router.get(
   "/get-doctor-schedule-dates-in-week/:slug",
   AdminController.getDoctorScheduleDatesInWeek
 );
+router.get("/get-clinic-by-slug/:slug", AdminController.getClinicBySlug);
 router.get("/get-doctor-schedules/:slug", AdminController.getDoctorSchedules);
 router.get("/get-doctor-by-slug/:slug", AdminController.getDoctorBySlug);
+router.get("/get-all-clinic-booking-types", AdminController.getAllClinicBookingTypes);
 
 export default router;

@@ -3,37 +3,30 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Doctors", {
-      doctorId: {
+    await queryInterface.createTable("Doctor_Schedule_Booking_Details", {
+      id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING,
       },
-      userId: {
+      patientRelativesName: Sequelize.STRING,
+      patientRelativesPhoneNumber: Sequelize.STRING,
+      patientId: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      packageName: {
-        type: Sequelize.TEXT,
-      },
-      specialtyId: {
+      doctorScheduleId: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      clinicId: {
+      bookingPackageId: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      shortDoctorInfo: {
-        type: Sequelize.TEXT("long"),
-      },
-      doctorDetailInfo: {
-        type: Sequelize.TEXT("long"),
-      },
-      packageTypeId: {
-        type: Sequelize.INTEGER,
-      },
-      isDeleted: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      bookingReason: Sequelize.TEXT("long"),
+      purchaseMethodId: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -47,6 +40,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Doctors");
+    await queryInterface.dropTable("Doctor_Schedule_Booking_Details");
   },
 };
