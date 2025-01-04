@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectMedicalServices,
   selectSpecialties,
+  selectClinics,
   selectSpecificMedicalServices,
   selectGuides,
   selectLivingHealthyBlogPosts,
@@ -29,6 +30,7 @@ function MainPage() {
   const dispatch = useDispatch();
   const fullService = useSelector(selectMedicalServices);
   const specialties = useSelector(selectSpecialties);
+  const clinics = useSelector(selectClinics);
   const specificMedicalServices = useSelector(selectSpecificMedicalServices);
   const guides = useSelector(selectGuides);
   const livingHealthyBlogPosts = useSelector(selectLivingHealthyBlogPosts);
@@ -198,6 +200,7 @@ function MainPage() {
   useEffect(() => {
     dispatch(getAllDataBySlug("medical-services"));
     dispatch(getAllDataBySlug("specialties"));
+    dispatch(getAllDataBySlug("clinics"));
     dispatch(getAllDataBySlug("specific-medical-services"));
     dispatch(getAllDataBySlug("guides"));
     dispatch(getAllDataBySlug("living-healthy-blog-post"));
@@ -219,7 +222,7 @@ function MainPage() {
         <Specialty data={specialties} />
       </section>
       <section className="clinic-section">
-        <Clinic />
+        <Clinic data={clinics} />
       </section>
       <section className="famous-doctor-section">
         <FamousDoctor data={doctors} />

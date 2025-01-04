@@ -11,11 +11,9 @@ function Doctor(props) {
     schedulesDateProps,
     filteredSchedulesByDateProps,
   } = props;
-  const [currentDateSchedules, setCurrentDateSchedules] = useState([]);
   const [currentDate, setCurrentDate] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null);
-  const schedulesPropsRef = useRef([]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -31,8 +29,6 @@ function Doctor(props) {
       ? schedulesProps[0].scheduleDate.split("-")
       : [];
 
-    console.log("year: ", year, "month: ", month, "date: ", date);
-
     return (
       today.getDate() === Number(date) &&
       today.getMonth() === Number(month) - 1 &&
@@ -45,12 +41,13 @@ function Doctor(props) {
     if (typeof schedulesDateProps == "boolean" && schedulesDateProps === false)
       return;
 
-    console.log("schedulesProps: ", schedulesProps);
     if (schedulesDateProps?.length > 0) {
       const firstDayShowing = schedulesDateProps[0];
       const secondDayShowing = schedulesDateProps[1];
 
       if (firstDayShowing && secondDayShowing) {
+        if (doctorInfoProps.isDeleted) return;
+
         if (
           firstDayShowing.dayShowing.includes("Hôm nay") &&
           checkIsTodaySchedulesAvailable(firstDayShowing)
@@ -60,17 +57,8 @@ function Doctor(props) {
           handleChangeCurrentDate(secondDayShowing);
         }
       }
-
-      console.log("Current Date: ", currentDate);
-    } else {
-      console.log("No schedules date found");
     }
   }, []);
-
-  useEffect(() => {
-    console.log("Check current date after setCurrentDate...", currentDate);
-    console.log("schedulesProps: ", schedulesProps);
-  }, [currentDate]);
 
   const handleChangeCurrentDate = (date) => {
     setCurrentDate(date);
@@ -79,6 +67,8 @@ function Doctor(props) {
   };
 
   console.log("Child rendered...");
+  console.log("Check schedulesDateProps: ", schedulesDateProps);
+  console.log("Check schedulesProps: ", schedulesProps);
 
   return (
     <>
@@ -164,7 +154,7 @@ function Doctor(props) {
             </div>
           </div>
         </div>
-        {currentDate ? (
+        {!doctorInfoProps.isDeleted ? (
           <div className="booking-section">
             <div className="left-content">
               <div className="schedule-this-week-dropdown" onClick={openModal}>
@@ -270,7 +260,9 @@ function Doctor(props) {
             </div>
           </div>
         ) : (
-          <div>Loading...</div>
+          <div className="no-schedule-warning">
+            Hiện tại không có lịch khám bệnh
+          </div>
         )}
       </div>
       <div

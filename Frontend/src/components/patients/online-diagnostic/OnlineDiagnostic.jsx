@@ -11,7 +11,7 @@ import SliderNextArrow from "../../partials/slider-arrow/slider-next-arrow/Slide
 import SliderPrevArrow from "../../partials/slider-arrow/slider-prev-arrow/SliderPrevArrow";
 import SeeMoreButton from "../../partials/main-page-section/see-more-button/SeeMoreButton";
 import SectionHeaderTitle from "../../partials/main-page-section/section-title/SectionHeaderTitle";
-import CameraSVG from "../../../assets/images/camera-icon.svg?react";
+import CameraSVG from "/src/assets/images/camera-icon.svg?react";
 
 function OnlineDiagnostic(props) {
   let { data } = props;

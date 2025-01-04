@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectSpecialties,
+  selectClinics,
   selectSpecificMedicalServices,
   selectGuides,
   selectEndoscopicSurgeryPackages,
@@ -30,7 +31,9 @@ import Operation from "../../../operation/Operation";
 function ServiceAtClinicPage() {
   const [doctors, setDoctors] = useState([]);
   const dispatch = useDispatch();
+
   const specialties = useSelector(selectSpecialties);
+  const clinics = useSelector(selectClinics);
   const specificMedicalServices = useSelector(selectSpecificMedicalServices);
   const guides = useSelector(selectGuides);
   const endoscopicSurgeryPackages = useSelector(
@@ -263,6 +266,7 @@ function ServiceAtClinicPage() {
 
   useEffect(() => {
     dispatch(getAllDataBySlug("specialties"));
+    dispatch(getAllDataBySlug("clinics"));
     dispatch(getAllDataBySlug("specific-medical-services"));
     dispatch(getAllDataBySlug("guides"));
     dispatch(getAllDataBySlug("endoscopic-surgery-packages"));
@@ -284,7 +288,7 @@ function ServiceAtClinicPage() {
         <ServiceForYou />
       </section>
       <section className="clinic-section">
-        <Clinic />
+        <Clinic data={clinics} />
       </section>
       <section className="specialty-section">
         <Specialty data={specialties} />

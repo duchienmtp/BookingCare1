@@ -17,7 +17,9 @@ function App() {
     }
   }, [isAdminPage]);
 
-  return <>{!isAdminPage ? <HomePage /> : <AdminHomePage cloudInstance={cld} />}</>;
+  return (
+    <>{!isAdminPage ? <HomePage /> : <AdminHomePage cloudInstance={cld} />}</>
+  );
 }
 
 export default App;

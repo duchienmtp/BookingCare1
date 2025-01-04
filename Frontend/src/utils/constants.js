@@ -12,6 +12,9 @@ export const path = {
   HEALTH_FACILITY: {
     BASE: "/co-so-y-te/:slug",
   },
+  SEE_MORE_PAGE: {
+    ALL_CLINICS: "/danh-sach/co-so-y-te/tat-ca",
+  },
 };
 
 export const adminPath = {

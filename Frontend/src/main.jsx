@@ -10,11 +10,11 @@ import MainPage from "./components/patients/pages/services/main-page/MainPage.js
 import ServiceAtHomePage from "./components/patients/pages/services/at-home/ServiceAtHomePage.jsx";
 import ServiceAtClinicPage from "./components/patients/pages/services/at-clinic/ServiceAtClinicPage.jsx";
 import ServiceLivingHealthyPage from "./components/patients/pages/services/living-healthy/ServiceLivingHealthyPage.jsx";
-import SeeMorePage from "./components/patients/pages/see-more-page/list-base/SeeMorePage.jsx";
 import MedicalServiceRouter from "./components/routes/medical-service-router/MedicalServiceRouter.jsx";
 import DashboardPage from "./components/admin/pages/dashboard-page/DashboardPage.jsx";
 import MainContent from "./components/admin/pages/main-content/MainContent.jsx";
 import HealthFacilityRoute from "./components/routes/health-facility-route/HealthFacilityRoute.jsx";
+import SeeMorePageRouter from "./components/routes/see-more-page-router/SeeMorePageRouter.jsx";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/danh-sach/:mainSlug/:subSlug?",
-        element: <SeeMorePage />,
+        element: <SeeMorePageRouter />,
       },
       {
         path: "/",

@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./SeeMorePage.scss";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { path } from "../../../../../utils/constants.js";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllDataBySlug } from "../../../../../services/admin/SiteServices";
 import { selectSpecialties } from "../../../../../redux/slices/adminSlice";
 
-function SeeMorePage() {
+function SeeMorePage(props) {
+  const { mainSlug } = props;
   const dispatch = useDispatch();
-  const { mainSlug, subSlug } = useParams();
   const slugTranslation = {
     "chuyen-khoa": "specialties",
-    "co-so-y-te": "clinics",
   };
 
   const data = useSelector(selectSpecialties);
 
   useEffect(() => {
+    console.log("mainSlug", mainSlug);
     dispatch(getAllDataBySlug(slugTranslation[mainSlug]));
   }, []);
 

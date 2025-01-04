@@ -305,6 +305,16 @@
       }
     }
   }
+
+  .no-schedule-warning {
+    margin: 20px 0;
+    text-align: center;
+    background-color: gray;
+    color: white;
+    text-transform: uppercase;
+    font-size: large;
+    padding: 20px;
+  }
 }
 
 .schedule-modal-overlay {

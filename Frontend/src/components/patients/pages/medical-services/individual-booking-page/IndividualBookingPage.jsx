@@ -21,6 +21,12 @@ function IndividualBookingPage() {
   const [isAPICalledSuccessfully, setIsAPICalledSuccessfully] = useState(false);
   const [schedulesLoaded, setSchedulesLoaded] = useState(false);
   const [schedulesDateLoaded, setSchedulesDateLoaded] = useState(false);
+  const [isTodayScheduleRefreshed, setIsTodayScheduleRefreshed] =
+    useState(false);
+  const [
+    isStartToSetupTodaySchedulesAndScheduleDates,
+    setIsStartToSetupTodaySchedulesAndScheduleDates,
+  ] = useState(false);
   const schedulesRef = useRef(schedules);
   const params = useParams();
 
@@ -67,6 +73,7 @@ function IndividualBookingPage() {
           )
             ? doctorInfoResponse.data.shortDoctorInfo.split('"/"')
             : doctorInfoResponse.data.shortDoctorInfo,
+          isDeleted: doctorInfoResponse.data.isDeleted,
         };
         setDoctorInfo(doctorInfo);
 
@@ -86,7 +93,7 @@ function IndividualBookingPage() {
   }, [params.slug]);
 
   const formattingScheduleDates = useCallback(() => {
-    if (!isAPICalledSuccessfully && schedulesDate.length === 0) return;
+    if (!isAPICalledSuccessfully && schedulesDate.length === 0) return false;
 
     const daysOfWeek = {
       MON: "Thứ Hai",
@@ -146,23 +153,30 @@ function IndividualBookingPage() {
         },
       ]);
     }
+
+    return true;
   }, [isAPICalledSuccessfully, schedulesDate]);
 
   const filteredSchedulesByDate = useCallback(
     (date) => {
-      if (!isAPICalledSuccessfully && schedules.length === 0) return;
+      if (!isAPICalledSuccessfully && schedules.length === 0) return false;
+
+      console.log("date: ", date);
 
       const filteredSchedules = schedules
         .filter((schedule) => {
+          const [year, month, day] = schedule.scheduleDate
+            .split("-")
+            .map(Number);
           return (
-            schedule.scheduleDate.split("-")[0] ===
-              date.getFullYear().toString() &&
-            schedule.scheduleDate.split("-")[1] ===
-              (date.getMonth() + 1).toString() &&
-            schedule.scheduleDate.split("-")[2] === date.getDate().toString()
+            year === date.getFullYear() &&
+            month === date.getMonth() + 1 &&
+            day === date.getDate()
           );
         })
         .sort((a, b) => a.scheduleId.localeCompare(b.scheduleId));
+
+      console.log("filteredSchedules: ", filteredSchedules);
 
       if (filteredSchedules.length > 0) {
         setFilteredSchedules(filteredSchedules);
@@ -174,25 +188,20 @@ function IndividualBookingPage() {
           },
         ]);
       }
+
+      return true;
     },
     [isAPICalledSuccessfully, schedules]
   );
 
   useEffect(() => {
-    formattingScheduleDates();
-    filteredSchedulesByDate(new Date());
-  }, [
-    schedulesDate,
-    schedules,
-    filteredSchedulesByDate,
-    formattingScheduleDates,
-  ]);
+    const flag1 = formattingScheduleDates();
+    const flag2 = filteredSchedulesByDate(new Date());
 
-  useEffect(() => {
-    if (schedulesLoaded && schedulesDateLoaded) {
+    if (flag1 && flag2) {
       setLoading(false);
     }
-  }, [schedulesLoaded, schedulesDateLoaded]);
+  }, [isStartToSetupTodaySchedulesAndScheduleDates]);
 
   const refreshAvailableSchedules = useCallback(() => {
     console.log("Refreshing available schedules after 3 hours...");
@@ -201,7 +210,7 @@ function IndividualBookingPage() {
     if (_.isEmpty(schedules)) return;
 
     const now = new Date();
-    const threeHoursLater = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+    const threeHoursLater = new Date(now.getTime() + 1 * 60 * 60 * 1000);
 
     const filteredSchedules = schedules.filter((schedule) => {
       const [year, month, day] = schedule.scheduleDate.split("-").map(Number);
@@ -232,11 +241,16 @@ function IndividualBookingPage() {
     if (filteredSchedules) {
       setSchedules(filteredSchedules);
     }
+
+    return true;
   }, [!_.isEqual(schedulesRef.current, schedules)]);
 
   useEffect(() => {
     console.log("Initial filter on mount...");
-    refreshAvailableSchedules(); // Initial filter on mount
+    const flag = refreshAvailableSchedules(); // Initial filter on mount
+    if (flag) {
+      setIsTodayScheduleRefreshed(true);
+    }
 
     const interval = setInterval(() => {
       refreshAvailableSchedules(); // Periodic filter every 3 hours
@@ -244,6 +258,12 @@ function IndividualBookingPage() {
 
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, [refreshAvailableSchedules]);
+
+  useEffect(() => {
+    if (isAPICalledSuccessfully === true && isTodayScheduleRefreshed === true) {
+      setIsStartToSetupTodaySchedulesAndScheduleDates(true);
+    }
+  }, [isAPICalledSuccessfully, isTodayScheduleRefreshed]);
 
   useEffect(() => {
     console.log("Schedules After 3 hours: ", schedules);
@@ -262,11 +282,12 @@ function IndividualBookingPage() {
   };
 
   console.log("Parent render...");
-  console.log("Doctor Info: ", doctorInfo);
 
   return (
     <>
-      {!loading || (!hasSchedule() && !hasScheduleDates()) ? (
+      {!loading ||
+      (!hasSchedule() && !hasScheduleDates()) ||
+      doctorInfo.isDeleted ? (
         <div className="upper-content">
           <div className="app-container">
             <Doctor

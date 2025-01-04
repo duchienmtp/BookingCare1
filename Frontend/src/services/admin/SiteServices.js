@@ -17,6 +17,10 @@ const getAllClinics = async () => {
   return axios.get("/api/v1/admin/get-all-clinics");
 };
 
+export const getClinicBySlug = async (clinicSlug) => {
+  return axios.get(`/api/v1/admin/get-clinic-by-slug/${clinicSlug}`);
+};
+
 const getAllSpecificMedicalServices = async () => {
   return axios.get(`/api/v1/admin/get-all-specific-medical-services`);
 };
@@ -133,4 +137,8 @@ export const getDoctorScheduleDatesByDoctorSlug = async (doctorSlug) => {
 
 export const getDoctorSchedulesByDoctorSlug = async (doctorId) => {
   return axios.get(`/api/v1/admin/get-doctor-schedules/${doctorId}`);
+};
+
+export const getAllClinicBookingTypes = async () => {
+  return axios.get(`/api/v1/admin/get-all-clinic-booking-types`);
 };
