@@ -1,24 +1,59 @@
 import React, { useState, useEffect } from "react";
 import "./SeeMorePage.scss";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { path } from "../../../../../utils/constants.js";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllDataBySlug } from "../../../../../services/admin/SiteServices";
+import {
+  getAllDataBySlug,
+  getAllSpecificMedicalServicesBySlug,
+} from "../../../../../services/admin/SiteServices";
 import { selectSpecialties } from "../../../../../redux/slices/adminSlice";
+import _ from "lodash";
 
 function SeeMorePage(props) {
-  const { mainSlug } = props;
+  const { mainSlug, subSlug } = useParams();
   const dispatch = useDispatch();
-  const slugTranslation = {
-    "chuyen-khoa": "specialties",
-  };
-
-  const data = useSelector(selectSpecialties);
+  const [isAPICalledSuccessfully, setIsAPICalledSuccessfully] = useState(false);
+  const [data, setData] = useState([]);
+  const specialties = useSelector(selectSpecialties);
 
   useEffect(() => {
-    console.log("mainSlug", mainSlug);
-    dispatch(getAllDataBySlug(slugTranslation[mainSlug]));
-  }, []);
+    const fetchData = async () => {
+      if (mainSlug === "chuyen-khoa") {
+        switch (subSlug) {
+          case "tat-ca":
+            dispatch(getAllDataBySlug("specialties"));
+            setIsAPICalledSuccessfully(true);
+            break;
+          case "kham-tu-xa":
+            {
+              const response = await getAllSpecificMedicalServicesBySlug(subSlug);
+              setData(response.data);
+              setIsAPICalledSuccessfully(true);
+            }
+            break;
+          default:
+            setIsAPICalledSuccessfully(false);
+            break;
+        }
+      }
+    };
+
+    fetchData();
+  }, [mainSlug, subSlug]);
+
+  useEffect(() => {
+    console.log("render", data, specialties, isAPICalledSuccessfully);
+    if (
+      isAPICalledSuccessfully &&
+      mainSlug === "chuyen-khoa" &&
+      subSlug === "tat-ca"
+    ) {
+      setData(specialties);
+    }
+  }, [isAPICalledSuccessfully, specialties, mainSlug, subSlug]);
+
+  console.log("re-render");
 
   return (
     <div className="app-container">
@@ -36,7 +71,6 @@ function SeeMorePage(props) {
               <path d="M8 20H3V10H0L10 0l10 10h-3v10h-5v-6H8z" />
             </svg>
           </div>
-
           <span> /</span>
         </Link>
         <span className="slug-name">Khám Chuyên khoa</span>

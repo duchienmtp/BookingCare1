@@ -4,6 +4,13 @@ import { Cloudinary } from "@cloudinary/url-gen";
 import { useMatch } from "react-router-dom";
 import HomePage from "./components/patients/pages/home-page/HomePage";
 import AdminHomePage from "./components/admin/pages/home-page/AdminHomePage";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import Chatbox from "./components/partials/chatbox/Chatbox";
+
+library.add(fas, far);
 
 function App() {
   const cld = new Cloudinary({
@@ -18,7 +25,11 @@ function App() {
   }, [isAdminPage]);
 
   return (
-    <>{!isAdminPage ? <HomePage /> : <AdminHomePage cloudInstance={cld} />}</>
+    <div>
+      {!isAdminPage ? <HomePage /> : <AdminHomePage cloudInstance={cld} />}
+
+      <Chatbox />
+    </div>
   );
 }
 

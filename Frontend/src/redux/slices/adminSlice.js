@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getAllDataBySlug } from "../../services/admin/SiteServices";
+import { getHealthCheckPackageBookingDetail } from "../../services/admin/SiteServices";
 
 const initialState = {
   medicalServices: [],
@@ -16,6 +17,10 @@ const initialState = {
   medicalExaminationPackages: [],
   diagnosticPackages: [],
   packages: [],
+  // doctorBookingPackages: [],
+  orders: [],
+  patients: [],
+  doctors: [],
   isLoading: false,
   isError: false,
 };
@@ -101,6 +106,21 @@ export const adminSlice = createSlice({
             state.isLoading = false;
             state.isError = false;
             break;
+          case "orders":
+            state.orders = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "patients":
+            state.patients = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
+          case "doctors":
+            state.doctors = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+            break;
           default:
             break;
         }
@@ -109,6 +129,22 @@ export const adminSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
       });
+    // .addCase(getHealthCheckPackageBookingDetail.pending, (state) => {
+    //   state.isLoading = true;
+    //   state.isError = false;
+    // })
+    // .addCase(
+    //   getHealthCheckPackageBookingDetail.fulfilled,
+    //   (state, action) => {
+    //     state.doctorBookingPackages = action.payload;
+    //     state.isLoading = false;
+    //     state.isError = false;
+    //   }
+    // )
+    // .addCase(getHealthCheckPackageBookingDetail.rejected, (state) => {
+    //   state.isLoading = false;
+    //   state.isError = true;
+    // });
   },
 });
 
@@ -133,5 +169,8 @@ export const selectMedicalExaminationPackages = (state) =>
 export const selectDiagnosticPackages = (state) =>
   state.admin.diagnosticPackages;
 export const selectPackages = (state) => state.admin.packages;
+export const selectOrders = (state) => state.admin.orders;
+export const selectPatients = (state) => state.admin.patients;
+export const selectDoctors = (state) => state.admin.doctors;
 
 export default adminSlice.reducer;

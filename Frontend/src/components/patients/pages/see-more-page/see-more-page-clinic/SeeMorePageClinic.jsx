@@ -1,16 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./SeeMorePageClinic.scss";
 import _ from "lodash";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import { path } from "../../../../../utils/constants.js";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllDataBySlug } from "../../../../../services/admin/SiteServices.js";
 import { selectClinics } from "../../../../../redux/slices/adminSlice.js";
-
-library.add(fas);
 
 function SeeMorePageClinic() {
   const dispatch = useDispatch();

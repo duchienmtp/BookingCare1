@@ -6,9 +6,8 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      Schedules.hasMany(models.DoctorSchedules, {
+      Schedules.hasMany(models.HealthCheckPackage_Schedules, {
         foreignKey: "scheduleId",
-        as: "doctorSchedules",
       });
 
       Schedules.belongsTo(models.Days, {
@@ -30,6 +29,7 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

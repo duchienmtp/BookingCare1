@@ -1,5 +1,3 @@
-import { name } from "@cloudinary/url-gen/actions/namedTransformation";
-
 const formatDateFromDBTypeToStandardType = (dateString) => {
   const options = {
     year: "numeric",
@@ -19,6 +17,7 @@ const adminPageFormatData = (data) => {
     return {
       id: item.id,
       name: item.name,
+      status: "active",
       createdAt: formatDateFromDBTypeToStandardType(item.createdAt),
       updatedAt: formatDateFromDBTypeToStandardType(item.updatedAt),
     };
@@ -32,7 +31,7 @@ const adminPageFormatSpecificMedicalServicesData = (data) => {
     return {
       id: item.id,
       name: item.name,
-      specialty: item.specialty.name,
+      status: "active",
       createdAt: formatDateFromDBTypeToStandardType(item.createdAt),
       updatedAt: formatDateFromDBTypeToStandardType(item.updatedAt),
     };
@@ -59,15 +58,65 @@ const adminPageFormatBlogData = (data) => {
 const adminPageFormatPackageData = (data) => {
   data = data.map((item) => {
     return {
-      id: item.id,
-      name: `${item.user.fullName}${item.packageName || ""}`,
-      specialty: item.specialty?.name,
-      packageType: item.packageType.name,
-      createdAt: formatDateFromDBTypeToStandardType(item.user.createdAt),
-      updatedAt: formatDateFromDBTypeToStandardType(item.user.updatedAt),
+      id: item.packageId,
+      name: item.packageName,
+      packageType: item.packageTypeName,
+      status: item.isDeleted ? "inactive" : "active",
+      createdAt: formatDateFromDBTypeToStandardType(item.createdAt),
+      updatedAt: formatDateFromDBTypeToStandardType(item.updatedAt),
     };
   });
 
+  return data;
+};
+
+const adminPageFormatOrderData = (data) => {
+  data = data.map((item) => {
+    return {
+      id: item.bookingId,
+      patientName: item.patientInfo.fullName,
+      packageName: item.scheduleInfo.medicalHealthCheckPackageName,
+      // clinicName: `${item.clinicInfo.fullname} - ${item.clinicInfo.clinicBranchName}`,
+      clinicName: `Bệnh viện nhân dân Gia Định`,
+      createdAt: formatDateFromDBTypeToStandardType(item.createdAt),
+      updatedAt: formatDateFromDBTypeToStandardType(item.updatedAt),
+      status: item.scheduleInfo.bookingStatus.name,
+    };
+  });
+
+  return data;
+};
+
+const adminPageFormatPatientData = (data) => {
+  data = data.map((item) => {
+    return {
+      id: item.patientId,
+      name: item.user.fullName,
+      gender: item.user.gender,
+      dob: new Date(item.user.birthDate).toLocaleDateString("en-GB"),
+      phoneNumber: item.user.phoneNumber,
+      status: "active",
+      createdAt: formatDateFromDBTypeToStandardType(item.createdAt),
+      updatedAt: formatDateFromDBTypeToStandardType(item.updatedAt),
+    };
+  });
+
+  return data;
+};
+
+const adminPageFormatDoctorData = (data) => {
+  data = data.map((item) => {
+    return {
+      id: item.doctorId,
+      name: item.fullName,
+      gender: item.gender,
+      dob: new Date(item.birthDate).toLocaleDateString("en-GB"),
+      phoneNumber: item.phoneNumber,
+      status: item.status ? "inactive" : "active",
+      createdAt: formatDateFromDBTypeToStandardType(item.createdAt),
+      updatedAt: formatDateFromDBTypeToStandardType(item.updatedAt),
+    };
+  });
   return data;
 };
 
@@ -77,4 +126,7 @@ export default {
   adminPageFormatSpecificMedicalServicesData,
   adminPageFormatBlogData,
   adminPageFormatPackageData,
+  adminPageFormatOrderData,
+  adminPageFormatPatientData,
+  adminPageFormatDoctorData,
 };

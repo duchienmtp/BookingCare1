@@ -11,7 +11,7 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      Users.hasMany(models.Doctors, {
+      Users.hasOne(models.Doctors, {
         foreignKey: "userId",
         as: "doctors",
       });
@@ -19,6 +19,11 @@ export default (sequelize, DataTypes) => {
       Users.belongsTo(models.Roles, {
         foreignKey: "roleId",
         as: "role",
+      });
+
+      Users.hasOne(models.Patients, {
+        foreignKey: "userId",
+        as: "patients",
       });
     }
   }
@@ -38,7 +43,7 @@ export default (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       image: DataTypes.STRING,
       roleId: DataTypes.STRING,
-      slug: DataTypes.STRING,
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

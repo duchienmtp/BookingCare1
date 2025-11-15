@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { path } from "../../../utils/constants.js";
 import { getAllDataBySlug } from "../../../services/admin/SiteServices";
-import { selectSpecificMedicalServices } from "../../../redux/slices/adminSlice.js";
+import {
+  selectSpecificMedicalServices,
+  selectSpecialties,
+} from "../../../redux/slices/adminSlice.js";
 import "./MedicalService.scss";
 
 function MedicalService() {
   const [data, setData] = useState([]);
   const [width, setWidth] = useState(getWidth());
   const { slug } = useParams();
+  const location = useLocation();
   const dispatch = useDispatch();
 
+  const specialties = useSelector(selectSpecialties);
   const specificMedicalServices = useSelector(selectSpecificMedicalServices);
   const isLoading = useSelector((state) => state.admin.isLoading);
   const isError = useSelector((state) => state.admin.isError);
@@ -29,15 +34,17 @@ function MedicalService() {
     window.addEventListener("resize", handleResize);
 
     dispatch(getAllDataBySlug("specific-medical-services"));
+    dispatch(getAllDataBySlug("specialties"));
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     let filteredData = specificMedicalServices.filter((item) => {
-      const itemsMatchedMedicalService = item.medicalServiceName.filter(
-        (medicalService) => medicalService.medicalService.slug === slug
-      );
+      const itemsMatchedMedicalService =
+        item.specificMedicalService_MedicalServiceId.filter(
+          (medicalService) => medicalService.medicalService.slug === slug
+        );
 
       return itemsMatchedMedicalService.length > 0; // Include item if any medicalService matches the slug
     });
@@ -48,8 +55,12 @@ function MedicalService() {
       );
     }
 
+    if (slug === "kham-chuyen-khoa") {
+      filteredData = specialties;
+    }
+
     setData(filteredData);
-  }, [specificMedicalServices, slug]);
+  }, [specificMedicalServices, slug, specialties]);
 
   return (
     <div className="app-container">
@@ -70,19 +81,20 @@ function MedicalService() {
 
           <span> /</span>
         </Link>
-        {data && data.length > 0 && (
+        {/* {data && data.length > 0 && (
           <span className="slug-name">
             {data[data.length - 1].medicalServiceName[0].medicalService.name}
           </span>
-        )}
+        )} */}
       </div>
       <div className="medical-services">
         <div className="medical-services-content">
           {data &&
             data.length > 0 &&
             data.map((item) => {
+              const medicalServiceSlug = location.pathname.split("/")[2];
               return (
-                <div key={item.id}>
+                <Link to={`/dich-vu-y-te/${medicalServiceSlug}/${item.slug}`} key={item.id}>
                   <div
                     className="medical-service"
                     style={{ width: `${width}` }}
@@ -94,7 +106,7 @@ function MedicalService() {
                       <span>{item.name}</span>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
         </div>

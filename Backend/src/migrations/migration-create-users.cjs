@@ -33,9 +33,7 @@ module.exports = {
       roleId: {
         type: Sequelize.STRING,
       },
-      slug: {
-        type: Sequelize.STRING,
-      },
+      isDeleted: Sequelize.BOOLEAN,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -5,7 +5,7 @@
 .lower-content {
   background-color: rgb(249 249 249);
 
-  .doctor-detail-info {
+  .doctor-details {
     padding: 15px 0;
 
     h2 {
@@ -16,6 +16,32 @@
     h2,
     li {
       letter-spacing: 0.6px;
+    }
+  }
+
+  .doctor-detail-info {
+    padding: 15px 0;
+    text-align: justify;
+
+    h2 {
+      font-size: 16px !important;
+      font-weight: 700 !important;
+      text-align: justify;
+    }
+
+    h3 {
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      text-align: justify;
+    }
+
+    p {
+      text-align: justify;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
     }
   }
 

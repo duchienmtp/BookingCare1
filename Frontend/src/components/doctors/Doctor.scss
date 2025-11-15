@@ -221,8 +221,19 @@
           margin-top: 5px;
           margin-right: 8px;
 
-          &:hover {
-            box-shadow: 0px 0px 0px 2px #33b0e3 inset;
+          &.can-book {
+            cursor: pointer;
+
+            &:hover {
+              box-shadow: 0px 0px 0px 2px #33b0e3 inset;
+            }
+          }
+
+          &.cannot-book {
+            a {
+              background-color: rgb(238 238 238);
+              cursor: not-allowed !important;
+            }
           }
 
           .schedule-time-title {
@@ -253,6 +264,7 @@
       padding: 0 16px;
       display: flex;
       flex-direction: column;
+      flex-basis: 47%;
 
       .address-section {
         margin-top: 10px;
@@ -282,7 +294,11 @@
         margin-top: 10px;
         padding-top: 10px;
         border-top: 1px solid rgba(238, 238, 238);
-        display: flex;
+        // display: flex;
+
+        .price-section-container {
+          display: flex;
+        }
 
         .price {
           span {
@@ -300,6 +316,37 @@
           span {
             font-weight: 500;
             color: rgba(72, 196, 211);
+            cursor: pointer;
+          }
+        }
+
+        .price-section-detail {
+          .price-detail-table {
+            border: 1px solid rgba(221, 221, 221, 1);
+
+            .price-detail-row {
+              padding: 3px;
+              border-bottom: 1px solid rgba(221, 221, 221, 1);
+              display: flex;
+              justify-content: space-between;
+              background-color: rgba(248, 248, 248, 1);
+
+              &:last-child {
+                border-top: 1px solid rgba(221, 221, 221, 1);
+                border-bottom: none;
+              }
+            }
+          }
+
+          .hide-detail {
+            text-align: right;
+            margin-top: 5px;
+
+            span {
+              font-weight: 500;
+              color: rgba(72, 196, 211);
+              cursor: pointer;
+            }
           }
         }
       }

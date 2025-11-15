@@ -10,7 +10,6 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-
       // PageCategories.hasMany(models.PageCategories);
       // PageCategories.belongsTo(models.PageCategories, {
       //   foreignKey: "ownerId",
@@ -32,6 +31,7 @@ export default (sequelize, DataTypes) => {
       ownerId: DataTypes.STRING,
       slug: DataTypes.STRING,
       icon: DataTypes.STRING,
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import "./Post.scss";
 import { Link } from "react-router-dom";
 
@@ -37,4 +37,5 @@ function Post(props) {
   );
 }
 
-export default Post;
+const MemoizedPost = memo(Post);
+export default MemoizedPost;

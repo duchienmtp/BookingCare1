@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import "./Guide.scss";
 import SeeMoreButton from "../../partials/main-page-section/see-more-button/SeeMoreButton";
 import SectionHeaderTitle from "../../partials/main-page-section/section-title/SectionHeaderTitle";
@@ -49,4 +49,5 @@ function Guide(props) {
   );
 }
 
-export default Guide;
+const MemoizedGuide = memo(Guide);
+export default MemoizedGuide;

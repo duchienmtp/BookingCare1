@@ -10,6 +10,8 @@ module.exports = {
         type: Sequelize.STRING,
       },
       name: Sequelize.STRING,
+      description: Sequelize.STRING,
+      isDeleted: Sequelize.BOOLEAN,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

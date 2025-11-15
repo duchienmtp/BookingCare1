@@ -7,7 +7,13 @@ export const path = {
     BASE: "/dich-vu-y-te/:slug",
     GENERAL_HEALTH_CHECK: "/dich-vu-y-te/kham-tong-quat/:slug/:slug2?",
     MEDICAL_ONLINE_DIAGNOSTIC: "/dich-vu-y-te/kham-tu-xa/:slug/:slug2?",
-    MEDICAL_SPECIALTY_HEALTH_CHECK: "/dich-vu-y-te/kham-chuyen-khoa/:slug",
+    MEDICAL_SPECIALTY_HEALTH_CHECK_PACKAGE_DETAIL_PAGE:
+      "/dich-vu-y-te/kham-chuyen-khoa/:slug",
+    MEDICAL_OPERATION_PACKAGE_DETAIL_PAGE: "/dich-vu-y-te/goi-phau-thuat/:slug",
+    MEDICAL_GENERAL_HEALTH_CHECK_PACKAGE_DETAIL_PAGE:
+      "/dich-vu-y-te/kham-tong-quat/:slug",
+    MEDICAL_EXAMINATION: "/dich-vu-y-te/xet-nghiem-y-hoc/:slug",
+    BOOKING_CHECKOUT_PAGE: "/dat-lich-kham/:packageScheduleId",
   },
   HEALTH_FACILITY: {
     BASE: "/co-so-y-te/:slug",
@@ -24,31 +30,14 @@ export const adminPath = {
   USER: "/admin/user/:slug?",
 };
 
-export const adminPageTableHeader = {
-  "medical-services": ["ID", "Tên dịch vụ", "Ngày tạo", "Ngày cập nhật"],
-  specialties: ["ID", "Tên chuyên khoa", "Ngày tạo", "Ngày cập nhật"],
-  clinics: ["ID", "Tên phòng khám", "Ngày tạo", "Ngày cập nhật"],
-  "specific-medical-services": [
-    "ID",
-    "Tên dịch vụ",
-    "Chuyên khoa",
-    "Ngày tạo",
-    "Ngày cập nhật",
-  ],
-  blogs: [
-    "ID",
-    "Tên bài viết",
-    "Đăng tại",
-    "Chuyên khoa",
-    "Ngày tạo",
-    "Ngày cập nhật",
-  ],
-  packages: [
-    "ID",
-    "Tên gói khám",
-    "Chuyên khoa",
-    "Loại gói khám",
-    "Ngày tạo",
-    "Ngày cập nhật",
-  ],
-};
+export const appMainDataSlug = [
+  "medical-services",
+  "specialties",
+  "clinics",
+  "specific-medical-services",
+  "blogs",
+  "packages",
+  "orders",
+  "patients",
+  "doctors",
+];

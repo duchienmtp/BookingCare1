@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import Slider from "react-slick";
 import "./OnlineDiagnostic.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllDataBySlug } from "../../../services/admin/SiteServices";
-import { selectSpecificMedicalServices } from "../../../redux/slices/adminSlice.js";
 import SquarePageBanner from "../../partials/PageBanner/squarePageBanner/SquarePageBanner";
 import SliderNextArrow from "../../partials/slider-arrow/slider-next-arrow/SliderNextArrow";
 import SliderPrevArrow from "../../partials/slider-arrow/slider-prev-arrow/SliderPrevArrow";
@@ -40,9 +37,11 @@ function OnlineDiagnostic(props) {
 
   useEffect(() => {
     const filteredData = data.filter((item) => {
-      const itemsMatchedMedicalService = item.medicalServiceName.filter(
-        (medicalService) => medicalService.medicalService.slug === "kham-tu-xa"
-      );
+      const itemsMatchedMedicalService =
+        item.specificMedicalService_MedicalServiceId.filter(
+          (medicalService) =>
+            medicalService.medicalService.slug === "kham-tu-xa"
+        );
 
       return itemsMatchedMedicalService.length > 0; // Include item if any medicalService matches the slug
     });
@@ -86,4 +85,5 @@ function OnlineDiagnostic(props) {
   );
 }
 
-export default OnlineDiagnostic;
+const MemoizedOnlineDiagnostic = memo(OnlineDiagnostic);
+export default MemoizedOnlineDiagnostic;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import Slider from "react-slick";
 import "./MentalHealth.scss";
 import "slick-carousel/slick/slick.css";
@@ -36,10 +36,11 @@ function MentalHealth(props) {
 
   useEffect(() => {
     const filteredData = data.filter((item) => {
-      const itemsMatchedMedicalService = item.medicalServiceName.filter(
-        (medicalService) =>
-          medicalService.medicalService.slug === "kham-tinh-than"
-      );
+      const itemsMatchedMedicalService =
+        item.specificMedicalService_MedicalServiceId.filter(
+          (medicalService) =>
+            medicalService.medicalService.slug === "kham-tinh-than"
+        );
 
       return itemsMatchedMedicalService.length > 0; // Include item if any medicalService matches the slug
     });
@@ -78,4 +79,5 @@ function MentalHealth(props) {
   );
 }
 
-export default MentalHealth;
+const MemoizedMentalHealth = memo(MentalHealth);
+export default MemoizedMentalHealth;

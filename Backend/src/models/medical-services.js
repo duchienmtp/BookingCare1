@@ -13,7 +13,7 @@ export default (sequelize, DataTypes) => {
 
       MedicalServices.hasMany(models.SpecificMedicalService_MedicalServiceId, {
         foreignKey: "medicalServiceId",
-        as: "SpecificMedicalService_MedicalServiceId",
+        as: "specificMedicalService_MedicalServiceId",
       });
     }
   }
@@ -28,6 +28,7 @@ export default (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       image: DataTypes.STRING,
       slug: DataTypes.STRING,
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

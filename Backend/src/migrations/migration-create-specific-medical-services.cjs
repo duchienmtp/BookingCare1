@@ -15,15 +15,13 @@ module.exports = {
       image: {
         type: Sequelize.STRING,
       },
-      specialtyId: {
-        type: Sequelize.STRING,
-      },
       slug: {
         type: Sequelize.STRING,
       },
       description: {
         type: Sequelize.TEXT("long"),
       },
+      isDeleted: Sequelize.BOOLEAN,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

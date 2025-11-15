@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import Slider from "react-slick";
 import "./DiagnosticPackage.scss";
 import "slick-carousel/slick/slick.css";
@@ -35,13 +35,14 @@ function DiagnosticPackage(props) {
   };
 
   useEffect(() => {
-    let formattedData = data.map((item) => ({
-      ...item,
-      id: item.doctorId,
-      name: item.user.fullName,
-      image: item.user.image,
-      slug: `/dich-vu-y-te/kham-chuyen-khoa/${item.user.slug}`,
-    }));
+    let formattedData = data.map((item) => {
+      return {
+        id: item.packageId,
+        name: item.packageName,
+        image: item.image,
+        slug: `/dich-vu-y-te/${item.slug}`,
+      };
+    });
 
     setDiagnosticPackages(formattedData);
   }, [data]);
@@ -76,4 +77,5 @@ function DiagnosticPackage(props) {
   );
 }
 
-export default DiagnosticPackage;
+const MemoizedDiagnosticPackage = memo(DiagnosticPackage);
+export default MemoizedDiagnosticPackage;

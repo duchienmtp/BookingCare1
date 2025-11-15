@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../../partials/header/Header";
 import BackToTop from "../../../partials/back-to-top/BackToTop";
 import Footer from "../../../partials/footer/Footer";
 import { Outlet } from "react-router-dom";
 
 function HomePage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
   return (
     <>
       <Header />

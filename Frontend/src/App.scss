@@ -24,6 +24,7 @@ span,
 img {
   user-select: none;
   -webkit-user-drag: none;
+  word-wrap: break-word;
 }
 
 .no-scroll {

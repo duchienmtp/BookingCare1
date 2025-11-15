@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectMedicalServices,
@@ -198,14 +198,36 @@ function MainPage() {
   }, []);
 
   useEffect(() => {
-    dispatch(getAllDataBySlug("medical-services"));
-    dispatch(getAllDataBySlug("specialties"));
-    dispatch(getAllDataBySlug("clinics"));
-    dispatch(getAllDataBySlug("specific-medical-services"));
-    dispatch(getAllDataBySlug("guides"));
-    dispatch(getAllDataBySlug("living-healthy-blog-post"));
-    dispatch(getAllDataBySlug("for-doctor-and-health-facility-blog-post"));
-  }, []);
+    const fetchAllData = () => {
+      dispatch(getAllDataBySlug("medical-services"));
+      dispatch(getAllDataBySlug("specialties"));
+      dispatch(getAllDataBySlug("clinics"));
+      dispatch(getAllDataBySlug("specific-medical-services"));
+      dispatch(getAllDataBySlug("guides"));
+      dispatch(getAllDataBySlug("living-healthy-blog-post"));
+      dispatch(getAllDataBySlug("for-doctor-and-health-facility-blog-post"));
+    };
+
+    fetchAllData();
+  }, [dispatch]);
+
+  const memoizedDoctors = useMemo(() => doctors, [doctors]);
+  const memoizedFullService = useMemo(() => fullService, [fullService]);
+  const memoizedSpecialties = useMemo(() => specialties, [specialties]);
+  const memoizedClinics = useMemo(() => clinics, [clinics]);
+  const memoizedSpecificMedicalServices = useMemo(
+    () => specificMedicalServices,
+    [specificMedicalServices]
+  );
+  const memoizedGuides = useMemo(() => guides, [guides]);
+  const memoizedLivingHealthyBlogPosts = useMemo(
+    () => livingHealthyBlogPosts,
+    [livingHealthyBlogPosts]
+  );
+  const memoizedForDoctorAndHealthFacilityBlogPosts = useMemo(
+    () => forDoctorAndHealthFacilityBlogPosts,
+    [forDoctorAndHealthFacilityBlogPosts]
+  );
 
   return (
     <>
@@ -216,40 +238,42 @@ function MainPage() {
         <ServiceForYou />
       </section>
       <section className="full-service-section">
-        <FullService data={fullService} />
+        <FullService data={memoizedFullService} />
       </section>
       <section className="specialty-section">
-        <Specialty data={specialties} />
+        <Specialty data={memoizedSpecialties} />
       </section>
       <section className="clinic-section">
-        <Clinic data={clinics} />
+        <Clinic data={memoizedClinics} />
       </section>
       <section className="famous-doctor-section">
-        <FamousDoctor data={doctors} />
+        <FamousDoctor data={memoizedDoctors} />
       </section>
       <section className="online-diagnostic-section">
-        <OnlineDiagnostic data={specificMedicalServices} />
+        <OnlineDiagnostic data={memoizedSpecificMedicalServices} />
       </section>
       <section className="bookingcare-recommendation-section">
         <BookingCareRecommendation />
       </section>
       <section className="mental-health-section">
-        <MentalHealth data={specificMedicalServices} />
+        <MentalHealth data={memoizedSpecificMedicalServices} />
       </section>
       <section className="question-and-answer-section">
         <QuestionAndAnswer />
       </section>
       <section className="guide-section">
-        <Guide data={guides} />
+        <Guide data={memoizedGuides} />
       </section>
       <section className="living-healthy">
-        <LivingHealthy data={livingHealthyBlogPosts} />
+        <LivingHealthy data={memoizedLivingHealthyBlogPosts} />
       </section>
       <section className="media-about-bookingcare-section">
         <MediaAboutBookingCare />
       </section>
       <section className="for-doctor-and-clinic">
-        <ForDoctorAndClinic data={forDoctorAndHealthFacilityBlogPosts} />
+        <ForDoctorAndClinic
+          data={memoizedForDoctorAndHealthFacilityBlogPosts}
+        />
       </section>
     </>
   );

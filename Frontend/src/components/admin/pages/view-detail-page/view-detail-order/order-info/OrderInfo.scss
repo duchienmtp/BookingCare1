@@ -1,0 +1,206 @@
+.status-badge {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+}
+
+.status-yellow {
+  background-color: rgba(176, 120, 0, 0.1);
+  color: #b07800;
+}
+
+.status-blue {
+  background-color: rgba(0, 80, 208, 0.1);
+  color: #0050d0;
+}
+
+.status-green {
+  background-color: rgba(0, 160, 0, 0.1);
+  color: #00a000;
+}
+
+.status-red {
+  background-color: rgba(208, 0, 0, 0.1);
+  color: #d00000;
+}
+
+.status-gray {
+  background-color: rgba(128, 128, 128, 0.1);
+  color: #808080;
+}
+
+// ID Badges
+.id-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-family: monospace;
+  display: inline-block;
+
+  &.order-id {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+  }
+
+  &.patient-id {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+  }
+
+  &.doctor-id {
+    background-color: #dcfce7;
+    color: #15803d;
+  }
+
+  &.doctor-schedule-id {
+    background-color: #fff4e6;
+    color: #d9480f;
+  }
+}
+
+// Custom Styles
+.order-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .section-title {
+    border-left: 4px solid #6b21a8;
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  // Additional SCSS
+  .info-list {
+    dt {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    dd {
+      margin-left: 0;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+  }
+
+  .order-card {
+    .id-badge.doctor-schedule-id {
+      background-color: #fff4e6;
+      color: #d9480f;
+    }
+
+    .border-end {
+      border-color: #e9ecef !important;
+    }
+  }
+
+  .info-item {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  .price-display {
+    color: #6b21a8;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .text-purple {
+    color: #6b21a8;
+  }
+
+  .section-container {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #e5e7eb;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.management-container {
+  background-color: #f8fafc;
+}
+
+// Add custom button variant
+.btn-purple {
+  background-color: #6b21a8;
+  border-color: #6b21a8;
+  color: #fff;
+  padding: 0.47rem 1.5rem;
+  font-weight: 500;
+
+  &:hover:not(:disabled) {
+    background-color: #581c87;
+    border-color: #581c87;
+    color: #fff;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(107, 33, 168, 0.25);
+  }
+
+  &:disabled {
+    background-color: rgba(107, 33, 168, 0.3);
+    border-color: rgba(107, 33, 168, 0.3);
+  }
+}
+
+.status-select-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .status-select-label {
+    text-align: right;
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .status-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-end;
+
+    .booking-status-select {
+      flex: 1;
+      max-width: 250px;
+    }
+
+    .confirm-button {
+      height: 38px; // Match the height of react-select
+      min-width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+
+      .booking-status-select {
+        max-width: 100%;
+      }
+
+      .confirm-button {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -27,6 +27,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       name: DataTypes.STRING,
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

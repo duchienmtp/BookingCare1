@@ -4,6 +4,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { store } from "./redux/store.js";
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import App from "./App.jsx";
 import { path, adminPath } from "./utils/constants.js";
 import MainPage from "./components/patients/pages/services/main-page/MainPage.jsx";
@@ -15,6 +17,12 @@ import DashboardPage from "./components/admin/pages/dashboard-page/DashboardPage
 import MainContent from "./components/admin/pages/main-content/MainContent.jsx";
 import HealthFacilityRoute from "./components/routes/health-facility-route/HealthFacilityRoute.jsx";
 import SeeMorePageRouter from "./components/routes/see-more-page-router/SeeMorePageRouter.jsx";
+import BookingCheckoutPage from "./components/patients/pages/booking-checkout-page/BookingCheckoutPage.jsx";
+import UserInfoManagement from "./components/admin/pages/view-detail-page/view-detail-user/UserInfoManagement.jsx";
+import ServicesInfoManagement from "./components/admin/pages/view-detail-page/view-detail-services/ServicesInfoManagement.jsx";
+import AdminViewDetailECommerceRouter from "./components/routes/admin-view-detail-eCommerce-router/AdminViewDetailECommerceRouter.jsx";
+import ClinicInfoManagement from "./components/admin/pages/view-detail-page/view-detail-clinic/ClinicInfoManagement.jsx";
+import EditInfoPage from "./components/admin/pages/edit-info-page/EditInfoPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -46,12 +54,30 @@ const router = createBrowserRouter([
         element: <MedicalServiceRouter />,
       },
       {
-        path: path.MEDICAL_SERVICE.MEDICAL_SPECIALTY_HEALTH_CHECK,
+        path: path.MEDICAL_SERVICE
+          .MEDICAL_SPECIALTY_HEALTH_CHECK_PACKAGE_DETAIL_PAGE,
+        element: <MedicalServiceRouter />,
+      },
+      {
+        path: path.MEDICAL_SERVICE.MEDICAL_OPERATION_PACKAGE_DETAIL_PAGE,
+        element: <MedicalServiceRouter />,
+      },
+      {
+        path: path.MEDICAL_SERVICE
+          .MEDICAL_GENERAL_HEALTH_CHECK_PACKAGE_DETAIL_PAGE,
+        element: <MedicalServiceRouter />,
+      },
+      {
+        path: path.MEDICAL_SERVICE.MEDICAL_EXAMINATION,
         element: <MedicalServiceRouter />,
       },
       {
         path: path.HEALTH_FACILITY.BASE,
         element: <HealthFacilityRoute />,
+      },
+      {
+        path: path.MEDICAL_SERVICE.BOOKING_CHECKOUT_PAGE,
+        element: <BookingCheckoutPage />,
       },
       {
         path: "/danh-sach/:mainSlug/:subSlug?",
@@ -75,6 +101,22 @@ const router = createBrowserRouter([
         path: "/admin/:slug1/:slug2?/:slug3",
         element: <MainContent />,
       },
+      {
+        path: "/admin/users/:role/view-detail/:userId",
+        element: <UserInfoManagement />,
+      },
+      {
+        path: "/admin/eCommerce/:serviceType/view-detail/:serviceId",
+        element: <AdminViewDetailECommerceRouter />,
+      },
+      {
+        path: "/admin/clinics/view-detail/:clinicId",
+        element: <ClinicInfoManagement />,
+      },
+      {
+        path: "/admin/:root/:role?/edit-info/:userId?",
+        element: <EditInfoPage />,
+      },
     ],
   },
 ]);
@@ -82,6 +124,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <StrictMode>
   <Provider store={store}>
+    <ToastContainer position="top-right" autoClose={3000} />
     <RouterProvider router={router} />
   </Provider>
   // </StrictMode>

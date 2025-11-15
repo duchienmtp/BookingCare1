@@ -15,6 +15,7 @@ module.exports = {
       },
       username: Sequelize.STRING,
       password: Sequelize.STRING,
+      isDeleted: Sequelize.BOOLEAN,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

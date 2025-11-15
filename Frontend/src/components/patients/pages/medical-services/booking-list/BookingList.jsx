@@ -1,17 +1,249 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./BookingList.scss";
 import Doctor from "../../../../doctors/Doctor";
+import { useParams, useLocation } from "react-router-dom";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
+import { getAllHealthCheckPackagesBySpecialtySlug, getAllHealthCheckPackagesBySpecificMedicalServiceSlug, getSpecialtyBySlug, getSpecificMedicalServiceBySlug } from "../../../../../services/admin/SiteServices";
+
+const daysOfWeekMap = {
+  MON: "Thứ Hai",
+  TUE: "Thứ Ba",
+  WED: "Thứ Tư",
+  THU: "Thứ Năm",
+  FRI: "Thứ Sáu",
+  SAT: "Thứ Bảy",
+  SUN: "Chủ Nhật",
+};
+
+const formatCurrency = (number) => {
+  if (number !== "TBD") {
+    if (typeof number === "string" && number.includes(" - ")) {
+      const [min, max] = number
+        .split(" - ")
+        .map((n) => parseFloat(n.replace(/[^0-9.-]+/g, "")));
+      number = `${min.toLocaleString("vi-VN")}đ - ${max.toLocaleString(
+        "vi-VN"
+      )}đ`;
+    } else {
+      number =
+        parseFloat(number.replace(/[^0-9.-]+/g, "")).toLocaleString("vi-VN") +
+        "đ";
+    }
+  } else {
+    number = "Không xác định";
+  }
+  return number;
+};
+
+const processSchedules = (schedulesData) => {
+  console.log("schedulesData", schedulesData);
+  const now = new Date();
+  const threeHoursLater = new Date(now.getTime() + 3600000);
+
+  return schedulesData.map((item) => {
+    const [year, month, day] = item.scheduleDate.split("-").map(Number);
+    const [startTime] = item.scheduleTime.split(" - ");
+    const [hours, minutes] = startTime.split(":").map(Number);
+    const scheduleTime = new Date(year, month - 1, day, hours, minutes);
+
+    return {
+      ...item,
+      timeRange: item.scheduleTime,
+      timestamp: scheduleTime,
+      isValid:
+        scheduleTime > threeHoursLater ||
+        scheduleTime.getDate() !== now.getDate(),
+    };
+  });
+};
+
+const processScheduleDates = (dates) => {
+  console.log("dates", dates);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return dates.map((dateStr) => {
+    const date = new Date(dateStr);
+    const dayKey = date
+      .toLocaleDateString("en-US", { weekday: "short" })
+      .toUpperCase();
+
+    return {
+      dateStr,
+      date,
+      displayText: `${date.getDate()}/${date.getMonth() + 1} - ${date.toDateString() === today.toDateString()
+        ? "Hôm nay"
+        : daysOfWeekMap[dayKey]
+        }`,
+    };
+  });
+};
 
 function BookingList() {
+  const [specialtyInfo, setSpecialtyInfo] = useState(null);
+  const [healthCheckPackages, setHealthCheckPackages] = useState([]);
   const [isShowDetailInfo, setIsShow] = useState(false);
   const doctorDetailInfoRef = useRef(null);
   const [isShowFilterDropdown, setIsShowFilterDropdown] = useState(false);
   const filterDropdownRef = useRef(null);
+  const { slug, slug2 } = useParams();
+
+  const location = useLocation();
 
   useEffect(() => {
     // Scroll to the top when the component mounts
     window.scrollTo(0, 0);
   }, []);
+
+  const processBookingPackages = (packagesResponse) => {
+    const packages = packagesResponse.reduce(
+      (acc, item) => {
+        const bookingPackage = {
+          bookingPackageId: item.bookingPackageId,
+          bookingPackageName: item.bookingPackageName,
+          bookingPackagePrice: formatCurrency(item.price),
+          bookingPackageDescription: item.description,
+        };
+        acc.bookingPackages.push(bookingPackage);
+        return acc;
+      },
+      { bookingPackages: [] }
+    );
+
+    console.log("packages", packages);
+    if (packages.bookingPackages.length > 0) {
+      const prices = packages.bookingPackages.map((p) =>
+        parseInt(p.bookingPackagePrice.replace(/\./g, "").replace("đ", ""))
+      );
+      console.log("prices", prices);
+      packages.bookingPackagesPriceSummary =
+        prices.length > 1
+          ? `${formatCurrency(Math.min(...prices))} - ${formatCurrency(
+            Math.max(...prices)
+          )}`
+          : packages.bookingPackages[0].bookingPackagePrice;
+    }
+
+    return packages;
+  };
+
+  const findFirstAvailableDate = useCallback((dates, schedules) => {
+    const validDates = dates.filter((d) =>
+      schedules.some((s) => s.scheduleDate === d.dateStr && s.isValid)
+    );
+    return validDates[0] || null;
+  }, []);
+
+  const handleDateChange = useCallback(
+    (date, packageId) => {
+      
+      const specificPackage = healthCheckPackages.find((p) => p.packageInfo.id === packageId);
+
+      const filtered = specificPackage.schedules
+        .filter((s) => s.scheduleDate === date.dateStr)
+        .sort((a, b) => a.scheduleId.localeCompare(b.scheduleId));
+
+      specificPackage.currentDate = date;
+      specificPackage.filteredSchedules = filtered;
+
+      const healthCheckPackagesCopy = [...healthCheckPackages];
+      const index = healthCheckPackagesCopy.findIndex((p) => p.packageInfo.id === packageId);
+      healthCheckPackagesCopy[index] = specificPackage;
+
+      setHealthCheckPackages(healthCheckPackagesCopy);
+    },
+    [healthCheckPackages]
+  );
+
+  const fetchData = useCallback(async () => {
+    try {
+      const medicalServiceSlug = location.pathname.split("/")[2];
+      let specialty, healthCheckPackages;
+      const mainSlug = slug2 || slug;
+
+      if (medicalServiceSlug === "kham-chuyen-khoa") {
+        [specialty, healthCheckPackages] = await Promise.all([
+          getSpecialtyBySlug(mainSlug),
+          getAllHealthCheckPackagesBySpecialtySlug(mainSlug),
+        ]);
+      } else {
+        [specialty, healthCheckPackages] = await Promise.all([
+          getSpecificMedicalServiceBySlug(mainSlug),
+          getAllHealthCheckPackagesBySpecificMedicalServiceSlug(mainSlug),
+        ]);
+      }
+
+      console.log("specialty", specialty);
+      console.log("healthCheckPackages", healthCheckPackages);
+
+      // Configure marked options if needed
+      marked.setOptions({
+        breaks: true, // Enable line breaks
+        gfm: true, // Enable GitHub flavored markdown
+      });
+
+      // Convert Markdown to HTML
+      const rawHtmlContent = marked(specialty.data.specialtyDetailInfo || specialty.data.description || "");
+      // Sanitize the HTML content
+      const sanitizedHtmlContent = DOMPurify.sanitize(rawHtmlContent);
+      setSpecialtyInfo({
+        id: specialty.data.id,
+        name: specialty.data.name,
+        image: specialty.data.image,
+        specialtyDetailInfo: sanitizedHtmlContent,
+      });
+
+      const formattedData = healthCheckPackages.data.map((item) => {
+        const processedDates = processScheduleDates(item.scheduleDates);
+        const processedSchedules = processSchedules(item.schedules);
+        const firstAvailableDate = findFirstAvailableDate(
+          processedDates,
+          processedSchedules
+        );
+        const bookingPackages = processBookingPackages(item.bookingPackagesDetails);
+
+        const path = location.pathname;
+        console.log("path", path.split("/")[2]);
+
+        const packageInfo = {
+          id: item.packageId,
+          fullName: item.packageName,
+          packageName: item.packageName,
+          image: item.image,
+          shortPackageInfo: item.shortPackageInfo?.includes('"/"')
+            ? item.shortPackageInfo.split('"/"')
+            : item.shortPackageInfo,
+          isDeleted: item.isDeleted,
+          clinic: item.clinics.map((clinic) => ({
+            clinicFullName: clinic.clinicFullName,
+            clinicAddress: clinic.clinicAddress,
+          })),
+          bookingPackages: bookingPackages,
+          slug: `${path.split("/")[2]}/${item.slug}`,
+          place: item.clinics[0].clinicAddress.split(",")[item.clinics[0].clinicAddress.split(",").length - 1].trim(),
+        }
+
+        return {
+          packageInfo,
+          scheduleDates: processedDates,
+          schedules: processedSchedules,
+          currentDate: firstAvailableDate,
+          filteredSchedules: processedSchedules
+            .filter((s) => s.scheduleDate === firstAvailableDate?.dateStr)
+            .sort((a, b) => a.scheduleId.localeCompare(b.scheduleId)),
+        }
+      })
+      setHealthCheckPackages(formattedData);
+
+    } catch (err) {
+      console.error(err);
+    }
+  }, [slug])
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData])
 
   const handleShowDetailInfo = () => {
     setIsShow(!isShowDetailInfo);
@@ -41,50 +273,12 @@ function BookingList() {
     <div className="booking-list-section">
       <div className="doctor-detail-info-section">
         <div className="app-container">
-          <h1>Cơ xương khớp</h1>
+          <h1>{specialtyInfo?.name}</h1>
           <div className="doctor-detail-info" ref={doctorDetailInfoRef}>
-            <h2>Bác sĩ Cơ Xương Khớp giỏi</h2>
-            <p>
-              Danh sách các bác sĩ uy tín đầu ngành Cơ Xương Khớp tại Việt Nam:
-            </p>
-            <ul>
-              <li>
-                Các chuyên gia có quá trình đào tạo bài bản, nhiều kinh nghiệm
-              </li>
-              <li>
-                Các giáo sư, phó giáo sư đang trực tiếp nghiên cứu và giảng dạy
-                tại Đại học Y khoa Hà Nội
-              </li>
-              <li>
-                Các bác sĩ đã, đang công tác tại các bệnh viện hàng đầu Khoa Cơ
-                Xương Khớp - Bệnh viện Bạch Mai, Bệnh viện Hữu nghị Việt
-                Đức,Bệnh Viện E.
-              </li>
-              <li>
-                Là thành viên hoặc lãnh đạo các tổ chức chuyên môn như: Hiệp hội
-                Cơ Xương Khớp, Hội Thấp khớp học,...
-              </li>
-              <li>
-                Được nhà nước công nhận các danh hiệu Thầy thuốc Nhân dân, Thầy
-                thuốc Ưu tú, Bác sĩ Cao cấp,...
-              </li>
-            </ul>
-            <h2>Bệnh Cơ Xương Khớp</h2>
-            <ul>
-              <li>Gout</li>
-              <li>Thoái hóa khớp: khớp gối, cột sống thắt lưng, cột sống cổ</li>
-              <li>Viêm khớp dạng thấp, Viêm đa khớp, Viêm gân</li>
-              <li>
-                Tràn dịch khớp gối, Tràn dịch khớp háng, Tràn dịch khớp khủy,
-                Tràn dịch khớp vai
-              </li>
-              <li>Loãng xương, đau nhức xương</li>
-              <li>Viêm xương, gai xương</li>
-              <li>Viêm cơ, Teo cơ, chứng đau mỏi cơ</li>
-              <li>Yếu cơ, Loạn dưỡng cơ</li>
-              <li>Các chấn thương về cơ, xương, khớp</li>
-              <li>...</li>
-            </ul>
+            <div
+              className="markdown-content"
+              dangerouslySetInnerHTML={{ __html: specialtyInfo?.specialtyDetailInfo }}
+            />
           </div>
           <div className="show-hide-button">
             <span onClick={handleShowDetailInfo}>
@@ -127,9 +321,17 @@ function BookingList() {
             </div>
           </div>
           <div className="doctors-schedule-list">
-            <div className="doctor-schedule-item">
-              <Doctor className="list-type" />
-            </div>
+            {healthCheckPackages.map((item) => (
+              <div className="doctor-schedule-item">
+                <Doctor className="list-type" 
+                  packageInfo={item.packageInfo}
+                  schedules={item.filteredSchedules}
+                  scheduleDates={item.scheduleDates}
+                  currentDate={item.currentDate}
+                  onDateChange={handleDateChange}
+                  hasSchedules={item.filteredSchedules.length > 0} />
+              </div>
+            ))}
           </div>
         </div>
       </div>

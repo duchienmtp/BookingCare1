@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo } from "react";
 import Slider from "react-slick";
 import "./FamousDoctor.scss";
 import "slick-carousel/slick/slick.css";
@@ -73,4 +73,5 @@ function FamousDoctor(props) {
   );
 }
 
-export default FamousDoctor;
+const MemoizedFamousDoctor = memo(FamousDoctor);
+export default MemoizedFamousDoctor;

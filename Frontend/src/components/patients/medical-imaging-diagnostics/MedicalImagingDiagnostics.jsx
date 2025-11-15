@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import Slider from "react-slick";
 import "./MedicalImagingDiagnostics.scss";
 import "slick-carousel/slick/slick.css";
@@ -39,13 +39,14 @@ function MedicalImagingDiagnostics(props) {
   };
 
   useEffect(() => {
-    let formattedData = data.map((item) => ({
-      ...item,
-      id: item.doctorId,
-      name: item.user.fullName,
-      image: item.user.image,
-      slug: `/dich-vu-y-te/kham-chuyen-khoa/${item.user.slug}`,
-    }));
+    let formattedData = data.map((item) => {
+      return {
+        id: item.packageId,
+        name: item.packageName,
+        image: item.image,
+        slug: `/dich-vu-y-te/${item.slug}`,
+      };
+    });
 
     setMedicalImagingDiagnosticsPackages(formattedData);
   }, [data]);
@@ -81,4 +82,5 @@ function MedicalImagingDiagnostics(props) {
   );
 }
 
-export default MedicalImagingDiagnostics;
+const MemoizedMedicalImagingDiagnostics = memo(MedicalImagingDiagnostics);
+export default MemoizedMedicalImagingDiagnostics;

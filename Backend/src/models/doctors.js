@@ -16,29 +16,22 @@ export default (sequelize, DataTypes) => {
         as: "user",
       });
 
-      Doctors.belongsTo(models.Specialties, {
-        foreignKey: "specialtyId",
-        as: "specialty",
+      Doctors.hasMany(models.SpecificMedicalServices_HealthCheckPackages, {
+        foreignKey: "packageId",
       });
 
-      Doctors.belongsTo(models.Clinics, {
-        foreignKey: "clinicId",
-        as: "clinic",
-      });
-
-      Doctors.belongsTo(models.PackageType, {
-        foreignKey: "packageTypeId",
-        as: "packageType",
-      });
-
-      Doctors.hasMany(models.DoctorSchedules, {
+      Doctors.hasMany(models.Doctors_Specialties, {
         foreignKey: "doctorId",
-        as: "doctorSchedules",
+        as: "doctors_Specialties",
       });
 
-      Doctors.hasMany(models.DoctorBookingPackages, {
+      Doctors.hasMany(models.ClinicBranches_Doctors, {
         foreignKey: "doctorId",
-        as: "doctorBookingPackages",
+        as: "clinicsWorkingAt",
+      });
+
+      Doctors.hasMany(models.Health_Check_Packages, {
+        foreignKey: "managingDoctorId",
       });
     }
   }
@@ -54,16 +47,9 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      packageName: DataTypes.TEXT,
-      specialtyId: DataTypes.STRING,
-      clinicId: DataTypes.STRING,
-      packageTypeId: DataTypes.INTEGER,
       doctorDetailInfo: DataTypes.TEXT("long"),
       shortDoctorInfo: DataTypes.TEXT("long"),
-      isDeleted: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-      },
+      slug: DataTypes.STRING,
     },
     {
       sequelize,

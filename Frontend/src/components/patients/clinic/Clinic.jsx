@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import "./Clinic.scss";
 import { path } from "../../../utils/constants";
 import Slider from "react-slick";
@@ -74,4 +74,5 @@ function Clinic(props) {
   );
 }
 
-export default Clinic;
+const MemoizedClinic = memo(Clinic);
+export default MemoizedClinic;

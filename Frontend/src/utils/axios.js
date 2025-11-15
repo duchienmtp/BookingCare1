@@ -3,12 +3,33 @@ import axios from "axios";
 const instance = axios.create({
   baseURL: import.meta.env.VITE_REACT_APP_BACKEND_URL,
   withCredentials: true,
+  headers: {
+    'Content-Type': 'multipart/form-data', // This is important!
+  }
 });
 
+// Response interceptor
 instance.interceptors.response.use((response) => {
-  // Thrown error for request with OK status code
   const { data } = response;
   return data;
 });
+
+// Error handling interceptor
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      return Promise.reject(error.response.data);
+    } else if (error.request) {
+      // The request was made but no response was received
+      return Promise.reject({ message: 'No response from server' });
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      return Promise.reject({ message: error.message });
+    }
+  }
+);
 
 export default instance;

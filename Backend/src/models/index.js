@@ -51,5 +51,6 @@ Promise.all(modelImports)
     console.error("Error loading models:", error);
   });
 
-// Export the db object
+// Export the db object and sequelize instance
+export { sequelize };
 export default db;

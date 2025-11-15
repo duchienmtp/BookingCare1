@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectSpecificMedicalServices,
@@ -21,34 +21,46 @@ function ServiceAtHomePage() {
   const isError = useSelector((state) => state.admin.isError);
 
   useEffect(() => {
-    dispatch(getAllDataBySlug("specific-medical-services"));
-    dispatch(getAllDataBySlug("living-healthy-blog-post"));
-  }, []);
+    const fetchAllData = () => {
+      dispatch(getAllDataBySlug("specific-medical-services"));
+      dispatch(getAllDataBySlug("living-healthy-blog-post"));
+    };
+
+    fetchAllData();
+  }, [dispatch]);
+
+  const memoizedSpecificMedicalServices = useMemo(
+    () => specificMedicalServices,
+    [specificMedicalServices]
+  );
+  const memoizedLivingHealthyBlogPosts = useMemo(
+    () => livingHealthyBlogPosts,
+    [livingHealthyBlogPosts]
+  );
+
   return (
     <div>
-      <>
-        <section className="page-banner">
-          <ImageBanner
-            image={BannerImg}
-            title={"Dịch vụ chăm sóc sức khỏe tại nhà"}
-          />
-        </section>
-        <section className="test-at-home-section">
-          <TestAtHome />
-        </section>
-        <section className="family-practitioner-section">
-          <FamilyPractitioner />
-        </section>
-        <section className="online-diagnostic-section">
-          <OnlineDiagnostic data={specificMedicalServices} />
-        </section>
-        <section className="question-and-answer-section">
-          <QuestionAndAnswer />
-        </section>
-        <section className="living-healthy">
-          <LivingHealthy data={livingHealthyBlogPosts} />
-        </section>
-      </>
+      <section className="page-banner">
+        <ImageBanner
+          image={BannerImg}
+          title={"Dịch vụ chăm sóc sức khỏe tại nhà"}
+        />
+      </section>
+      <section className="test-at-home-section">
+        <TestAtHome />
+      </section>
+      <section className="family-practitioner-section">
+        <FamilyPractitioner />
+      </section>
+      <section className="online-diagnostic-section">
+        <OnlineDiagnostic data={memoizedSpecificMedicalServices} />
+      </section>
+      <section className="question-and-answer-section">
+        <QuestionAndAnswer />
+      </section>
+      <section className="living-healthy">
+        <LivingHealthy data={memoizedLivingHealthyBlogPosts} />
+      </section>
     </div>
   );
 }

@@ -11,9 +11,9 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      Specialties.hasMany(models.SpecificMedicalServices, {
+      Specialties.hasMany(models.Doctors_Specialties, {
         foreignKey: "specialtyId",
-        as: "specificMedicalServices",
+        as: "doctors_Specialties",
       });
 
       Specialties.hasMany(models.BlogPosts, {
@@ -21,9 +21,8 @@ export default (sequelize, DataTypes) => {
         as: "blogPosts",
       });
 
-      Specialties.hasMany(models.Doctors, {
+      Specialties.hasMany(models.HealthCheckPackages_Specialties, {
         foreignKey: "specialtyId",
-        as: "doctors",
       });
     }
   }
@@ -39,6 +38,7 @@ export default (sequelize, DataTypes) => {
       specialtyDetailInfo: DataTypes.TEXT("long"),
       image: DataTypes.STRING,
       slug: DataTypes.STRING,
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

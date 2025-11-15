@@ -1,0 +1,73 @@
+// BranchesTable.scss
+.branches-table {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    tr {
+      &.main-branch {
+        background-color: #e8f4ff;
+
+        .main-badge {
+          background: #3498db;
+          color: white;
+          padding: 2px 8px;
+          border-radius: 4px;
+          font-size: 0.75rem;
+          margin-left: 8px;
+        }
+      }
+
+      &.deleted {
+        opacity: 0.6;
+        background-color: #f8d7da;
+      }
+
+      .status {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.875rem;
+
+        &.active {
+          background: #d4edda;
+          color: #155724;
+        }
+
+        &.deleted {
+          background: #f8d7da;
+          color: #721c24;
+        }
+      }
+    }
+  }
+
+  .pagination {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    button {
+      padding: 0.5rem 1rem;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:disabled {
+        background: #bdc3c7;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

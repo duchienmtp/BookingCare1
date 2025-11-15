@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import Slider from "react-slick";
 import "./Endoscopy.scss";
 import "slick-carousel/slick/slick.css";
@@ -8,7 +8,6 @@ import SliderNextArrow from "../../partials/slider-arrow/slider-next-arrow/Slide
 import SliderPrevArrow from "../../partials/slider-arrow/slider-prev-arrow/SliderPrevArrow";
 import SeeMoreButton from "../../partials/main-page-section/see-more-button/SeeMoreButton";
 import SectionHeaderTitle from "../../partials/main-page-section/section-title/SectionHeaderTitle";
-import { set } from "lodash";
 
 function Endoscopy(props) {
   let { data } = props;
@@ -36,13 +35,14 @@ function Endoscopy(props) {
   };
 
   useEffect(() => {
-    let formattedData = data.map((item) => ({
-      ...item,
-      id: item.doctorId,
-      name: item.user.fullName,
-      image: item.user.image,
-      slug: `/dich-vu-y-te/kham-chuyen-khoa/${item.user.slug}`,
-    }));
+    let formattedData = data.map((item) => {
+      return {
+        id: item.packageId,
+        name: item.packageName,
+        image: item.image,
+        slug: `/dich-vu-y-te/${item.slug}`,
+      };
+    });
 
     setEndoscopyPackages(formattedData);
   }, [data]);
@@ -77,4 +77,5 @@ function Endoscopy(props) {
   );
 }
 
-export default Endoscopy;
+const MemoizedEndoscopy = memo(Endoscopy);
+export default MemoizedEndoscopy;

@@ -1,18 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./SideBar.scss";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useParams } from "react-router-dom";
 import { adminPath } from "../../../utils/constants.js";
-import { faCircleDot, faCircle } from "@fortawesome/free-regular-svg-icons";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import HomeLogo from "/src/assets/home.svg";
 import CartLogo from "/src/assets/cart.svg";
 import UserLogo from "/src/assets/user.svg";
 import CloseLogo from "/src/assets/close.svg";
 import { getAllCategories } from "../../../services/admin/SiteServices.js";
-
-library.add(faCircleDot, faCircle, faAngleDown);
 
 function SideBar(props) {
   const [sideBarMenu, setSideBarMenu] = useState([]);
@@ -323,7 +318,13 @@ function SideBar(props) {
               </div>
             ) : (
               <div className="img-container " onClick={handleMinimizeButton}>
-                <FontAwesomeIcon icon={isMinimized ? faCircle : faCircleDot} />
+                <FontAwesomeIcon
+                  icon={
+                    isMinimized
+                      ? "fa-regular fa-circle"
+                      : "fa-regular fa-circle-dot"
+                  }
+                />
               </div>
             )}
           </div>
@@ -355,7 +356,7 @@ function SideBar(props) {
                             </div>
                             <div className="dropdown-arrow ">
                               <div className="img-container d-flex justify-content-center align-items-center">
-                                <FontAwesomeIcon icon={faAngleDown} />
+                                <FontAwesomeIcon icon="fa-solid fa-angle-down" />
                               </div>
                             </div>
                           </div>
@@ -375,7 +376,7 @@ function SideBar(props) {
                             </div>
                             <div className="dropdown-arrow ">
                               <div className="img-container d-flex justify-content-center align-items-center">
-                                <FontAwesomeIcon icon={faAngleDown} />
+                                <FontAwesomeIcon icon="fa-solid fa-angle-down" />
                               </div>
                             </div>
                           </Link>
@@ -414,9 +415,7 @@ function SideBar(props) {
                                         >
                                           <div className="d-flex dropdown-header">
                                             <div className="img-container">
-                                              <FontAwesomeIcon
-                                                icon={faCircle}
-                                              />
+                                              <FontAwesomeIcon icon="fa-regular fa-circle" />
                                             </div>
                                             <span className="menu-item-label">
                                               {subMenuItem.label}
@@ -426,9 +425,7 @@ function SideBar(props) {
                                             subMenuItem.subMenu.length > 0 && (
                                               <div className="dropdown-arrow">
                                                 <div className="img-container d-flex justify-content-center align-items-center">
-                                                  <FontAwesomeIcon
-                                                    icon={faAngleDown}
-                                                  />
+                                                  <FontAwesomeIcon icon="fa-solid fa-angle-down" />
                                                 </div>
                                               </div>
                                             )}
@@ -440,9 +437,7 @@ function SideBar(props) {
                                         >
                                           <div className="d-flex dropdown-header">
                                             <div className="img-container">
-                                              <FontAwesomeIcon
-                                                icon={faCircle}
-                                              />
+                                              <FontAwesomeIcon icon="fa-regular fa-circle" />
                                             </div>
                                             <span className="menu-item-label">
                                               {subMenuItem.label}
@@ -452,9 +447,7 @@ function SideBar(props) {
                                             subMenuItem.subMenu.length > 0 && (
                                               <div className="dropdown-arrow">
                                                 <div className="img-container d-flex justify-content-center align-items-center">
-                                                  <FontAwesomeIcon
-                                                    icon={faAngleDown}
-                                                  />
+                                                  <FontAwesomeIcon icon="fa-solid fa-angle-down" />
                                                 </div>
                                               </div>
                                             )}
@@ -487,9 +480,7 @@ function SideBar(props) {
                                                       >
                                                         <div className="d-flex dropdown-header">
                                                           <div className="img-container">
-                                                            <FontAwesomeIcon
-                                                              icon={faCircle}
-                                                            />
+                                                            <FontAwesomeIcon icon="fa-regular fa-circle" />
                                                           </div>
                                                           <span className="menu-item-label">
                                                             {

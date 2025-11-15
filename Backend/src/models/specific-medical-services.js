@@ -11,17 +11,18 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      SpecificMedicalServices.belongsTo(models.Specialties, {
-        foreignKey: "specialtyId",
-        as: "specialty",
-      });
+      SpecificMedicalServices.hasMany(
+        models.SpecificMedicalServices_HealthCheckPackages,
+        {
+          foreignKey: "specificMedicalServiceId",
+        }
+      );
 
       SpecificMedicalServices.hasMany(
         models.SpecificMedicalService_MedicalServiceId,
         {
-          sourceKey: "name",
-          foreignKey: "name",
-          as: "medicalServiceName",
+          foreignKey: "specificMedicalServiceId",
+          as: "specificMedicalService_MedicalServiceId",
         }
       );
     }
@@ -36,9 +37,9 @@ export default (sequelize, DataTypes) => {
       },
       name: DataTypes.STRING,
       image: DataTypes.STRING,
-      specialtyId: DataTypes.STRING,
       slug: DataTypes.STRING,
       description: DataTypes.TEXT("long"),
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

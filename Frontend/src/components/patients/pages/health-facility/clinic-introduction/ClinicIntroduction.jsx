@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
-import parse from "html-react-parser";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 import "./ClinicIntroduction.scss";
 import {
   getClinicBySlug,
-  getAllClinicBookingTypes,
+  getAllPackageTypes,
 } from "../../../../../services/admin/SiteServices";
 
 const ClinicIntroduction = () => {
@@ -23,11 +22,12 @@ const ClinicIntroduction = () => {
     const fetchData = async () => {
       const [clinicResponse, clinicBookingTypesResponse] = await Promise.all([
         getClinicBySlug(param.slug),
-        getAllClinicBookingTypes(),
+        getAllPackageTypes(),
       ]);
 
       if (clinicResponse && clinicBookingTypesResponse) {
         const clinicBookingTypes = clinicBookingTypesResponse.data;
+        console.log("Check clinicBookingTypes", clinicBookingTypes);
 
         const formattedClinicData = {
           ...clinicResponse.data,
@@ -40,42 +40,46 @@ const ClinicIntroduction = () => {
 
         const markdownData = clinicResponse.data.clinicDetailInfo;
 
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(markdownData, "text/html");
-
-        const headings = Array.from(doc.querySelectorAll("h2")).map(
-          (h2, index) => ({
-            title: h2.textContent.trim(),
-            id: `#scrollspyHeading${index + 1}`,
-          })
-        );
-
+        const headings = [];
         let sections = markdownData.split('"/"').map((section, index) => {
-          const sectionDoc = parser.parseFromString(section, "text/html");
-          const sectionTitle = sectionDoc
-            .querySelector("h2")
-            .textContent.trim();
-          const sectionContent = section.replace(
+          // Sanitize and parse the markdown section
+          const sectionDoc = DOMPurify.sanitize(marked.parse(section));
+
+          // Parse the HTML string into a document object
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(sectionDoc, "text/html");
+
+          // Extract the section title
+          const sectionTitle = doc.querySelector("h2")?.textContent.trim();
+
+          // Extract the section content by removing the <h2> tag
+          const sectionContent = doc.body.innerHTML.replace(
             `<h2>${sectionTitle}</h2>`,
             ""
           );
 
+          // Store the heading for navigation
+          headings.push({
+            title: sectionTitle,
+            id: `#scrollspyHeading${index + 1}`,
+          });
+
+          // Return the section data
+
           return {
             title: sectionTitle,
-            content: DOMPurify.sanitize(marked(sectionContent)),
+            content: sectionContent,
             id: `scrollspyHeading${index + 1}`,
           };
         });
 
         sections = sections.map((section) => {
-          if (section.title.toLowerCase() === "đặt lịch khám") {
-            const bookingContent =
-              section.title.toLowerCase() === "đặt lịch khám"
-                ? section.content.replace(/<\/?p>|\n/g, "")
-                : null;
+          const bookingContent =
+            section.title.toLowerCase() === "đặt lịch khám"
+              ? section.content.replace(/<\/?p>|\n/g, "").trim()
+              : section.content;
 
-            section.content = bookingContent;
-          }
+          section.content = bookingContent;
 
           return {
             ...section,
@@ -88,7 +92,7 @@ const ClinicIntroduction = () => {
 
         if (isHavingBookingSection) {
           const bookingTypes = isHavingBookingSection.content
-            .split('"+"')
+            .split(' "+" ')
             .map((bookingType) => {
               const object = clinicBookingTypes.find((clinicBookingType) => {
                 return clinicBookingType.slug === bookingType;

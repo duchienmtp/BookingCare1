@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import "./LivingHealthy.scss";
 import SeeMoreButton from "../../partials/main-page-section/see-more-button/SeeMoreButton";
 import SectionHeaderTitle from "../../partials/main-page-section/section-title/SectionHeaderTitle";
@@ -52,4 +52,5 @@ function LivingHealthy(props) {
   );
 }
 
-export default LivingHealthy;
+const MemoizedLivingHealthy = memo(LivingHealthy);
+export default MemoizedLivingHealthy;

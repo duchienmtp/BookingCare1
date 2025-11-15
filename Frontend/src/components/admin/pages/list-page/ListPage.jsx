@@ -1,19 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./ListPage.scss";
-import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useParams, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import helperFunction from "../../../../utils/helperFunction.js";
-import { adminPageTableHeader } from "../../../../utils/constants.js";
 import ExportIcon from "/src/assets/export.svg";
 import AddIcon from "/src/assets/add.svg";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faPenToSquare,
-  faTrashCan,
-} from "@fortawesome/free-regular-svg-icons";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { getAllDataBySlug } from "../../../../services/admin/SiteServices.js";
 import {
   selectMedicalServices,
@@ -22,30 +14,35 @@ import {
   selectSpecificMedicalServices,
   selectBlogs,
   selectPackages,
+  selectOrders,
+  selectPatients,
+  selectDoctors,
 } from "../../../../redux/slices/adminSlice";
-
-library.add(faPenToSquare, faTrashCan, faAngleLeft, faAngleRight);
+import { tableConfigs } from "../../../../utils/tableConfig.jsx";
+import BaseTable from "../../base-table/BaseTable.jsx";
 
 function ListPage() {
-  const dispatch = useDispatch();
-
   const [data, setData] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = useRef(10);
   const [offset, setOffset] = useState(0);
   const totalPage = useRef(0);
-  const header = useRef([]);
   let dataKeys = useRef([]);
   const refs = useRef({});
 
   const { slug1, slug2, slug3 } = useParams();
+  const currentSlug = slug2 || slug1;
+  const tableConfig = tableConfigs[currentSlug];
   const medicalServices = useSelector(selectMedicalServices);
   const specialties = useSelector(selectSpecialties);
   const clinics = useSelector(selectClinics);
   const specificMedicalServices = useSelector(selectSpecificMedicalServices);
   const blogs = useSelector(selectBlogs);
   const packages = useSelector(selectPackages);
+  const orders = useSelector(selectOrders);
+  const patients = useSelector(selectPatients);
+  const doctors = useSelector(selectDoctors);
   const isLoading = useSelector((state) => state.admin.isLoading);
   const isError = useSelector((state) => state.admin.isError);
 
@@ -55,25 +52,21 @@ function ListPage() {
     switch (slug2 || slug1) {
       case "medical-services":
         selectedData = medicalServices;
-        header.current = adminPageTableHeader["medical-services"];
         formattedData = helperFunction.adminPageFormatData(selectedData);
         break;
 
       case "specialties":
         selectedData = specialties;
-        header.current = adminPageTableHeader["specialties"];
         formattedData = helperFunction.adminPageFormatData(selectedData);
         break;
 
       case "clinics":
         selectedData = clinics;
-        header.current = adminPageTableHeader["clinics"];
         formattedData = helperFunction.adminPageFormatData(selectedData);
         break;
 
       case "specific-medical-services":
         selectedData = specificMedicalServices;
-        header.current = adminPageTableHeader["specific-medical-services"];
         formattedData =
           helperFunction.adminPageFormatSpecificMedicalServicesData(
             selectedData
@@ -82,19 +75,31 @@ function ListPage() {
 
       case "blogs":
         selectedData = blogs;
-        header.current = adminPageTableHeader["blogs"];
         formattedData = helperFunction.adminPageFormatBlogData(selectedData);
         break;
 
       case "packages":
         selectedData = packages;
-        header.current = adminPageTableHeader["packages"];
         formattedData = helperFunction.adminPageFormatPackageData(selectedData);
+        break;
+
+      case "orders":
+        selectedData = orders;
+        formattedData = helperFunction.adminPageFormatOrderData(selectedData);
+        break;
+
+      case "patients":
+        selectedData = patients;
+        formattedData = helperFunction.adminPageFormatPatientData(selectedData);
+        break;
+
+      case "doctors":
+        selectedData = doctors;
+        formattedData = helperFunction.adminPageFormatDoctorData(selectedData);
         break;
 
       default:
         selectedData = [];
-        header.current = [];
         dataKeys.current = [];
         break;
     }
@@ -123,11 +128,9 @@ function ListPage() {
     // });
 
     dataKeys.current =
-      formattedData.length > 0 ? Object.keys(formattedData[0]) : [];
+      formattedData?.length > 0 ? Object.keys(formattedData[0]) : [];
 
-    console.log(">>> Check formattedData: ", formattedData);
-
-    totalPage.current = Math.ceil(formattedData.length / rowsPerPage.current);
+    totalPage.current = Math.ceil(formattedData?.length / rowsPerPage.current);
 
     setData(formattedData);
   }, [
@@ -137,12 +140,16 @@ function ListPage() {
     specificMedicalServices,
     packages,
     blogs,
+    orders,
+    patients,
+    doctors,
     slug1,
     slug2,
+    tableConfig.columns,
   ]);
 
   useEffect(() => {
-    const initialCheckedItems = data.reduce((acc, item) => {
+    const initialCheckedItems = data?.reduce((acc, item) => {
       acc[item.id] = false; // Assuming each item has a unique 'id' field
       return acc;
     }, {});
@@ -150,32 +157,14 @@ function ListPage() {
     setCheckedItems(initialCheckedItems);
   }, [data]);
 
-  useEffect(() => {
-    dispatch(getAllDataBySlug(slug2 || slug1));
-  }, [slug1, slug2]);
-
-  const handleCheckAllButton = (e) => {
-    let isCheckedAll = e.target.checked;
-    const updatedCheckedItems = Object.keys(checkedItems).reduce((acc, key) => {
-      acc[key] = isCheckedAll;
-      return acc;
-    }, {});
-    setCheckedItems(updatedCheckedItems);
-  };
-
-  const handleCheckboxChange = (id) => {
-    setCheckedItems((prevCheckedItems) => ({
-      ...prevCheckedItems,
-      [id]: !prevCheckedItems[id],
-    }));
-  };
-
   const handleExportBtn = () => {
     const selectedItems = Object.keys(checkedItems).filter(
       (key) => checkedItems[key]
     );
     console.log("Selected items: ", selectedItems);
   };
+
+  console.log(">>> Check: ", checkedItems);
 
   return (
     <div className="list-page">
@@ -226,125 +215,34 @@ function ListPage() {
             </button>
           </div>
           <div className="button-container">
-            <button className="btn add-btn">
-              <div className="img-container">
-                <img src={AddIcon} alt="Add doctor" />
-              </div>
-              Add Doctor
-            </button>
+            <Link to={tableConfig.basePath + "/create"}>
+              <button className="btn add-btn">
+                <div className="img-container">
+                  <img src={AddIcon} alt="Add doctor" />
+                </div>
+                Add Doctor
+              </button>
+            </Link>
           </div>
         </div>
       </div>
-      <div className="table-section">
-        <table>
-          <thead>
-            <tr>
-              <th>
-                <div className="table-header-check-all">
-                  <input
-                    type="checkbox"
-                    id="check-all-button"
-                    className="check-all-button"
-                    onChange={handleCheckAllButton}
-                    checked={Object.values(checkedItems).every(
-                      (isChecked) => isChecked
-                    )}
-                  />
-                </div>
-              </th>
-              {header.current.map((item, index) => (
-                <th key={index}>
-                  <div>
-                    <span>{item}</span>
-                  </div>
-                </th>
-              ))}
-              <th>
-                <div className="table-header-action">
-                  <span>Hành động</span>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {data &&
-              data.length > 0 &&
-              data.slice(offset, offset + rowsPerPage.current).map((item) => (
-                <tr key={item.id}>
-                  <td>
-                    <div className="table-data-checkbox">
-                      <input
-                        type="checkbox"
-                        checked={checkedItems[item.id] || false}
-                        ref={(el) => (refs.current[item.id] = el)}
-                        onChange={() => handleCheckboxChange(item.id)}
-                      />
-                    </div>
-                  </td>
-                  {dataKeys.current.map((key, index) => {
-                    return (
-                      <td key={index}>
-                        <div>
-                          <span>{item[key]}</span>
-                        </div>
-                      </td>
-                    );
-                  })}
-                  <td>
-                    <div className="table-data-action">
-                      <div className="img-container view-detail-btn">
-                        <FontAwesomeIcon icon={faEye} />
-                      </div>
-                      <div className="img-container edit-info-btn">
-                        <FontAwesomeIcon icon={faPenToSquare} />
-                      </div>
-                      <div className="img-container delete-data-btn">
-                        <FontAwesomeIcon icon={faTrashCan} />
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        <div className="table-pagination-section">
-          <div className="table-pagination">
-            <div className="page-teller">
-              <span>
-                Page: {currentPage} of {totalPage.current}
-              </span>
-            </div>
-            <div className="pagination">
-              <div
-                className={`img-container prev-arrow ${
-                  currentPage == 1 ? "disabled" : "enabled"
-                }`}
-                onClick={() => {
-                  if (currentPage > 1) {
-                    setCurrentPage((prevCurrentPage) => prevCurrentPage - 1);
-                    setOffset((prevOffset) => prevOffset - 10);
-                  }
-                }}
-              >
-                <FontAwesomeIcon icon={faAngleLeft} />
-              </div>
-              <div
-                className={`img-container next-arrow ${
-                  currentPage == totalPage.current ? "disabled" : "enabled"
-                }`}
-                onClick={() => {
-                  if (currentPage < totalPage.current) {
-                    setCurrentPage((prevCurrentPage) => prevCurrentPage + 1);
-                    setOffset((prevOffset) => prevOffset + 10);
-                  }
-                }}
-              >
-                <FontAwesomeIcon icon={faAngleRight} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {tableConfig && (
+        <BaseTable
+          data={data}
+          columns={tableConfig.columns}
+          checkedItems={checkedItems}
+          onCheckboxChange={setCheckedItems}
+          offset={offset}
+          rowsPerPage={rowsPerPage.current}
+          currentPage={currentPage}
+          totalPages={totalPage.current}
+          onPageChange={(page) => {
+            setCurrentPage(page);
+            setOffset((page - 1) * rowsPerPage.current);
+          }}
+          basePath={tableConfig.basePath}
+        />
+      )}
     </div>
   );
 }

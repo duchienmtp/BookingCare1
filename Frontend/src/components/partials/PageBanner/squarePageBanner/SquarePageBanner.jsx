@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import "./SquarePageBanner.scss";
 import { Link } from "react-router-dom";
 
@@ -43,4 +43,5 @@ function SquarePageBanner(props) {
   );
 }
 
-export default SquarePageBanner;
+const MemoizedSquarePageBanner = memo(SquarePageBanner);
+export default MemoizedSquarePageBanner;

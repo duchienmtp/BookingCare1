@@ -36,6 +36,7 @@ export default (sequelize, DataTypes) => {
       specialtyId: DataTypes.STRING,
       uploadedTo: DataTypes.STRING,
       slug: DataTypes.STRING,
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./MedicalServiceAdvertisement.scss";
 import CustomSlider from "../../partials/custom-slider/CustomSlider";
@@ -8,8 +8,17 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SliderNextArrow from "../../partials/slider-arrow/slider-next-arrow/SliderNextArrow";
 import SliderPrevArrow from "../../partials/slider-arrow/slider-prev-arrow/SliderPrevArrow";
+import { getAllSpecificMedicalServicesBySlug } from "../../../services/admin/SiteServices";
+
+function getItemsPerPage() {
+  if (window.innerWidth >= 1200) return 6;
+  if (window.innerWidth >= 992 && window.innerWidth < 1200) return 5;
+  if (window.innerWidth >= 576 && window.innerWidth < 992) return 4;
+  return 5;
+}
 
 function MedicalServiceAdvertisement() {
+  const params = useParams();
   const [itemsPerPage, setItemsPerPage] = useState(getItemsPerPage());
   const [categoryList, setCategoryList] = useState([]);
   const [healthCheckPackageList, setHealthCheckPackageList] = useState([]);
@@ -44,94 +53,28 @@ function MedicalServiceAdvertisement() {
     nextArrow: <SliderNextArrow />,
   };
 
-  useEffect(() => {
-    setCategoryList([
-      {
-        id: 1,
-        title: "Cơ bản",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/095749-khamtongquat.png",
-        slug: "co-ban",
-      },
-      {
-        id: 2,
-        title: "Gói khám VIP",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/101925-iconkhamvip.png",
-        slug: "goi-kham-vip",
-      },
-      {
-        id: 3,
-        title: "Nâng cao",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/095803-nangcao.png",
-        slug: "nang-cao",
-      },
-      {
-        id: 4,
-        title: "Nam",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/095756-nam.png",
-        slug: "nam",
-      },
-      {
-        id: 5,
-        title: "Nữ",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/095828-nu.png",
-        slug: "nu",
-      },
-      {
-        id: 6,
-        title: "Trẻ em",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/095850-trem.png",
-        slug: "tre-em",
-      },
-      {
-        id: 7,
-        title: "Người già",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/095812-nguoigia.png",
-        slug: "nguoi-gia",
-      },
-      {
-        id: 8,
-        title: "Tiền hôn nhân",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/095844-tienhonnhan.png",
-        slug: "tien-hon-nhan",
-      },
-      {
-        id: 9,
-        title: "Tầm soát ung thư",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/095836-tamsoatungthu.png",
-        slug: "tam-soat-ung-thu",
-      },
-      {
-        id: 10,
-        title: "Tầm soát ung thư vú",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/095855-ungthuvu.png",
-        slug: "tam-soat-ung-thu-vu",
-      },
-      {
-        id: 11,
-        title: "Tầm soát tiêu hóa",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/093823-icon1-2.png",
-        slug: "tam-soat-tieu-hoa",
-      },
-      {
-        id: 12,
-        title: "Bệnh lý chung",
-        image:
-          "/src/assets/images/medical-service-advertisement-images/093824-icon21.png",
-        slug: "benh-ly-chung",
-      },
-    ]);
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await getAllSpecificMedicalServicesBySlug(params.slug);
+      const formattedSpecificMedicalService = response.data.map((item) => {
+        return {
+          id: item.id,
+          title: item.name,
+          image: item.image,
+          slug: `/dich-vu-y-te/kham-tong-quat/chuyen-khoa/${item.slug}`,
+        };
+      });
+      setCategoryList(formattedSpecificMedicalService);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [params.slug]);
 
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
     setHealthCheckPackageList([
       {
         id: 1,
@@ -339,13 +282,6 @@ function MedicalServiceAdvertisement() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  function getItemsPerPage() {
-    if (window.innerWidth >= 1200) return 6;
-    if (window.innerWidth >= 992 && window.innerWidth < 1200) return 5;
-    if (window.innerWidth >= 576 && window.innerWidth < 992) return 4;
-    return 5;
-  }
-
   return (
     <div className="medical-service-advertisement">
       <div className="page-banner">
@@ -485,7 +421,7 @@ function MedicalServiceAdvertisement() {
                     return (
                       <div key={item.id}>
                         <Link
-                          to={`/dich/dich-vu-y-te/kham-tong-quat/"chuyen-khoa"/${item.slug}`}
+                          to={`${item.slug}`}
                         >
                           <div className="category">
                             <div className="img-container">

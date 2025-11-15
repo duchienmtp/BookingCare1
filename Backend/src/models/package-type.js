@@ -11,9 +11,12 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      PackageType.hasMany(models.Doctors, {
+      PackageType.hasMany(models.Clinics_PackageTypes, {
         foreignKey: "packageTypeId",
-        as: "doctors",
+      });
+
+      PackageType.hasMany(models.Health_Check_Packages, {
+        foreignKey: "packageTypeId",
       });
     }
   }
@@ -24,14 +27,17 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: INTEGER,
+        type: DataTypes.INTEGER,
       },
-      name: STRING,
+      name: DataTypes.STRING,
+      image: DataTypes.STRING,
+      slug: DataTypes.STRING,
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,
       modelName: "PackageType",
-      tableName: "Package_Type",
+      tableName: "Package_Types",
     }
   );
   return PackageType;

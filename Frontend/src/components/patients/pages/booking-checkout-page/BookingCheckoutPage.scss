@@ -1,0 +1,365 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.doctor-information-section {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 10px 0 15px;
+  border-bottom: 2px solid #eee;
+  background: #f6f6f6;
+
+  .doctor-information-container {
+    max-width: 700px;
+    margin: 0 auto;
+
+    .doctor-information {
+      padding-left: 15px;
+      display: flex;
+
+      .left-content {
+        flex-basis: 18%;
+
+        .img-container {
+          width: 100px;
+          height: 100px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      .right-content {
+        flex-basis: 82%;
+
+        h1 {
+          font-size: 14px;
+          font-weight: 700;
+          text-transform: uppercase;
+          color: #555;
+          letter-spacing: 0.2px;
+          margin: 0;
+        }
+
+        .doctor-name {
+          line-height: 0 !important;
+          margin: 5px 0px;
+          padding: 0px;
+          font-weight: bold;
+
+          a {
+            font-size: 16px;
+            color: #337ab7 !important;
+            text-decoration: none;
+            letter-spacing: 0.6px;
+          }
+        }
+
+        .schedule-time-section,
+        .clinic-address-section {
+          gap: 10px;
+          display: flex;
+        }
+
+        .schedule-time-section {
+          margin-bottom: 6px;
+
+          .img-container {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+
+            svg {
+              font-size: 18px;
+            }
+          }
+
+          .schedule-time {
+            color: #fec206;
+            font-weight: 600;
+            font-size: 16px;
+          }
+        }
+
+        .clinic-address-section {
+          .img-container {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+
+            svg {
+              font-size: 18px;
+            }
+          }
+
+          div {
+            p {
+              font-size: 14px;
+              margin: 5px 0;
+              letter-spacing: 0.6px;
+
+              &:first-child {
+                color: #555;
+                font-weight: 600;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.booking-information-section {
+  max-width: 700px;
+  margin: 0 auto;
+
+  form {
+    padding-left: 15px;
+
+    .booking-packages-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      .booking-package-item {
+        width: 200px;
+        border-radius: 3px;
+        text-align: center;
+        padding: 10px;
+        margin: 9px 5px;
+        -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+        border: 1px solid #eee;
+        cursor: pointer;
+
+        &.active {
+          border: 1px solid #f89008;
+        }
+      }
+    }
+
+    .radio-group {
+      .radio-list {
+        display: flex;
+
+        .radio-item {
+          display: flex;
+          color: #333;
+
+          &:last-child {
+            margin-left: 15px;
+          }
+        }
+      }
+    }
+
+    p.title {
+      color: #337ab7;
+      font-weight: bold;
+      font-size: 13px;
+      margin: 5px 0;
+    }
+
+    .input-group1 {
+      margin: 10px 0;
+
+      .react-datepicker-wrapper {
+        display: block !important;
+        width: 100%;
+      }
+
+      .form-control1 {
+        display: flex;
+        padding: 10px;
+
+        .img-container {
+          padding-right: 10px;
+
+          svg {
+            font-size: 14px;
+          }
+        }
+
+        input {
+          width: 100%;
+          border: none;
+          outline: none;
+          padding: 0;
+          border-radius: 3px;
+          display: table;
+          position: relative;
+          border-collapse: separate;
+          background: #fff;
+        }
+
+        textarea {
+          width: 100%;
+          border: none;
+          outline: none;
+          padding: 0;
+          border-radius: 3px;
+          display: table;
+          position: relative;
+          border-collapse: separate;
+          background: #fff;
+        }
+      }
+
+      .error {
+        border: 2px solid red;
+        border-radius: 4px;
+      }
+
+      .error-message-container {
+        padding-top: 5px;
+
+        .error-message {
+          color: red;
+          font-size: 13px;
+          line-height: 1.5 !important;
+          margin-bottom: 0;
+          word-spacing: 0.8px;
+          letter-spacing: 0.2px;
+        }
+      }
+
+      .province-select {
+        .css-pegq1s-control {
+          padding: 2.5px 2.5px 2.5px 10px;
+        }
+      }
+    }
+
+    .purchase-content-section {
+      .purchase-content {
+        background: #f6f6f6;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 0px auto;
+
+        & > div {
+          display: flex;
+          justify-content: space-between;
+          margin: 5px 0;
+        }
+
+        hr {
+          margin: 10px 0;
+        }
+
+        .booking-total-amount {
+          .total-purchase-amount {
+            color: rgb(254, 56, 52);
+          }
+        }
+      }
+    }
+
+    .booking-note-section {
+      padding-top: 5px;
+      margin: 5px 0;
+
+      .booking-note {
+        margin: 0;
+        color: #666;
+        font-size: 13px;
+        line-height: 1.5 !important;
+        text-align: center;
+        letter-spacing: 0.6px;
+      }
+    }
+
+    .booking-alert-section {
+      .booking-alert {
+        background: #d4effc;
+        padding: 10px;
+        border-radius: 3px;
+        margin-bottom: 15px;
+
+        p,
+        li {
+          letter-spacing: 1px;
+        }
+
+        p {
+          text-align: justify;
+          margin: 5px 0;
+        }
+      }
+    }
+
+    .submit-button {
+      width: 100%;
+      background-color: #ffc419;
+      color: #fff;
+      border: 1px solid transparent;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 6px 12px;
+      margin-top: 20px;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .term-and-policy-note {
+      padding-top: 5px;
+      color: #666;
+      font-size: 13px;
+      line-height: 1.5 !important;
+      margin: 5px 0;
+      word-spacing: 0.8px;
+      text-align: center;
+
+      span {
+        color: #45c3d2;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .doctor-information-section {
+    position: static !important;
+
+    .doctor-information {
+      .left-content,
+      .right-content {
+        padding-right: 15px;
+
+        .schedule-time-section {
+          .schedule-time {
+            font-size: 15px !important;
+          }
+        }
+      }
+    }
+  }
+
+  .booking-information-section {
+    form {
+      padding-right: 15px;
+
+      .input-group-booking-packages {
+        .booking-packages-list {
+          justify-content: center;
+
+          .booking-package-item {
+            width: 45% !important;
+          }
+        }
+      }
+
+      .booking-note-section {
+        .booking-note {
+          letter-spacing: 0.8px !important;
+        }
+      }
+    }
+  }
+}

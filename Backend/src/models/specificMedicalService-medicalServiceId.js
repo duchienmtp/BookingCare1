@@ -22,7 +22,7 @@ export default (sequelize, DataTypes) => {
       SpecificMedicalService_MedicalServiceId.belongsTo(
         models.SpecificMedicalServices,
         {
-          foreignKey: "name",
+          foreignKey: "specificMedicalServiceId",
           as: "specificMedicalService",
         }
       );
@@ -31,14 +31,17 @@ export default (sequelize, DataTypes) => {
 
   SpecificMedicalService_MedicalServiceId.init(
     {
-      id: {
+      specificMedicalServiceId: {
         allowNull: false,
         primaryKey: true,
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.STRING,
       },
-      name: DataTypes.STRING,
-      medicalServiceId: STRING,
+      medicalServiceId: {
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.STRING,
+      },
+      isSpecificMedicalServiceMainBelongTo: DataTypes.BOOLEAN,
     },
     {
       sequelize,

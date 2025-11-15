@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { memo } from "react";
 import "./FullService.scss";
 import RectanglePageBanner from "../../partials/PageBanner/rectanglePageBanner/RectanglePageBanner";
 import SectionHeaderTitle from "../../partials/main-page-section/section-title/SectionHeaderTitle";
 import { Link } from "react-router-dom";
-import { path } from "../../../utils/constants";
 
 function FullService(props) {
   let { data } = props;
@@ -32,4 +31,5 @@ function FullService(props) {
   );
 }
 
-export default FullService;
+const MemoizedFullService = memo(FullService);
+export default MemoizedFullService;

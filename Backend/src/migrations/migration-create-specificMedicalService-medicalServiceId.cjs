@@ -6,18 +6,17 @@ module.exports = {
     await queryInterface.createTable(
       "SpecificMedicalService_MedicalServiceId",
       {
-        id: {
+        specificMedicalServiceId: {
           allowNull: false,
           primaryKey: true,
-          type: Sequelize.INTEGER,
-          autoIncrement: true,
-        },
-        name: {
           type: Sequelize.STRING,
         },
         medicalServiceId: {
+          allowNull: false,
+          primaryKey: true,
           type: Sequelize.STRING,
         },
+        isSpecificMedicalServiceMainBelongTo: Sequelize.BOOLEAN,
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,

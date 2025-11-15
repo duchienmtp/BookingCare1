@@ -6,7 +6,6 @@ import SeeMorePage from "../../patients/pages/see-more-page/list-base/SeeMorePag
 
 function SeeMorePageRouter() {
   const location = useLocation();
-  const { mainSlug, subSlug } = useParams();
 
   const isAllClinicsList = matchPath(
     path.SEE_MORE_PAGE.ALL_CLINICS,
@@ -17,7 +16,7 @@ function SeeMorePageRouter() {
     return <SeeMorePageClinic />;
   }
 
-  return <SeeMorePage mainSlug={mainSlug} />;
+  return <SeeMorePage />;
 }
 
 export default SeeMorePageRouter;

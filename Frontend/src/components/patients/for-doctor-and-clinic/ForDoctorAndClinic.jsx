@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo } from "react";
 import "./ForDoctorAndClinic.scss";
 import SectionHeaderTitle from "../../partials/main-page-section/section-title/SectionHeaderTitle";
 import CustomSlider from "../../partials/custom-slider/CustomSlider";
@@ -59,4 +59,5 @@ function ForDoctorAndClinic(props) {
   );
 }
 
-export default ForDoctorAndClinic;
+const MemoizedForDoctorAndClinic = memo(ForDoctorAndClinic);
+export default MemoizedForDoctorAndClinic;

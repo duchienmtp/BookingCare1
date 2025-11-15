@@ -26,6 +26,7 @@ export default (sequelize, DataTypes) => {
       },
       username: DataTypes.STRING,
       password: DataTypes.STRING,
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

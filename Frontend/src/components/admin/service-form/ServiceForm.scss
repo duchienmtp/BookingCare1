@@ -1,0 +1,95 @@
+// ManagementForm.scss
+$purple: #6f42c1;
+$light-purple: #f3e9ff;
+$border-color: #d8c2ff;
+
+.management-container {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+
+  .management-form {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+
+    .management-header {
+      color: $purple;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .id-field {
+      background-color: $light-purple;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      color: $purple;
+      display: block;
+      width: 100%;
+    }
+
+    .form-control {
+      &.is-invalid {
+        border-color: #dc3545;
+      }
+    }
+
+    .markdown-preview {
+      height: 500px;
+      overflow-y: scroll;
+      padding: 1rem;
+      border: 1px solid #dee2e6;
+      border-radius: 0.375rem;
+      min-height: 200px;
+      overflow-y: auto;
+      background-color: #f8f9fa;
+    }
+
+    .required::after {
+      content: "*";
+      color: #dc3545;
+      margin-left: 0.25rem;
+    }
+
+    .react-select__control {
+      border-color: #dee2e6;
+
+      &:hover {
+        border-color: #adb5bd;
+      }
+    }
+
+    .btn-primary {
+      background-color: $purple;
+      border-color: $purple;
+
+      &:hover {
+        background-color: darken($purple, 10%);
+        border-color: darken($purple, 10%);
+      }
+    }
+  }
+}
+
+// For responsive design
+@media (max-width: 768px) {
+  .management-container {
+    padding: 1rem;
+
+    .management-form {
+      padding: 1.5rem;
+
+      .image-preview {
+        max-width: 150px;
+        max-height: 150px;
+      }
+
+      .selection-pill {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

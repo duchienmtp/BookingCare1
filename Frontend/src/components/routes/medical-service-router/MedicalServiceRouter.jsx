@@ -13,15 +13,18 @@ function MedicalServiceRouter() {
   const location = useLocation();
   const { slug, slug2 } = useParams();
 
-  const isGeneralHealthCheck = matchPath(
-    path.MEDICAL_SERVICE.GENERAL_HEALTH_CHECK,
-    location.pathname
-  );
+  // const isGeneralHealthCheck = matchPath(
+  //   path.MEDICAL_SERVICE.GENERAL_HEALTH_CHECK,
+  //   location.pathname
+  // );
 
-  const isMedicalSpecialtyHealthCheck = matchPath(
-    path.MEDICAL_SERVICE.MEDICAL_SPECIALTY_HEALTH_CHECK,
-    location.pathname
-  );
+  // const isMedicalSpecialtyHealthCheck = matchPath(
+  //   path.MEDICAL_SERVICE.MEDICAL_SPECIALTY_HEALTH_CHECK,
+  //   location.pathname
+  // );
+
+  console.log("slug", slug);
+  console.log("slug2", slug2);
 
   const isBaseMedicalService = matchPath(
     path.MEDICAL_SERVICE.BASE,
@@ -56,7 +59,8 @@ function MedicalServiceRouter() {
     return <MedicalService />;
   }
 
-  const slugParts = slug.split("-");
+  const mainSlug = slug2 || slug;
+  const slugParts = mainSlug.split("-");
   if (slugParts[slugParts.length - 1].includes("i")) {
     // i == individual
     return <IndividualBookingPage />;

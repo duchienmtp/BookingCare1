@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectSpecialties,
@@ -265,16 +265,49 @@ function ServiceAtClinicPage() {
   }, []);
 
   useEffect(() => {
-    dispatch(getAllDataBySlug("specialties"));
-    dispatch(getAllDataBySlug("clinics"));
-    dispatch(getAllDataBySlug("specific-medical-services"));
-    dispatch(getAllDataBySlug("guides"));
-    dispatch(getAllDataBySlug("endoscopic-surgery-packages"));
-    dispatch(getAllDataBySlug("medical-imaging-diagnostic-packages"));
-    dispatch(getAllDataBySlug("operation-packages"));
-    dispatch(getAllDataBySlug("medical-examination-packages"));
-    dispatch(getAllDataBySlug("diagnostic-packages"));
-  }, []);
+    const fetchAllData = () => {
+      dispatch(getAllDataBySlug("specialties"));
+      dispatch(getAllDataBySlug("clinics"));
+      dispatch(getAllDataBySlug("specific-medical-services"));
+      dispatch(getAllDataBySlug("guides"));
+      dispatch(getAllDataBySlug("endoscopic-surgery-packages"));
+      dispatch(getAllDataBySlug("medical-imaging-diagnostic-packages"));
+      dispatch(getAllDataBySlug("operation-packages"));
+      dispatch(getAllDataBySlug("medical-examination-packages"));
+      dispatch(getAllDataBySlug("diagnostic-packages"));
+    };
+
+    fetchAllData();
+  }, [dispatch]);
+
+  const memoizedDoctors = useMemo(() => doctors, [doctors]);
+  const memoizedSpecialties = useMemo(() => specialties, [specialties]);
+  const memoizedClinics = useMemo(() => clinics, [clinics]);
+  const memoizedSpecificMedicalServices = useMemo(
+    () => specificMedicalServices,
+    [specificMedicalServices]
+  );
+  const memoizedGuides = useMemo(() => guides, [guides]);
+  const memoizedEndoscopicSurgeryPackages = useMemo(
+    () => endoscopicSurgeryPackages,
+    [endoscopicSurgeryPackages]
+  );
+  const memoizedMedicalImagingDiagnosticPackages = useMemo(
+    () => medicalImagingDiagnosticPackages,
+    [medicalImagingDiagnosticPackages]
+  );
+  const memoizedOperationPackages = useMemo(
+    () => operationPackages,
+    [operationPackages]
+  );
+  const memoizedMedicalExaminationPackages = useMemo(
+    () => medicalExaminationPackages,
+    [medicalExaminationPackages]
+  );
+  const memoizedDiagnosticPackages = useMemo(
+    () => diagnosticPackages,
+    [diagnosticPackages]
+  );
 
   return (
     <>
@@ -288,37 +321,39 @@ function ServiceAtClinicPage() {
         <ServiceForYou />
       </section>
       <section className="clinic-section">
-        <Clinic data={clinics} />
+        <Clinic data={memoizedClinics} />
       </section>
       <section className="specialty-section">
-        <Specialty data={specialties} />
+        <Specialty data={memoizedSpecialties} />
       </section>
       <section className="famous-doctor-section">
-        <FamousDoctor data={doctors} />
+        <FamousDoctor data={memoizedDoctors} />
       </section>
       <section className="diagnostic-package-section">
-        <DiagnosticPackage data={diagnosticPackages} />
+        <DiagnosticPackage data={memoizedDiagnosticPackages} />
       </section>
       <section className="medical-examination-section">
-        <MedicalExamination data={medicalExaminationPackages} />
+        <MedicalExamination data={memoizedMedicalExaminationPackages} />
       </section>
       <section className="medical-imaging-diagnostic-section">
-        <MedicalImagingDiagnostics data={medicalImagingDiagnosticPackages} />
+        <MedicalImagingDiagnostics
+          data={memoizedMedicalImagingDiagnosticPackages}
+        />
       </section>
       <section className="endoscopy-package-section">
-        <Endoscopy data={endoscopicSurgeryPackages} />
+        <Endoscopy data={memoizedEndoscopicSurgeryPackages} />
       </section>
       <section className="operation-section">
-        <Operation data={operationPackages} />
+        <Operation data={memoizedOperationPackages} />
       </section>
       <section className="bookingcare-recommendation-section">
         <BookingCareRecommendation />
       </section>
       <section className="mental-health-section">
-        <MentalHealth data={specificMedicalServices} />
+        <MentalHealth data={memoizedSpecificMedicalServices} />
       </section>
       <section className="guide-section">
-        <Guide data={guides} />
+        <Guide data={memoizedGuides} />
       </section>
     </>
   );

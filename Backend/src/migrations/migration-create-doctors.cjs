@@ -13,28 +13,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      packageName: {
-        type: Sequelize.TEXT,
-      },
-      specialtyId: {
-        type: Sequelize.STRING,
-      },
-      clinicId: {
-        type: Sequelize.STRING,
-      },
       shortDoctorInfo: {
         type: Sequelize.TEXT("long"),
       },
       doctorDetailInfo: {
         type: Sequelize.TEXT("long"),
       },
-      packageTypeId: {
-        type: Sequelize.INTEGER,
-      },
-      isDeleted: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
+      slug: Sequelize.STRING,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

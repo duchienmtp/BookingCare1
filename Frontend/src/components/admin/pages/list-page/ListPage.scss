@@ -107,216 +107,216 @@
     }
   }
 
-  .table-section {
-    table {
-      table-layout: fixed;
-      width: 100%;
+  // .table-section {
+  //   table {
+  //     table-layout: fixed;
+  //     width: 100%;
 
-      .table-header-check-all,
-      .table-data-checkbox {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
+  //     .table-header-check-all,
+  //     .table-data-checkbox {
+  //       display: flex;
+  //       align-items: center;
+  //       justify-content: center;
+  //       width: 36px;
+  //       height: 36px;
 
-        input {
-          width: 50%;
-          height: 50%;
-        }
-      }
+  //       input {
+  //         width: 50%;
+  //         height: 50%;
+  //       }
+  //     }
 
-      thead {
-        tr {
-          height: 56px;
-          background-color: #f6f7fb;
+  //     thead {
+  //       tr {
+  //         height: 56px;
+  //         background-color: #f6f7fb;
 
-          th {
-            padding: 8px 16px;
+  //         th {
+  //           padding: 8px 16px;
 
-            &:first-child {
-              padding: 0;
-              padding-left: 11px;
-              width: 3.82%;
-            }
+  //           &:first-child {
+  //             padding: 0;
+  //             padding-left: 11px;
+  //             width: 3.82%;
+  //           }
 
-            &:nth-child(2) {
-              width: 6.5%;
-            }
+  //           &:nth-child(2) {
+  //             width: 6.5%;
+  //           }
 
-            // &:nth-child(3) {
-            //   width: 20.35%;
-            // }
+  //           // &:nth-child(3) {
+  //           //   width: 20.35%;
+  //           // }
 
-            // &:nth-child(4),
-            // &:nth-child(6) {
-            //   width: 10%;
-            // }
+  //           // &:nth-child(4),
+  //           // &:nth-child(6) {
+  //           //   width: 10%;
+  //           // }
 
-            // &:nth-child(5) {
-            //   width: 20.35%;
-            // }
+  //           // &:nth-child(5) {
+  //           //   width: 20.35%;
+  //           // }
 
-            // &:nth-child(7) {
-            //   width: 11%;
-            // }
-          }
-        }
-      }
+  //           // &:nth-child(7) {
+  //           //   width: 11%;
+  //           // }
+  //         }
+  //       }
+  //     }
 
-      tbody {
-        tr {
-          height: 58px;
-          border-bottom: 1.5px solid rgba(46, 38, 61, 0.22);
+  //     tbody {
+  //       tr {
+  //         height: 58px;
+  //         border-bottom: 1.5px solid rgba(46, 38, 61, 0.22);
 
-          td {
-            padding: 8px 16px;
+  //         td {
+  //           padding: 6px 12px;
 
-            &:first-child {
-              padding: 0;
-              padding-left: 11px;
-            }
+  //           &:first-child {
+  //             padding: 0;
+  //             padding-left: 11px;
+  //           }
 
-            .table-data-name {
-              display: flex;
+  //           .table-data-name {
+  //             display: flex;
 
-              .img-container {
-                width: 38px;
-                height: 38px;
+  //             .img-container {
+  //               width: 38px;
+  //               height: 38px;
 
-                img {
-                  width: 100%;
-                  height: 100%;
-                  border-radius: 50%;
-                  object-fit: contain;
-                }
-              }
-            }
+  //               img {
+  //                 width: 100%;
+  //                 height: 100%;
+  //                 border-radius: 50%;
+  //                 object-fit: contain;
+  //               }
+  //             }
+  //           }
 
-            .table-data-status {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 24px;
-              border-radius: 16px;
+  //           .table-data-status {
+  //             display: flex;
+  //             justify-content: center;
+  //             align-items: center;
+  //             height: 24px;
+  //             border-radius: 16px;
 
-              span {
-                height: 20px;
-                font-size: 13px;
-                font-weight: 600;
-                display: -webkit-box;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                padding-left: 8px;
-                padding-right: 8px;
-                white-space: nowrap;
-              }
+  //             span {
+  //               height: 20px;
+  //               font-size: 13px;
+  //               font-weight: 600;
+  //               display: -webkit-box;
+  //               overflow: hidden;
+  //               text-overflow: ellipsis;
+  //               padding-left: 8px;
+  //               padding-right: 8px;
+  //               white-space: nowrap;
+  //             }
 
-              &.inactive {
-                background-color: rgba(255, 76, 81, 0.16);
+  //             &.inactive {
+  //               background-color: rgba(255, 76, 81, 0.16);
 
-                span {
-                  color: #ff4c51;
-                }
-              }
+  //               span {
+  //                 color: #ff4c51;
+  //               }
+  //             }
 
-              &.active {
-                background-color: rgba(86, 202, 0, 0.16);
+  //             &.active {
+  //               background-color: rgba(86, 202, 0, 0.16);
 
-                span {
-                  color: #56ca00;
-                }
-              }
-            }
+  //               span {
+  //                 color: #56ca00;
+  //               }
+  //             }
+  //           }
 
-            .table-data-action {
-              display: flex;
-              gap: 20px;
+  //           .table-data-action {
+  //             display: flex;
+  //             gap: 20px;
 
-              .img-container {
-                width: 36px;
-                height: 36px;
-                padding: 7px;
-                cursor: pointer;
+  //             .img-container {
+  //               width: 36px;
+  //               height: 36px;
+  //               padding: 7px;
+  //               cursor: pointer;
 
-                svg {
-                  width: 100%;
-                  height: 100%;
-                }
+  //               svg {
+  //                 width: 100%;
+  //                 height: 100%;
+  //               }
 
-                &.view-detail-btn {
-                  svg {
-                    color: #0d6efd;
-                  }
-                }
+  //               &.view-detail-btn {
+  //                 svg {
+  //                   color: #0d6efd;
+  //                 }
+  //               }
 
-                &.edit-info-btn {
-                  svg {
-                    color: #495057;
-                  }
-                }
+  //               &.edit-info-btn {
+  //                 svg {
+  //                   color: #495057;
+  //                 }
+  //               }
 
-                &.delete-data-btn {
-                  svg {
-                    color: #dc3545;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+  //               &.delete-data-btn {
+  //                 svg {
+  //                   color: #dc3545;
+  //                 }
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
 
-    .table-pagination-section {
-      display: flex;
-      align-items: center;
-      height: 52px;
-      background-color: white;
+  //   .table-pagination-section {
+  //     display: flex;
+  //     align-items: center;
+  //     height: 52px;
+  //     background-color: white;
 
-      .table-pagination {
-        display: flex;
-        justify-content: flex-end;
-        flex: 1;
-        align-items: center;
-        padding: 0 12px;
+  //     .table-pagination {
+  //       display: flex;
+  //       justify-content: flex-end;
+  //       flex: 1;
+  //       align-items: center;
+  //       padding: 0 12px;
 
-        span {
-          font-size: 15px;
-        }
+  //       span {
+  //         font-size: 15px;
+  //       }
 
-        .pagination {
-          margin-left: 24px;
+  //       .pagination {
+  //         margin-left: 24px;
 
-          .img-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 38px;
-            height: 38px;
-            padding: 8px;
-            cursor: pointer;
+  //         .img-container {
+  //           display: flex;
+  //           justify-content: center;
+  //           align-items: center;
+  //           width: 38px;
+  //           height: 38px;
+  //           padding: 8px;
+  //           cursor: pointer;
 
-            &.next-arrow {
-              margin-left: 18px;
-            }
+  //           &.next-arrow {
+  //             margin-left: 18px;
+  //           }
 
-            &.enabled {
-              cursor: pointer;
+  //           &.enabled {
+  //             cursor: pointer;
 
-              &:hover {
-                border-radius: 50%;
-                background-color: rgb(46, 38, 61, 0.04);
-              }
-            }
+  //             &:hover {
+  //               border-radius: 50%;
+  //               background-color: rgb(46, 38, 61, 0.04);
+  //             }
+  //           }
 
-            &.disabled {
-              cursor: not-allowed;
-              opacity: 0.5;
-            }
-          }
-        }
-      }
-    }
-  }
+  //           &.disabled {
+  //             cursor: not-allowed;
+  //             opacity: 0.5;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }

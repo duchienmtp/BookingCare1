@@ -1,0 +1,77 @@
+.package-details {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+  }
+
+  .package-info {
+    .package-image {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 20px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+    }
+
+    .info-item {
+      margin-bottom: 10px;
+      font-size: 14px;
+
+      strong {
+        color: #555;
+        margin-right: 5px;
+      }
+
+      .status {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+
+        &.active {
+          background-color: #e8f5e9;
+          color: #2e7d32;
+        }
+
+        &.deleted {
+          background-color: #ffebee;
+          color: #c62828;
+        }
+      }
+    }
+  }
+
+  .clinics-section,
+  .booking-packages-section,
+  .audit-info {
+    margin-top: 20px;
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #555;
+      }
+    }
+  }
+}

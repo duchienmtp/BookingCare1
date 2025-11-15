@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import Slider from "react-slick";
 import "./Specialty.scss";
 import "slick-carousel/slick/slick.css";
@@ -72,4 +72,5 @@ function Specialty(props) {
   );
 }
 
-export default Specialty;
+const MemoizedSpecialty = memo(Specialty);
+export default MemoizedSpecialty;

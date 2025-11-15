@@ -6,9 +6,12 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      BookingPackages.hasMany(models.DoctorBookingPackages, {
+      BookingPackages.hasMany(models.BookingPackagesDetail, {
         foreignKey: "bookingPackageId",
-        as: "doctorBookingPackages",
+      });
+
+      BookingPackages.hasMany(models.HealthCheckPackageScheduleBookingDetail, {
+        foreignKey: "bookingPackageId",
       });
     }
   }
@@ -21,6 +24,8 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       name: DataTypes.STRING,
+      description: DataTypes.TEXT("long"),
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

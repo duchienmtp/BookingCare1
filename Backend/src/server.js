@@ -4,6 +4,7 @@ import webRouter from "./routes/index.js";
 import "dotenv/config";
 import cors from "cors";
 import { cloudinaryConfiguration } from "./config/cloudinaryConfig.js";
+
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -17,8 +18,14 @@ cloudinaryConfiguration();
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
 
-// parse application/json
-app.use(bodyParser.json());
+app.use((err, req, res, next) => {
+  if (err.message.includes('ECONNREFUSED')) {
+    console.error('Redis connection error - falling back to database');
+    // Continue without cache
+    return next();
+  }
+  next(err);
+});
 
 // Routes init
 webRouter(app);
